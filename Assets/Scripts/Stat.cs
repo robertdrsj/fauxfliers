@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Stat
-{
+public class Stat {
 
     [SerializeField]
     private BarScript bar;

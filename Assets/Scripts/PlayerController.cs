@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
     // Serialized variables
     [SerializeField]
     CanvasGroup stageSuccess;
-
+    
     /// Set Airplane Angle ///
     Vector3 mousePos;
     Vector3 planeToMouseDir;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
         health.Initialize();
     }
 
-    void Start()
+    void Start ()
     {
         player = GetComponent<Rigidbody2D>();
         explosion = GetComponent<ExplosionController>();
@@ -81,9 +81,9 @@ public class PlayerController : MonoBehaviour {
 
         isBroken = false;
         isHurt = false;
-    }
-
-    void Update()
+	}
+	
+	void Update ()
     {
         SetAirplaneAngle();                                 // Always update airplane's angle to be directed towards the mouse cursor.
         SmokeToggle();
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (!isBroken && durability.CurrentVal < durability.MaxVal)
         {
-            durability.CurrentVal += regenAmt * Time.deltaTime;
+                durability.CurrentVal += regenAmt * Time.deltaTime;
         }
     }
 

@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionController : MonoBehaviour
-{
+public class ExplosionController : MonoBehaviour {
 
     public PlayerController player;
 
     public Transform explosion;
 
-    // Use this for initialization
-    void Start()
-    {
+	// Use this for initialization
+	void Start () {
         player = GetComponent<PlayerController>();
-    }
+	}
 
     public void Animate()
     {
