@@ -1,5 +1,7 @@
 # Faux Fliers
 
+**Faux Fliers** is an arcade action flier where you fix your plane as you fly it.
+
 ## Getting Started
 
 The following software allows you to aid in developing the game. Running tests will be added on a later date.
