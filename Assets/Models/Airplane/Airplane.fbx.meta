@@ -1,0 +1,246 @@
+fileFormatVersion: 2
+guid: bc0f97425e231944c8ec9ae287236e62
+timeCreated: 1517017470
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Axle
+    100004: Blade1
+    100006: Blade2
+    100008: Blade3
+    100010: CenterTop
+    100012: Hull
+    100014: LeftWingBot
+    100016: LeftWingTop
+    100018: MainHull
+    100020: MainHull1
+    100022: Propeller
+    100024: PropellerTip
+    100026: Propellor
+    100028: RightWingBot
+    100030: RightWingTop
+    100032: StabilizerCenter
+    100034: SupportCenterLeft1
+    100036: SupportCenterLeft2
+    100038: SupportCenterRight1
+    100040: SupportCenterRight2
+    100042: SupportLeft1
+    100044: SupportLeft2
+    100046: SupportRight1
+    100048: SupportRight2
+    100050: Supports
+    100052: TailLeft
+    100054: TailRight
+    100056: transform1
+    100058: transform2
+    100060: transform3
+    100062: transform4
+    100064: transform5
+    100066: transform6
+    100068: WheelCenter
+    100070: WheelLeft
+    100072: WheelRight
+    100074: WheelSupportLeft1
+    100076: WheelSupportLeft2
+    100078: WheelSupportRight1
+    100080: WheelSupportRight2
+    400000: //RootNode
+    400002: Axle
+    400004: Blade1
+    400006: Blade2
+    400008: Blade3
+    400010: CenterTop
+    400012: Hull
+    400014: LeftWingBot
+    400016: LeftWingTop
+    400018: MainHull
+    400020: MainHull1
+    400022: Propeller
+    400024: PropellerTip
+    400026: Propellor
+    400028: RightWingBot
+    400030: RightWingTop
+    400032: StabilizerCenter
+    400034: SupportCenterLeft1
+    400036: SupportCenterLeft2
+    400038: SupportCenterRight1
+    400040: SupportCenterRight2
+    400042: SupportLeft1
+    400044: SupportLeft2
+    400046: SupportRight1
+    400048: SupportRight2
+    400050: Supports
+    400052: TailLeft
+    400054: TailRight
+    400056: transform1
+    400058: transform2
+    400060: transform3
+    400062: transform4
+    400064: transform5
+    400066: transform6
+    400068: WheelCenter
+    400070: WheelLeft
+    400072: WheelRight
+    400074: WheelSupportLeft1
+    400076: WheelSupportLeft2
+    400078: WheelSupportRight1
+    400080: WheelSupportRight2
+    2100000: phong1
+    2300000: Axle
+    2300002: CenterTop
+    2300004: LeftWingBot
+    2300006: LeftWingTop
+    2300008: MainHull1
+    2300010: Propeller
+    2300012: RightWingBot
+    2300014: RightWingTop
+    2300016: SupportCenterLeft1
+    2300018: SupportCenterLeft2
+    2300020: SupportCenterRight1
+    2300022: SupportCenterRight2
+    2300024: SupportLeft1
+    2300026: SupportLeft2
+    2300028: SupportRight1
+    2300030: SupportRight2
+    2300032: TailLeft
+    2300034: TailRight
+    2300036: WheelCenter
+    2300038: WheelLeft
+    2300040: WheelRight
+    2300042: WheelSupportLeft1
+    2300044: WheelSupportLeft2
+    2300046: WheelSupportRight1
+    2300048: WheelSupportRight2
+    3300000: Axle
+    3300002: CenterTop
+    3300004: LeftWingBot
+    3300006: LeftWingTop
+    3300008: MainHull1
+    3300010: Propeller
+    3300012: RightWingBot
+    3300014: RightWingTop
+    3300016: SupportCenterLeft1
+    3300018: SupportCenterLeft2
+    3300020: SupportCenterRight1
+    3300022: SupportCenterRight2
+    3300024: SupportLeft1
+    3300026: SupportLeft2
+    3300028: SupportRight1
+    3300030: SupportRight2
+    3300032: TailLeft
+    3300034: TailRight
+    3300036: WheelCenter
+    3300038: WheelLeft
+    3300040: WheelRight
+    3300042: WheelSupportLeft1
+    3300044: WheelSupportLeft2
+    3300046: WheelSupportRight1
+    3300048: WheelSupportRight2
+    4300000: RightWingBot
+    4300002: LeftWingBot
+    4300004: RightWingTop
+    4300006: LeftWingTop
+    4300008: CenterTop
+    4300010: TailRight
+    4300012: TailLeft
+    4300014: MainHull1
+    4300016: Propeller
+    4300018: SupportLeft1
+    4300020: SupportLeft2
+    4300022: SupportRight1
+    4300024: SupportRight2
+    4300026: SupportCenterLeft1
+    4300028: SupportCenterLeft2
+    4300030: SupportCenterRight1
+    4300032: SupportCenterRight2
+    4300034: WheelLeft
+    4300036: WheelRight
+    4300038: Axle
+    4300040: WheelSupportRight1
+    4300042: WheelSupportRight2
+    4300044: WheelSupportLeft1
+    4300046: WheelSupportLeft2
+    4300048: WheelCenter
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
