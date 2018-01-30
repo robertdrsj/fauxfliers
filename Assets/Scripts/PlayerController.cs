@@ -5,6 +5,60 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
+    // The PlayerController determine's the player's controls.
+
+    // Public Variables
+    public bool posDetect;                          // Flag if there is a need to locate where the player wants to move to.
+
+
+    // PRIVATE Variables
+
+    /// SetAircraftAngle()
+    Vector3 mousePos;
+    Vector3 aircraftToMouseDir;
+    float aircraftAngle;
+
+
+    // INITIALIZE
+
+    /// Mouse Controls
+    public bool lMB;                                // Flag if player presses left mouse button.
+    public bool rMB;                                // Flag if player presses right mouse button.
+
+    /// Components
+    Rigidbody player;
+
+
+    void Start()
+    {
+        player = GetComponent<Rigidbody>();
+
+    }
+
+    void Update()
+    {
+        lMB = Input.GetMouseButton(0);
+        rMB = Input.GetMouseButton(1);
+
+        SetAircraftAngle();
+    }
+
+    void SetAircraftAngle()
+    {
+        if (rMB)
+        {
+            mousePos = Camera.main.WorldToScreenPoint(-transform.position);
+            aircraftToMouseDir = Input.mousePosition - mousePos;
+            aircraftAngle = Mathf.Atan2(aircraftToMouseDir.y, aircraftToMouseDir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(aircraftAngle - 90, new Vector3(0, -1, 1));
+        }
+    }
+
+
+
+    // OLD CODE:
+
+    /*
     // Public variables
     public static PlayerController instance = null;
     public AudioSource engineRev;
@@ -232,4 +286,6 @@ public class PlayerController : MonoBehaviour {
             screenshake.shakeDuration = 0.1f;
         }
     }
+
+    */
 }
