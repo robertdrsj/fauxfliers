@@ -5,29 +5,21 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-    // The PlayerController determine's the player's controls.
-
-    // Public Variables
+    // PUBLIC Variables
     public bool posDetect;                          // Flag if there is a need to locate where the player wants to move to.
 
-
     // PRIVATE Variables
-
     /// SetAircraftAngle()
     Vector3 mousePos;
     Vector3 aircraftToMouseDir;
     float aircraftAngle;
 
-
     // INITIALIZE
-
     /// Mouse Controls
     public bool lMB;                                // Flag if player presses left mouse button.
     public bool rMB;                                // Flag if player presses right mouse button.
-
     /// Components
     Rigidbody player;
-
 
     void Start()
     {
