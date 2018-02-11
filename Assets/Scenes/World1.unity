@@ -1496,7 +1496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803a64b3dd5822442a11113f69646d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posDetect: 0
+  mousePos: {x: 0, y: 0, z: 0}
   lMB: 0
   rMB: 0
 --- !u!4 &1273402926
@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustForce: 100
+  thrustForce: 0
   allPartsOperable: 0
   canFly: 0
   isFlying: 0

@@ -62,9 +62,19 @@ public class AirplaneController : MonoBehaviour {
         {
             if (allPartsOperable)
             {
-                airplane.AddForce(airplane.transform.forward * thrustForce);
+                Fly();
+
+                if (player.mousePos.y > 0)
+                {
+
+                }
             }
 
         }
+    }
+
+    void Fly()
+    {
+        airplane.AddForce(airplane.transform.forward * thrustForce);
     }
 }

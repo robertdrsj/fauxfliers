@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-    // PUBLIC Variables
-    public bool posDetect;                          // Flag if there is a need to locate where the player wants to move to.
-
     // PRIVATE Variables
     /// SetAircraftAngle()
-    Vector3 mousePos;
+    public Vector3 mousePos;
+    public Vector3 screenOrigin;
+
     Vector3 aircraftToMouseDir;
     float aircraftAngle;
 
@@ -37,12 +36,27 @@ public class PlayerController : MonoBehaviour {
 
     void SetAircraftAngle()
     {
+
+        // Find Mouse Position by moving the screen origin from bottom left to the center...
+        // Then get the mouse position's coordinates away from the origin.
+        mousePos = Camera.main.ScreenToViewportPoint(new Vector3(
+            (Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
+            (Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
+            Camera.main.nearClipPlane));
+
+        Debug.Log(mousePos);
+
         if (rMB)
         {
+            //screenOrigin = Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f));
+            //mousePos = Camera.main.ViewportToScreenPoint(Input.mousePosition);
+
+            /*
             mousePos = Camera.main.WorldToScreenPoint(-transform.position);
             aircraftToMouseDir = Input.mousePosition - mousePos;
             aircraftAngle = Mathf.Atan2(aircraftToMouseDir.y, aircraftToMouseDir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(aircraftAngle - 90, new Vector3(0, -1, 1));
+            */
         }
     }
 
