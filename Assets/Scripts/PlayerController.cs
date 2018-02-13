@@ -30,10 +30,15 @@ public class PlayerController : MonoBehaviour {
     int quadrant;
 
     // SetAirplaneAngle()
+    float rollAmount;
     [SerializeField]
-    float rollAngle;
+    Quaternion pitchAngle;
+    [SerializeField]
+    Quaternion rollAngle;
+    [SerializeField]
+    Quaternion totalAngle;
 
-    public float damping;
+    public float turningRate;
     public float angleXAmp;
     public float angleZAmp;
 
@@ -92,26 +97,17 @@ public class PlayerController : MonoBehaviour {
         if (!mousePosXPositive && mousePosYPositive)    quadrant = 2;
         if (!mousePosXPositive && !mousePosYPositive)   quadrant = 3;
         if (mousePosXPositive && !mousePosYPositive)    quadrant = 4;
-         /*
-        switch (quadrant)
-        {
-            case 4:
-
-                break;
-        }
-        */
     }
 
     void SetAirplaneAngle(float xDist, float yDist)
     {
-        // When using LMB, set anglePoint there.
-        // Find the angle for the roll to match to.
-        // Set z-axis rotation to that angle.
-        float currentAngle = transform.localEulerAngles.z;
-        float desiredAngle = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
-        rollAngle = Mathf.LerpAngle(currentAngle, desiredAngle, Time.deltaTime * damping);
+        rollAmount = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.AngleAxis(rollAngle - 90, Vector3.forward);
+        pitchAngle = Quaternion.AngleAxis(mousePos.y * angleXAmp, Vector3.left);
+        rollAngle = Quaternion.AngleAxis(rollAmount - 90, Vector3.forward);
+        totalAngle = pitchAngle * rollAngle;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, totalAngle, Time.deltaTime * turningRate);
 
         /*
 
@@ -147,8 +143,6 @@ public class PlayerController : MonoBehaviour {
         */
 
     }
-
-
 
 
 
