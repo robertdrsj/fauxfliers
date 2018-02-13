@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-    // PRIVATE Variables
-    /// SetAircraftAngle()
-    public Vector3 mousePos;
-    public Vector3 screenOrigin;
-
-    Vector3 aircraftToMouseDir;
-    float aircraftAngle;
-
     // INITIALIZE
     /// Mouse Controls
     public bool lMB;                                // Flag if player presses left mouse button.
@@ -20,10 +12,36 @@ public class PlayerController : MonoBehaviour {
     /// Components
     Rigidbody player;
 
+    // FindMousePosition()
+    public Vector3 mousePos;
+    [SerializeField]
+    Vector3 mousePosAbs;
+    [SerializeField]
+    Vector3 originPos;
+    [SerializeField]
+    float originToMouse;
+
+    // FindMouseQuadrant()
+    [SerializeField]
+    bool mousePosXPositive;
+    [SerializeField]
+    bool mousePosYPositive;
+    [SerializeField]
+    int quadrant;
+
+    // SetAirplaneAngle()
+    [SerializeField]
+    float rollAngle;
+
+    public float damping;
+    public float angleXAmp;
+    public float angleZAmp;
+
+    //////////
+
     void Start()
     {
         player = GetComponent<Rigidbody>();
-
     }
 
     void Update()
@@ -31,34 +49,125 @@ public class PlayerController : MonoBehaviour {
         lMB = Input.GetMouseButton(0);
         rMB = Input.GetMouseButton(1);
 
-        SetAircraftAngle();
+        FindMousePosition();
+        FindMouseQuadrant();
+
+        if (lMB) SetAirplaneAngle(mousePos.x, mousePos.y);
     }
 
-    void SetAircraftAngle()
+    void FindMousePosition()
     {
-
         // Find Mouse Position by moving the screen origin from bottom left to the center...
         // Then get the mouse position's coordinates away from the origin.
+
+        originPos = Camera.main.ScreenToViewportPoint(new Vector3(
+            (Camera.main.scaledPixelWidth / 2f),
+            (Camera.main.scaledPixelHeight / 2f),
+            Camera.main.nearClipPlane));
+
         mousePos = Camera.main.ScreenToViewportPoint(new Vector3(
             (Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
             (Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
             Camera.main.nearClipPlane));
 
-        Debug.Log(mousePos);
+        mousePosAbs = Camera.main.ScreenToViewportPoint(new Vector3(
+            Mathf.Abs(Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
+            Mathf.Abs(Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
+            Camera.main.nearClipPlane));
 
-        if (rMB)
-        {
-            //screenOrigin = Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f));
-            //mousePos = Camera.main.ViewportToScreenPoint(Input.mousePosition);
-
-            /*
-            mousePos = Camera.main.WorldToScreenPoint(-transform.position);
-            aircraftToMouseDir = Input.mousePosition - mousePos;
-            aircraftAngle = Mathf.Atan2(aircraftToMouseDir.y, aircraftToMouseDir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(aircraftAngle - 90, new Vector3(0, -1, 1));
-            */
-        }
+        originToMouse = Mathf.Sqrt(Mathf.Pow(mousePos.x, 2) + Mathf.Pow(mousePos.y, 2));
     }
+
+    void FindMouseQuadrant()
+    {
+        // Find which quadrant the mouse cursor is in and whether mousePos X and Y are positive or negative.
+
+        if (Mathf.Sign(mousePos.x) == 1) mousePosXPositive = true;
+        else mousePosXPositive = false;
+
+        if (Mathf.Sign(mousePos.y) == 1) mousePosYPositive = true;
+        else mousePosYPositive = false;
+
+        if (mousePosXPositive && mousePosYPositive)     quadrant = 1;
+        if (!mousePosXPositive && mousePosYPositive)    quadrant = 2;
+        if (!mousePosXPositive && !mousePosYPositive)   quadrant = 3;
+        if (mousePosXPositive && !mousePosYPositive)    quadrant = 4;
+         /*
+        switch (quadrant)
+        {
+            case 4:
+
+                break;
+        }
+        */
+    }
+
+    void SetAirplaneAngle(float xDist, float yDist)
+    {
+        // When using LMB, set anglePoint there.
+        // Find the angle for the roll to match to.
+        // Set z-axis rotation to that angle.
+        float currentAngle = transform.localEulerAngles.z;
+        float desiredAngle = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
+        rollAngle = Mathf.LerpAngle(currentAngle, desiredAngle, Time.deltaTime * damping);
+
+        transform.rotation = Quaternion.AngleAxis(rollAngle - 90, Vector3.forward);
+
+        /*
+
+        // X-Axis Rotation: Tilt Up/Down.
+        /// Tilt Up
+        if (quadrant == 1 || quadrant == 2)
+            transform.Rotate(Vector3.left * Time.deltaTime * angleXAmp);
+        ///Tilt Down
+        if (quadrant == 3 || quadrant == 4)
+            transform.Rotate(Vector3.right * Time.deltaTime * angleXAmp);
+
+        // Y- and Z-Axis Rotation: Roll and Tilt Up/Down.
+        /// Tilt Left
+        if (quadrant == 2 || quadrant == 3)
+        {
+            transform.Rotate(Vector3.forward * Time.deltaTime * angleZAmp);
+            transform.Rotate(Vector3.left * Time.deltaTime * angleXAmp);
+        }
+
+        if (quadrant == 1 || quadrant == 4)
+        {
+            transform.Rotate(Vector3.back * Time.deltaTime * angleZAmp);
+            transform.Rotate(Vector3.right * Time.deltaTime *angleXAmp);
+        }
+
+        */
+
+
+        /*
+        aircraftToMouseDir = Input.mousePosition - mousePos;
+        aircraftAngle = Mathf.Atan2(aircraftToMouseDir.y, aircraftToMouseDir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(aircraftAngle - 90, new Vector3(0, -1, 1));
+        */
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
