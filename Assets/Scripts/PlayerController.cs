@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour {
 
         FindMousePosition();
         FindMouseQuadrant();
-
         if (lMB) SetAirplaneAngle(mousePos.x, mousePos.y);
+        transform.rotation = Quaternion.Slerp(transform.rotation, totalAngle, Time.deltaTime * turningRate);
     }
 
     void FindMousePosition()
@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour {
 
         // Generate total plane quaternion angle.
         totalAngle = pitchAngle * rollAngle;
-        transform.rotation = Quaternion.Slerp(transform.rotation, totalAngle, Time.deltaTime * turningRate);
     }
 
 
