@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 
     // SetAirplaneAngle()
     float rollAmount;
+    float pitchAmount;
     [SerializeField]
     Quaternion pitchAngle;
     [SerializeField]
@@ -39,8 +40,7 @@ public class PlayerController : MonoBehaviour {
     Quaternion totalAngle;
 
     public float turningRate;
-    public float angleXAmp;
-    public float angleZAmp;
+    public float pitchAmp;
 
     //////////
 
@@ -101,47 +101,25 @@ public class PlayerController : MonoBehaviour {
 
     void SetAirplaneAngle(float xDist, float yDist)
     {
+        // Adjust plane roll (z-axis)
         rollAmount = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
 
-        pitchAngle = Quaternion.AngleAxis(mousePos.y * angleXAmp, Vector3.left);
-        rollAngle = Quaternion.AngleAxis(rollAmount - 90, Vector3.forward);
-        totalAngle = pitchAngle * rollAngle;
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, totalAngle, Time.deltaTime * turningRate);
-
-        /*
-
-        // X-Axis Rotation: Tilt Up/Down.
-        /// Tilt Up
         if (quadrant == 1 || quadrant == 2)
-            transform.Rotate(Vector3.left * Time.deltaTime * angleXAmp);
-        ///Tilt Down
+            rollAngle = Quaternion.AngleAxis(rollAmount - 90, Vector3.forward);
         if (quadrant == 3 || quadrant == 4)
-            transform.Rotate(Vector3.right * Time.deltaTime * angleXAmp);
+            rollAngle = Quaternion.AngleAxis(rollAmount + 90, Vector3.back);
 
-        // Y- and Z-Axis Rotation: Roll and Tilt Up/Down.
-        /// Tilt Left
-        if (quadrant == 2 || quadrant == 3)
-        {
-            transform.Rotate(Vector3.forward * Time.deltaTime * angleZAmp);
-            transform.Rotate(Vector3.left * Time.deltaTime * angleXAmp);
-        }
+        // Adjust plane pitch (x-axis)
+        pitchAmount = mousePosAbs.y * pitchAmp;
 
-        if (quadrant == 1 || quadrant == 4)
-        {
-            transform.Rotate(Vector3.back * Time.deltaTime * angleZAmp);
-            transform.Rotate(Vector3.right * Time.deltaTime *angleXAmp);
-        }
+        if (quadrant == 1 || quadrant == 2)
+            pitchAngle = Quaternion.AngleAxis(pitchAmount, Vector3.left);
+        if (quadrant == 3 || quadrant == 4)
+            pitchAngle = Quaternion.AngleAxis(pitchAmount, Vector3.right);
 
-        */
-
-
-        /*
-        aircraftToMouseDir = Input.mousePosition - mousePos;
-        aircraftAngle = Mathf.Atan2(aircraftToMouseDir.y, aircraftToMouseDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(aircraftAngle - 90, new Vector3(0, -1, 1));
-        */
-
+        // Generate total plane quaternion angle.
+        totalAngle = pitchAngle * rollAngle;
+        transform.rotation = Quaternion.Slerp(transform.rotation, totalAngle, Time.deltaTime * turningRate);
     }
 
 

@@ -1509,8 +1509,7 @@ MonoBehaviour:
   rollAngle: {x: 0, y: 0, z: 0, w: 0}
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
   turningRate: 5
-  angleXAmp: 45
-  angleZAmp: 80
+  pitchAmp: 60
 --- !u!4 &1273402926
 Transform:
   m_ObjectHideFlags: 0
