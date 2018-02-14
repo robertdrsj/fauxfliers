@@ -6,12 +6,36 @@ public class AirplaneController : MonoBehaviour {
 
     // PUBLIC Variables
     public float thrustForce;
+    [SerializeField]
+    Vector3 velocity;
 
     // PRIVATE Variables
-    Vector3 thrustDirection;
-    float pitchDir;                     // Rotates around X-axis.
-    float yawDir;                       // Rotates around Y-axis.
-    float rollDir;                      // Rotates around Z-axis.
+    Quaternion thrustDirection;
+    Quaternion currentDir;
+    Quaternion targetDir;
+    Quaternion targetDirX;
+    Quaternion targetDirY;
+    Quaternion targetDirZ;
+
+    Vector3 thrustForward;
+    Vector3 thrustVertical;
+    Vector3 thrustLeft;
+    Vector3 thrustRight;
+    Vector3 thrustNull;
+
+    [SerializeField]
+    float totalAngleX;
+    [SerializeField]
+    float totalAngleY;
+    [SerializeField]
+    float totalAngleZ;
+
+    public float pitchDir;                     // Rotates around X-axis.
+    public float yawDir;                       // Rotates around Y-axis.
+    public float rollDir;                      // Rotates around Z-axis.
+
+    public float thrustAngleAmp;        // Adjust this to increase or decrease the angle away from Forward.
+    public float thrustZPower;
 
     [SerializeField]
     bool allPartsOperable;              // All three parts are usable.
@@ -40,41 +64,70 @@ public class AirplaneController : MonoBehaviour {
         player = GetComponent<PlayerController>();
         airplane = GetComponent<Rigidbody>();
 
-        pitchDir = 1f;
-        yawDir = 1f;
-        rollDir = 1f;
-
         canFly = true;
         allPartsOperable = true;
 	}
 
     void Update()
     {
-        thrustDirection = new Vector3(pitchDir, yawDir, rollDir);
+        // Used for debugging.
+        velocity = airplane.velocity;
 
-        if (canFly && player.rMB) { isFlying = true; }
+        totalAngleX = player.totalAngle.x;
+        totalAngleY = player.totalAngle.y;
+        totalAngleZ = player.totalAngle.z;
+
+        // Allows flight.
+        if (canFly && player.lMB) { isFlying = true; }
             else { isFlying = false; }
+
     }
 
     void FixedUpdate()
     {
-        if (isFlying)
-        {
-            if (allPartsOperable)
-            {
-                Fly();
+        CalibrateThrusters();
 
-                if (player.mousePos.y > 0)
-                {
+        if (isFlying && allPartsOperable)
+            Fly();
+    }
 
-                }
-            }
-
-        }
+    void CalibrateThrusters()
+    {
+        thrustForward = airplane.transform.forward;
+        thrustVertical = airplane.transform.right / 2;
+        thrustNull = new Vector3(0f, 0f, 0f);
     }
 
     void Fly()
     {
-        airplane.AddForce(airplane.transform.forward * thrustForce);
+        currentDir = airplane.transform.rotation;
+
+        // Set thrustUpward
+        if (player.lMB)
+        {
+            if (player.originToMouse == 0)
+                pitchDir = 0f;
+            if (player.originToMouse > 0 && player.totalAngle.x > 0)
+                pitchDir = player.originToMouse * -thrustAngleAmp;
+            if (player.originToMouse > 0 && player.totalAngle.x < 0)
+                pitchDir = player.originToMouse * thrustAngleAmp;
+
+            if (player.originToMouse > 0 && player.totalAngle.z > 0)
+                rollDir = player.originToMouse * (thrustAngleAmp * thrustZPower);
+            if (player.originToMouse > 0 && player.totalAngle.z < 0)
+                rollDir = player.originToMouse * -(thrustAngleAmp * thrustZPower);
+        }
+
+        targetDirX = Quaternion.AngleAxis(pitchDir, Vector3.left);
+        targetDirY = Quaternion.AngleAxis(yawDir, Vector3.down);
+        targetDirZ = Quaternion.AngleAxis(rollDir, Vector3.forward);
+        targetDir = targetDirX * targetDirY * targetDirZ;
+
+        //Quaternion.RotateTowards();
+
+        airplane.AddForce(targetDir * thrustForward * thrustForce);
+
+        Debug.Log(thrustVertical);
+
     }
 }

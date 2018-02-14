@@ -14,30 +14,21 @@ public class PlayerController : MonoBehaviour {
 
     // FindMousePosition()
     public Vector3 mousePos;
-    [SerializeField]
-    Vector3 mousePosAbs;
-    [SerializeField]
+    public Vector3 mousePosAbs;
     Vector3 originPos;
-    [SerializeField]
-    float originToMouse;
+    public float originToMouse;
 
     // FindMouseQuadrant()
-    [SerializeField]
-    bool mousePosXPositive;
-    [SerializeField]
-    bool mousePosYPositive;
-    [SerializeField]
+    public bool mousePosXPositive;
+    public bool mousePosYPositive;
     int quadrant;
 
     // SetAirplaneAngle()
     float rollAmount;
     float pitchAmount;
-    [SerializeField]
     Quaternion pitchAngle;
-    [SerializeField]
     Quaternion rollAngle;
-    [SerializeField]
-    Quaternion totalAngle;
+    public Quaternion totalAngle;
 
     public float turningRate;
     public float pitchAmp;
@@ -49,7 +40,7 @@ public class PlayerController : MonoBehaviour {
         player = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         lMB = Input.GetMouseButton(0);
         rMB = Input.GetMouseButton(1);
@@ -116,6 +107,9 @@ public class PlayerController : MonoBehaviour {
             pitchAngle = Quaternion.AngleAxis(pitchAmount, Vector3.left);
         if (quadrant == 3 || quadrant == 4)
             pitchAngle = Quaternion.AngleAxis(pitchAmount, Vector3.right);
+        if ((mousePosAbs.y < 0.1f && mousePosAbs.y > 0.1f) && mousePosAbs.x > 0.3f)
+            pitchAngle = Quaternion.AngleAxis(pitchAmount * 1000f, Vector3.right);
+
 
         // Generate total plane quaternion angle.
         totalAngle = pitchAngle * rollAngle;
