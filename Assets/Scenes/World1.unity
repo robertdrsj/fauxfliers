@@ -1506,7 +1506,9 @@ MonoBehaviour:
   originToMouse: 0
   mousePosXPositive: 0
   mousePosYPositive: 0
+  rollAngle: {x: 0, y: 0, z: 0, w: 0}
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
+  rotationDamping: 15
   turningRate: 5
   pitchAmp: 80
 --- !u!4 &1273402926

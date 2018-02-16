@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     public Vector3 mousePos;
     public Vector3 mousePosAbs;
     Vector3 originPos;
-    public float originToMouse;
+    public float originToMouse;                     // Do Not Change Value
 
     // FindMouseQuadrant()
     public bool mousePosXPositive;
@@ -27,8 +27,13 @@ public class PlayerController : MonoBehaviour {
     float rollAmount;
     float pitchAmount;
     Quaternion pitchAngle;
-    Quaternion rollAngle;
+    public Quaternion rollAngle;
     public Quaternion totalAngle;
+
+    Quaternion currentRotation;
+    Quaternion newRotation;
+    float autoRotationRate;
+    public float rotationDamping;
 
     public float turningRate;
     public float pitchAmp;
@@ -38,6 +43,8 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         player = GetComponent<Rigidbody>();
+
+        newRotation = transform.rotation;
     }
 
     void FixedUpdate()
@@ -47,14 +54,22 @@ public class PlayerController : MonoBehaviour {
 
         FindMousePosition();
         FindMouseQuadrant();
-        if (lMB) SetAirplaneAngle(mousePos.x, mousePos.y);
-        transform.rotation = Quaternion.Slerp(transform.rotation, totalAngle, Time.deltaTime * turningRate);
+
+        autoRotationRate = originToMouse / rotationDamping;
+        currentRotation = transform.rotation;
+        newRotation = Quaternion.Slerp(transform.rotation, totalAngle, turningRate);
+
+        if (lMB)
+        {
+            SetAirplaneAngle(mousePos.x, mousePos.y);
+            transform.rotation *= newRotation;
+        }
     }
 
     void FindMousePosition()
     {
-        // Find Mouse Position by moving the screen origin from bottom left to the center...
-        // Then get the mouse position's coordinates away from the origin.
+        // Find Mouse Position by moving the screen origin from bottom left to the center,
+        // Then get the mouse position's distance coordinates away from the origin.
 
         originPos = Camera.main.ScreenToViewportPoint(new Vector3(
             (Camera.main.scaledPixelWidth / 2f),
@@ -92,27 +107,50 @@ public class PlayerController : MonoBehaviour {
 
     void SetAirplaneAngle(float xDist, float yDist)
     {
+                
+        
+        
         // Adjust plane roll (z-axis)
         rollAmount = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
 
         if (quadrant == 1 || quadrant == 2)
-            rollAngle = Quaternion.AngleAxis(rollAmount - 90, Vector3.forward);
+            rollAngle = Quaternion.AngleAxis((rollAmount - 90) * autoRotationRate, Vector3.forward);
         if (quadrant == 3 || quadrant == 4)
-            rollAngle = Quaternion.AngleAxis(rollAmount + 90, Vector3.back);
+            rollAngle = Quaternion.AngleAxis((rollAmount + 90) * autoRotationRate, Vector3.back);
 
         // Adjust plane pitch (x-axis)
         pitchAmount = mousePosAbs.y * pitchAmp;
 
         if (quadrant == 1 || quadrant == 2)
-            pitchAngle = Quaternion.AngleAxis(pitchAmount, Vector3.left);
+            pitchAngle = Quaternion.AngleAxis(pitchAmount * autoRotationRate, Vector3.left);
         if (quadrant == 3 || quadrant == 4)
-            pitchAngle = Quaternion.AngleAxis(pitchAmount, Vector3.right);
+            pitchAngle = Quaternion.AngleAxis(pitchAmount * autoRotationRate, Vector3.right);
+        ///Make the pitch adjustment not as harsh when going from positive to negative, and vice versa.
         if ((mousePosAbs.y < 0.1f && mousePosAbs.y > 0.1f) && mousePosAbs.x > 0.3f)
-            pitchAngle = Quaternion.AngleAxis(pitchAmount * 1000f, Vector3.right);
-
+            pitchAngle = Quaternion.AngleAxis(pitchAmount * 1000f * autoRotationRate, Vector3.right);
 
         // Generate total plane quaternion angle.
         totalAngle = pitchAngle * rollAngle;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //totalAngle.eulerAngles = new Vector3();
+        //newAngle = totalAngle.eulerAngles;
+        //transform.eulerAngles = newAngle;
+
+
     }
 
 
