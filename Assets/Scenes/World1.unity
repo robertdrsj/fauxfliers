@@ -1508,9 +1508,9 @@ MonoBehaviour:
   mousePosYPositive: 0
   rollAngle: {x: 0, y: 0, z: 0, w: 0}
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
-  rotationDamping: 15
+  rotationDamping: 12
   turningRate: 5
-  pitchAmp: 80
+  pitchAmp: 160
 --- !u!4 &1273402926
 Transform:
   m_ObjectHideFlags: 0

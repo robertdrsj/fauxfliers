@@ -55,14 +55,14 @@ public class PlayerController : MonoBehaviour {
         FindMousePosition();
         FindMouseQuadrant();
 
-        autoRotationRate = originToMouse / rotationDamping;
         currentRotation = transform.rotation;
-        newRotation = Quaternion.Slerp(transform.rotation, totalAngle, turningRate);
+        autoRotationRate = originToMouse / rotationDamping;
 
         if (lMB)
         {
             SetAirplaneAngle(mousePos.x, mousePos.y);
-            transform.rotation *= newRotation;
+            newRotation = Quaternion.Slerp(transform.rotation, totalAngle, turningRate);
+            transform.rotation = currentRotation * newRotation;
         }
     }
 
