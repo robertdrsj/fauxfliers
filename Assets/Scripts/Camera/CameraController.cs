@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private float damping;
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         Refresh();
     }

@@ -1,16 +1,12 @@
 fileFormatVersion: 2
-guid: 5c2d84226fbbaf94e9c1451f1c39b06a
-labels:
-- Not
-- Fully
-- Implemented
-timeCreated: 1518838815
+guid: ef2a0c1e311584f4eb47fd9ed3355ee7
+timeCreated: 1518838964
 licenseType: Pro
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
-  executionOrder: 200
+  executionOrder: -100
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

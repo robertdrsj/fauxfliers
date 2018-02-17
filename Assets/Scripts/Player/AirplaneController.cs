@@ -68,66 +68,20 @@ public class AirplaneController : MonoBehaviour {
         allPartsOperable = true;
 	}
 
-    void Update()
-    {
-        // Used for debugging.
-        velocity = airplane.velocity;
-
-        totalAngleX = player.totalAngle.x;
-        totalAngleY = player.totalAngle.y;
-        totalAngleZ = player.totalAngle.z;
-
-        // Allows flight.
-        if (canFly && player.lMB) { isFlying = true; }
-            else { isFlying = false; }
-
-    }
-
     void FixedUpdate()
     {
-        CalibrateThrusters();
+        // Allows flight.
+        if (canFly && player.lMB) { isFlying = true; }
+        else { isFlying = false; }
 
         if (isFlying && allPartsOperable)
             Fly();
     }
 
-    void CalibrateThrusters()
-    {
-        thrustForward = airplane.transform.forward;
-        thrustVertical = airplane.transform.right / 2;
-        thrustNull = new Vector3(0f, 0f, 0f);
-    }
-
     void Fly()
     {
-        currentDir = airplane.transform.rotation;
+        thrustForward = airplane.transform.forward;
 
-        // Set thrustUpward
-        if (player.lMB)
-        {
-            if (player.originToMouse == 0)
-                pitchDir = 0f;
-            if (player.originToMouse > 0 && player.totalAngle.x > 0)
-                pitchDir = player.originToMouse * -thrustAngleAmp;
-            if (player.originToMouse > 0 && player.totalAngle.x < 0)
-                pitchDir = player.originToMouse * thrustAngleAmp;
-
-            if (player.originToMouse > 0 && player.totalAngle.z > 0)
-                rollDir = player.originToMouse * (thrustAngleAmp * thrustZPower);
-            if (player.originToMouse > 0 && player.totalAngle.z < 0)
-                rollDir = player.originToMouse * -(thrustAngleAmp * thrustZPower);
-        }
-
-        targetDirX = Quaternion.AngleAxis(pitchDir, Vector3.left);
-        targetDirY = Quaternion.AngleAxis(yawDir, Vector3.down);
-        targetDirZ = Quaternion.AngleAxis(rollDir, Vector3.forward);
-        targetDir = targetDirX * targetDirY * targetDirZ;
-
-        //Quaternion.RotateTowards();
-
-        airplane.AddForce(targetDir * thrustForward * thrustForce);
-
-        Debug.Log(thrustVertical);
-
+        airplane.AddForce(thrustForward * thrustForce);
     }
 }

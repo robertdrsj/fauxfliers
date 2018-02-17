@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour {
         FindMousePosition();
         FindMouseQuadrant();
 
-        currentRotation = transform.rotation;
         autoRotationRate = originToMouse / rotationDamping;
+        currentRotation = transform.rotation;
 
         if (lMB)
         {
@@ -107,9 +107,6 @@ public class PlayerController : MonoBehaviour {
 
     void SetAirplaneAngle(float xDist, float yDist)
     {
-                
-        
-        
         // Adjust plane roll (z-axis)
         rollAmount = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
 
@@ -131,26 +128,6 @@ public class PlayerController : MonoBehaviour {
 
         // Generate total plane quaternion angle.
         totalAngle = pitchAngle * rollAngle;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //totalAngle.eulerAngles = new Vector3();
-        //newAngle = totalAngle.eulerAngles;
-        //transform.eulerAngles = newAngle;
-
-
     }
 
 

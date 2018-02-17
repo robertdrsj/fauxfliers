@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameController : MonoBehaviour {
 
     // Public variables
-    public static GameManager instance = null;
+    public static GameController instance = null;
     public GameObject[] BorderParent;
 
     // Private variables
@@ -17,7 +16,7 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
-        // Makes GameManager a singleton (only one instance runs ever)
+        // Makes GameController a singleton (only one instance runs ever)
         if (instance == null)
             instance = this;
         else if (instance != this)
@@ -27,20 +26,23 @@ public class GameManager : MonoBehaviour {
             Instantiate(border);
     }
 
-	// Use this for initialization
-	void Start () {
+    void Start()
+    {
         canvas = GameObject.Find("GameOverScreen");
         gameOverScreen = canvas.GetComponent<CanvasGroup>();
         gameOverScreen.alpha = 0;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Update()
+    {
 
         // if player dies -> game over
         if (GameObject.Find("Player") == null)
             gameOverState = true;
 
+        // Commented out because SceneManager doesn't exist (?)
+
+        /*
         // waits for 1 second before accepting input
         if (gameOverState)
         {
@@ -53,5 +55,6 @@ public class GameManager : MonoBehaviour {
                 waitForTime -= Time.deltaTime;
 
         }
+        */
     }
 }
