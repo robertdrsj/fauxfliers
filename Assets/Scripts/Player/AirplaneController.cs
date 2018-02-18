@@ -55,14 +55,14 @@ public class AirplaneController : MonoBehaviour {
 
     // INITIALIZE
     PlayerController player;
-    Rigidbody airplane;
+    Rigidbody aircraft;
 
 
 
 	void Start()
     {
         player = GetComponent<PlayerController>();
-        airplane = GetComponent<Rigidbody>();
+        aircraft = GetComponent<Rigidbody>();
 
         canFly = true;
         allPartsOperable = true;
@@ -80,8 +80,8 @@ public class AirplaneController : MonoBehaviour {
 
     void Fly()
     {
-        thrustForward = airplane.transform.forward;
+        thrustForward = aircraft.transform.forward;
 
-        airplane.AddForce(thrustForward * thrustForce);
+        aircraft.AddForce(thrustForward * thrustForce);
     }
 }

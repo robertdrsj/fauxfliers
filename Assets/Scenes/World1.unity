@@ -1481,8 +1481,6 @@ GameObject:
   - component: {fileID: 1273402925}
   - component: {fileID: 1273402927}
   - component: {fileID: 1273402928}
-  - component: {fileID: 1273402930}
-  - component: {fileID: 1273402929}
   m_Layer: 0
   m_Name: AirplaneRotation
   m_TagString: Player
@@ -1572,28 +1570,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &1273402929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1273402924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e65849298bdb76a498fa94e056fcb0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1273402930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1273402924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ed1ae3a3fc0224da2ed324a25c879b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1317350314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1691,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4987538314183276, guid: 67014f489b3c1a34b8b9f7afe9ef166c, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114106288339635074, guid: 67014f489b3c1a34b8b9f7afe9ef166c,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

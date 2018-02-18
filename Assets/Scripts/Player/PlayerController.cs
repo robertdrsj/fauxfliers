@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     public bool lMB;                                // Flag if player presses left mouse button.
     public bool rMB;                                // Flag if player presses right mouse button.
     /// Components
-    Rigidbody player;
+    Rigidbody aircraft;
 
     // FindMousePosition()
     public Vector3 mousePos;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
-        player = GetComponent<Rigidbody>();
+        aircraft = GetComponent<Rigidbody>();
 
         newRotation = transform.rotation;
     }
@@ -56,13 +56,13 @@ public class PlayerController : MonoBehaviour {
         FindMouseQuadrant();
 
         autoRotationRate = originToMouse / rotationDamping;
-        currentRotation = transform.rotation;
+        currentRotation = aircraft.rotation;
 
         if (lMB)
         {
             SetAirplaneAngle(mousePos.x, mousePos.y);
-            newRotation = Quaternion.Slerp(transform.rotation, totalAngle, turningRate);
-            transform.rotation = currentRotation * newRotation;
+            newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate);
+            aircraft.rotation = currentRotation * newRotation;
         }
     }
 
