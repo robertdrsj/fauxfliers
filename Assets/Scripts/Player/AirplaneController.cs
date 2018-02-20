@@ -11,6 +11,11 @@ public class AirplaneController : MonoBehaviour {
     public float maxVelocity;                   // Determines the max velocity of the aircraft.
     public float maxDrag;                       // Used to decelerate the aircraft.
     public float minDrag;                       // Used to accelerate the aircraft.
+    public float noDrag;
+
+    public Vector3 minGravity;                    // Used to give the player more flight control.
+    public Vector3 maxGravity;                    // Used when the player is giving no flight input (freefall).
+
     public float angularVelocityThreshold;      // Determines how much to decelerate the aircraft if the player is rotating a lot.
 
     // PRIVATE Variables
@@ -67,13 +72,15 @@ public class AirplaneController : MonoBehaviour {
         velocity = aircraft.velocity;
         thrustForward = aircraft.transform.forward;
 
+        ManageGravity();
+
         // Allows flight.
         if (canFly && player.lMB)
             isFlying = true;
         else
         {
             isFlying = false;
-            aircraft.drag = minDrag;
+            aircraft.drag = noDrag;
         }
 
         // Checks if the aircraft has any broken parts.
@@ -87,16 +94,23 @@ public class AirplaneController : MonoBehaviour {
 
             Fly();
         }
+    }
 
-        //Debug.Log(aircraft.velocity.magnitude);
+    void ManageGravity()
+    {
+        if (isFlying && allPartsOperable)
+            Physics.gravity = minGravity;
+        else
+            Physics.gravity = maxGravity;
     }
 
     void Fly()
     {
             aircraft.AddForce(thrustForward * thrustForce);
             velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
-            Debug.Log(aircraft.velocity.magnitude);
-
     }
+
+
+
 
 }

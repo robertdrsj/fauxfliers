@@ -1541,6 +1541,9 @@ MonoBehaviour:
   maxVelocity: 100
   maxDrag: 2
   minDrag: 1.5
+  noDrag: 0.4
+  minGravity: {x: 0, y: -10, z: 0}
+  maxGravity: {x: 0, y: -60, z: 0}
   angularVelocityThreshold: 0.01
   allPartsOperable: 0
   canFly: 0
