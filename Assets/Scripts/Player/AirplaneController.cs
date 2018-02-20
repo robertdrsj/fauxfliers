@@ -8,11 +8,9 @@ public class AirplaneController : MonoBehaviour {
     [SerializeField]
     Vector3 velocity;
     public float thrustForce;                   // Determines how much AddForce to apply for acceleration.
-    public float maxSpeed;                      // Determines the max velocity of the aircraft.
+    public float maxVelocity;                   // Determines the max velocity of the aircraft.
     public float maxDrag;                       // Used to decelerate the aircraft.
     public float minDrag;                       // Used to accelerate the aircraft.
-
-    Quaternion lastRotation;
     public float angularVelocityThreshold;      // Determines how much to decelerate the aircraft if the player is rotating a lot.
 
     // PRIVATE Variables
@@ -66,30 +64,38 @@ public class AirplaneController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        lastRotation = aircraft.rotation;
-
-        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+        velocity = aircraft.velocity;
         thrustForward = aircraft.transform.forward;
 
         // Allows flight.
-        if (canFly && player.lMB) { isFlying = true; }
-        else { isFlying = false; }
+        if (canFly && player.lMB)
+            isFlying = true;
+        else
+        {
+            isFlying = false;
+            aircraft.drag = minDrag;
+        }
 
+        // Checks if the aircraft has any broken parts.
         if (isFlying && allPartsOperable)
-            Fly();
+        {
+            // If the player is tumbling while in full control, increase air drag to decelerate.
+            if ((Mathf.Abs(player.totalAngle.x) >= angularVelocityThreshold))
+                aircraft.drag = maxDrag;
+            else
+                aircraft.drag = minDrag;
 
-        Debug.Log(aircraft.velocity.magnitude);
+            Fly();
+        }
+
+        //Debug.Log(aircraft.velocity.magnitude);
     }
 
     void Fly()
     {
-        aircraft.AddForce(thrustForward * thrustForce);
-
-        // If the player is tumbling while in full control, increase air drag to decelerate.
-        if ((Mathf.Abs(player.totalAngle.x) >= angularVelocityThreshold))
-            aircraft.drag = maxDrag;
-        else
-            aircraft.drag = minDrag;
+            aircraft.AddForce(thrustForward * thrustForce);
+            velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
+            Debug.Log(aircraft.velocity.magnitude);
 
     }
 
