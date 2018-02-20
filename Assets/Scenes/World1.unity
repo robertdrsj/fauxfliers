@@ -378,7 +378,7 @@ MonoBehaviour:
   offsetPosition: {x: 0, y: 2, z: -22}
   offsetPositionSpace: 1
   lookAt: 1
-  damping: 12
+  damping: 20
 --- !u!1 &203807956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,16 +1501,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lMB: 0
   rMB: 0
-  mousePos: {x: 0, y: 0, z: 0}
-  mousePosAbs: {x: 0, y: 0, z: 0}
-  originToMouse: 0
-  mousePosXPositive: 0
-  mousePosYPositive: 0
-  rollAngle: {x: 0, y: 0, z: 0, w: 0}
-  totalAngle: {x: 0, y: 0, z: 0, w: 0}
   rotationDamping: 12
-  turningRate: 5
-  pitchAmp: 160
+  turningRate: 4
+  pitchAmp: 65
+  totalAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1273402926
 Transform:
   m_ObjectHideFlags: 0
@@ -1542,16 +1536,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustForce: 50
   velocity: {x: 0, y: 0, z: 0}
-  totalAngleX: 0
-  totalAngleY: 0
-  totalAngleZ: 0
-  pitchDir: 0
-  yawDir: 0
-  rollDir: 0
-  thrustAngleAmp: 2000
-  thrustZPower: 2000
+  thrustForce: 150
+  maxSpeed: 20
+  maxDrag: 2
+  minDrag: 0.2
+  angularVelocityThreshold: 0.015
   allPartsOperable: 0
   canFly: 0
   isFlying: 0
@@ -1563,7 +1553,7 @@ Rigidbody:
   m_GameObject: {fileID: 1273402924}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.3
+  m_Drag: 0.4
   m_AngularDrag: 0.8
   m_UseGravity: 0
   m_IsKinematic: 0

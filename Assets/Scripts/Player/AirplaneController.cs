@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class AirplaneController : MonoBehaviour {
 
-    // PUBLIC Variables
-    public float thrustForce;
+    // Fly()
     [SerializeField]
     Vector3 velocity;
+    public float thrustForce;                   // Determines how much AddForce to apply for acceleration.
+    public float maxSpeed;                      // Determines the max velocity of the aircraft.
+    public float maxDrag;                       // Used to decelerate the aircraft.
+    public float minDrag;                       // Used to accelerate the aircraft.
+
+    Quaternion lastRotation;
+    public float angularVelocityThreshold;      // Determines how much to decelerate the aircraft if the player is rotating a lot.
 
     // PRIVATE Variables
     Quaternion thrustDirection;
@@ -23,19 +29,9 @@ public class AirplaneController : MonoBehaviour {
     Vector3 thrustRight;
     Vector3 thrustNull;
 
-    [SerializeField]
-    float totalAngleX;
-    [SerializeField]
-    float totalAngleY;
-    [SerializeField]
-    float totalAngleZ;
-
-    public float pitchDir;                     // Rotates around X-axis.
-    public float yawDir;                       // Rotates around Y-axis.
-    public float rollDir;                      // Rotates around Z-axis.
-
-    public float thrustAngleAmp;        // Adjust this to increase or decrease the angle away from Forward.
-    public float thrustZPower;
+    float pitchDir;                     // Rotates around X-axis.
+    float yawDir;                       // Rotates around Y-axis.
+    float rollDir;                      // Rotates around Z-axis.
 
     [SerializeField]
     bool allPartsOperable;              // All three parts are usable.
@@ -70,18 +66,31 @@ public class AirplaneController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        lastRotation = aircraft.rotation;
+
+        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+        thrustForward = aircraft.transform.forward;
+
         // Allows flight.
         if (canFly && player.lMB) { isFlying = true; }
         else { isFlying = false; }
 
         if (isFlying && allPartsOperable)
             Fly();
+
+        Debug.Log(aircraft.velocity.magnitude);
     }
 
     void Fly()
     {
-        thrustForward = aircraft.transform.forward;
-
         aircraft.AddForce(thrustForward * thrustForce);
+
+        // If the player is tumbling while in full control, increase air drag to decelerate.
+        if ((Mathf.Abs(player.totalAngle.x) >= angularVelocityThreshold))
+            aircraft.drag = maxDrag;
+        else
+            aircraft.drag = minDrag;
+
     }
+
 }

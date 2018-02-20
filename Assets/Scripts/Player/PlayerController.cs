@@ -7,36 +7,36 @@ public class PlayerController : MonoBehaviour {
 
     // INITIALIZE
     /// Mouse Controls
-    public bool lMB;                                // Flag if player presses left mouse button.
-    public bool rMB;                                // Flag if player presses right mouse button.
+    public bool lMB;                    // Flag if player presses left mouse button.
+    public bool rMB;                    // Flag if player presses right mouse button.
     /// Components
     Rigidbody aircraft;
 
     // FindMousePosition()
-    public Vector3 mousePos;
-    public Vector3 mousePosAbs;
+    Vector3 mousePos;
+    Vector3 mousePosAbs;
     Vector3 originPos;
-    public float originToMouse;                     // Do Not Change Value
+    float originToMouse;
 
     // FindMouseQuadrant()
-    public bool mousePosXPositive;
-    public bool mousePosYPositive;
+    bool mousePosXPositive;
+    bool mousePosYPositive;
     int quadrant;
 
     // SetAirplaneAngle()
+    public float rotationDamping;
+    public float turningRate;
+    public float pitchAmp;
+
     float rollAmount;
     float pitchAmount;
     Quaternion pitchAngle;
-    public Quaternion rollAngle;
-    public Quaternion totalAngle;
+    Quaternion rollAngle;
+    public Quaternion totalAngle;       // Do Not Edit
 
     Quaternion currentRotation;
     Quaternion newRotation;
     float autoRotationRate;
-    public float rotationDamping;
-
-    public float turningRate;
-    public float pitchAmp;
 
     //////////
 
@@ -73,17 +73,17 @@ public class PlayerController : MonoBehaviour {
 
         originPos = Camera.main.ScreenToViewportPoint(new Vector3(
             (Camera.main.scaledPixelWidth / 2f),
-            (Camera.main.scaledPixelHeight / 2f),
+            (Camera.main.scaledPixelHeight / 3f),
             Camera.main.nearClipPlane));
 
         mousePos = Camera.main.ScreenToViewportPoint(new Vector3(
             (Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
-            (Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
+            (Input.mousePosition.y - (Camera.main.scaledPixelHeight / 3f)),
             Camera.main.nearClipPlane));
 
         mousePosAbs = Camera.main.ScreenToViewportPoint(new Vector3(
             Mathf.Abs(Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
-            Mathf.Abs(Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
+            Mathf.Abs(Input.mousePosition.y - (Camera.main.scaledPixelHeight / 3f)),
             Camera.main.nearClipPlane));
 
         originToMouse = Mathf.Sqrt(Mathf.Pow(mousePos.x, 2) + Mathf.Pow(mousePos.y, 2));
