@@ -5,16 +5,17 @@ using UnityEngine;
 public class AirplaneController : MonoBehaviour {
 
     // Fly()
-    [SerializeField]
-    Vector3 velocity;
     public float thrustForce;                   // Determines how much AddForce to apply for acceleration.
     public float maxVelocity;                   // Determines the max velocity of the aircraft.
     public float maxDrag;                       // Used to decelerate the aircraft.
     public float minDrag;                       // Used to accelerate the aircraft.
     public float noDrag;
 
-    public Vector3 minGravity;                    // Used to give the player more flight control.
-    public Vector3 maxGravity;                    // Used when the player is giving no flight input (freefall).
+    // ManageGravity()
+    public GameObject com;                      // Used to find the Center of Mass for flight and gravity.
+
+    public Vector3 minGravity;                  // Used to give the player more flight control.
+    public Vector3 maxGravity;                  // Used when the player is giving no flight input (freefall).
 
     public float angularVelocityThreshold;      // Determines how much to decelerate the aircraft if the player is rotating a lot.
 
@@ -42,10 +43,8 @@ public class AirplaneController : MonoBehaviour {
     bool rightWingOperable;             // Right thrust is usable.
     bool engineOperable;                // Center thrust is usable.
 
-    [SerializeField]
-    bool canFly;                        // If Engine Durability is fine, thrusters can be used.
-    [SerializeField]
-    bool isFlying;                      // If there's RMB or touch input within the level, allow the player to fly forward.
+    public bool canFly;                 // DO NOT EDIT. If Engine Durability is fine, thrusters can be used.
+    public bool isFlying;               // DO NOT EDIT. If there's RMB or touch input within the level, allow the player to fly forward.
 
     bool canRepair;                     // If there's LMB or touch input on engine UI, allow the player to repair engine parts.
     bool repairLeftWing;                // Flag true is the left thruster is currently being repaired.
@@ -69,7 +68,6 @@ public class AirplaneController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        velocity = aircraft.velocity;
         thrustForward = aircraft.transform.forward;
 
         ManageGravity();
@@ -98,7 +96,11 @@ public class AirplaneController : MonoBehaviour {
 
     void ManageGravity()
     {
-        if (isFlying && allPartsOperable)
+        // Simulate center of mass rotation.
+        aircraft.centerOfMass = com.transform.position;
+
+        // Change gravity values so the player feels like they have more control when the airplane works fine.
+        if (canFly && allPartsOperable)
             Physics.gravity = minGravity;
         else
             Physics.gravity = maxGravity;
@@ -107,7 +109,7 @@ public class AirplaneController : MonoBehaviour {
     void Fly()
     {
             aircraft.AddForce(thrustForward * thrustForce);
-            velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
+            aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
     }
 
 

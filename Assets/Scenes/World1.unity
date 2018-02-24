@@ -1522,6 +1522,7 @@ Transform:
   - {fileID: 820894976}
   - {fileID: 600220276}
   - {fileID: 444691773}
+  - {fileID: 1382339487}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1536,12 +1537,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0, z: 0}
   thrustForce: 200
-  maxVelocity: 100
+  maxVelocity: 1000
   maxDrag: 2
   minDrag: 2
-  noDrag: 0.6
+  noDrag: 0.4
+  com: {fileID: 1382339486}
   minGravity: {x: 0, y: -10, z: 0}
   maxGravity: {x: 0, y: -40, z: 0}
   angularVelocityThreshold: 0.01
@@ -1647,6 +1648,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1317350314}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1382339486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1382339487}
+  m_Layer: 0
+  m_Name: CenterOfMass
+  m_TagString: Untagged
+  m_Icon: {fileID: -4087464717476244675, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1382339487
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1382339486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.49}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1273402926}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1448551133
 Prefab:
   m_ObjectHideFlags: 0
@@ -1691,7 +1720,13 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114198928042168872, guid: 67014f489b3c1a34b8b9f7afe9ef166c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114106288339635074, guid: 67014f489b3c1a34b8b9f7afe9ef166c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 67014f489b3c1a34b8b9f7afe9ef166c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1544384990 stripped
