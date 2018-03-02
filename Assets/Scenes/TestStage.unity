@@ -1147,7 +1147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6a5531419d4f94a868dfea61104be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  degreesPerSecond: 60
+  xDegreesPerSecond: 0
+  yDegreesPerSecond: 60
+  zDegreesPerSecond: 0
+  rotateX: 0
+  rotateY: 1
+  rotateZ: 0
 --- !u!1001 &1038192978
 Prefab:
   m_ObjectHideFlags: 0
@@ -1503,7 +1508,8 @@ MonoBehaviour:
   rMB: 0
   rotationDamping: 20
   turningRate: 2.5
-  pitchAmp: 80
+  yawAmp: 100
+  pitchAmp: 120
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1273402926
 Transform:
@@ -1537,7 +1543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustForce: 200
+  thrustForce: 300
   maxVelocity: 1000
   maxDrag: 2
   minDrag: 2

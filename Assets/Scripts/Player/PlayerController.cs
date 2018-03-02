@@ -27,12 +27,15 @@ public class PlayerController : MonoBehaviour {
     // SetAirplaneAngle()
     public float rotationDamping;
     public float turningRate;
+    public float yawAmp;
     public float pitchAmp;
 
     float rollAmount;
+    Quaternion rollAngle;
+    float yawAmount;
+    Quaternion yawAngle;
     float pitchAmount;
     Quaternion pitchAngle;
-    Quaternion rollAngle;
     public Quaternion totalAngle;               // Do Not Edit
     Quaternion fallAngle;                       // Used to calculate angle when falling due to gravity.
 
@@ -116,7 +119,7 @@ public class PlayerController : MonoBehaviour {
 
     void SetAirplaneAngle(float xDist, float yDist)
     {
-        // Adjust plane roll (z-axis)
+        // Adjust plane roll (z-axis; roll clockwise/counterclockwise ie. forward/back quaternion)
         rollAmount = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
 
         if (quadrant == 1 || quadrant == 2)
@@ -124,7 +127,15 @@ public class PlayerController : MonoBehaviour {
         if (quadrant == 3 || quadrant == 4)
             rollAngle = Quaternion.AngleAxis((rollAmount + 90) * autoRotationRate, Vector3.back);
 
-        // Adjust plane pitch (x-axis)
+        // Adjust plane yaw (y-axis; turn left/right ie. up/down quaternion)
+        yawAmount = mousePosAbs.x * yawAmp;
+
+        if (quadrant == 2 || quadrant == 3)
+            yawAngle = Quaternion.AngleAxis(yawAmount * autoRotationRate, Vector3.down);
+        if (quadrant == 1 || quadrant == 4)
+            yawAngle = Quaternion.AngleAxis(yawAmount * autoRotationRate, Vector3.up);
+
+        // Adjust plane pitch (x-axis; tilt up/down ie. left/right quaternion)
         pitchAmount = mousePosAbs.y * pitchAmp;
 
         if (quadrant == 1 || quadrant == 2)
@@ -136,7 +147,7 @@ public class PlayerController : MonoBehaviour {
             pitchAngle = Quaternion.AngleAxis(pitchAmount * 1000f * autoRotationRate, Vector3.right);
 
         // Generate total plane quaternion angle.
-        totalAngle = pitchAngle * rollAngle;
+        totalAngle = rollAngle * yawAngle * pitchAngle;
     }
 
 
