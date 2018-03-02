@@ -1844,6 +1844,7 @@ MonoBehaviour:
   rMB: 0
   rotationDamping: 20
   turningRate: 2.5
+  yawAmp: 0
   pitchAmp: 80
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1273402926
@@ -1878,6 +1879,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health:
+    bar: {fileID: 0}
+    maxVal: 100
+    currentVal: 100
+  durability:
+    bar: {fileID: 0}
+    maxVal: 100
+    currentVal: 100
+  allPartsOperable: 0
+  canFly: 0
+  isFlying: 0
   thrustForce: 200
   maxVelocity: 1000
   maxDrag: 2
@@ -1887,9 +1899,6 @@ MonoBehaviour:
   minGravity: {x: 0, y: -10, z: 0}
   maxGravity: {x: 0, y: -40, z: 0}
   angularVelocityThreshold: 0.01
-  allPartsOperable: 0
-  canFly: 0
-  isFlying: 0
 --- !u!54 &1273402928
 Rigidbody:
   m_ObjectHideFlags: 0
