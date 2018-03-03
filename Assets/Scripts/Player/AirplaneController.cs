@@ -8,29 +8,27 @@ public class AirplaneController : MonoBehaviour {
     // BREAKAGE
     // PUBLIC Variables
     public Text healthText;
-    public float health;
     public float maxHealth;
     public float currentHealth;
 
     public Text engineDurText;
-    public float engineDur;
     public float engineMaxDur;
     public float engineCurrentDur;
 
     public Text leftDurText;
-    public float leftDur;
     public float leftMaxDur;
     public float leftCurrentDur;
 
     public Text rightDurText;
-    public float rightDur;
     public float rightMaxDur;
     public float rightCurrentDur;
 
-    float decayEngine;
+    public bool enableHealth;
+    public bool enableBreakage;
+    public float decayAmp;
+    public float decayEngine;           // Set how much the engine should decay per second.
     float decayLeft;
     float decayRight;
-    float addDecay;
 
     // PRIVATE Variables
     Quaternion thrustDirection;
@@ -45,7 +43,10 @@ public class AirplaneController : MonoBehaviour {
     Vector3 thrustRight;
     Vector3 thrustNull;
 
-    public bool allPartsOperable;              // All three parts are usable.
+    float xMouseDistance;
+    float yMouseDistance;
+
+    public bool allPartsOperable;       // All three parts are usable.
     bool leftWingOperable;              // Left thrust is usable.
     bool rightWingOperable;             // Right thrust is usable.
     bool engineOperable;                // Center thrust is usable.
@@ -90,37 +91,36 @@ public class AirplaneController : MonoBehaviour {
         player = GetComponent<PlayerController>();
         aircraft = GetComponent<Rigidbody>();
 
+        enableHealth = true;
+        enableBreakage = true;
+
+        engineOperable = true;
+        leftWingOperable = true;
+        rightWingOperable = true;
         allPartsOperable = true;
-	}
+    }
 
     void FixedUpdate()
     {
         thrustForward = aircraft.transform.forward;
 
-        ManageGravity();
+        TextUI();
+        ManageFlight();
 
-        // Allows flight.
-        if (allPartsOperable)
-        {
-            aircraft.drag = maxDrag;
-
-            if (player.lMB)     isFlying = true;
-            else                isFlying = false;
-        }
-        else
-        {
-            isFlying = false;
-            aircraft.drag = noDrag;
-        }
-
-        // Fly via player input.
-        if (isFlying)
-        {
-            Fly();
-        }
+        if (isFlying)           Fly();
+        if (enableHealth)       ManageHealth();
+        if (enableBreakage)     ManageDurability(xMouseDistance, yMouseDistance);
     }
 
-    void ManageGravity()
+    void TextUI()
+    {
+        healthText.text = "Health: " + currentHealth;
+        engineDurText.text = "Engine Durability: " + engineCurrentDur;
+        leftDurText.text = "Left Wing Durability: " + leftCurrentDur;
+        rightDurText.text = "Right Wing Durability: " + rightCurrentDur;
+    }
+
+    void ManageFlight()
     {
         // Simulate center of mass rotation.
         aircraft.centerOfMass = com.transform.position;
@@ -130,6 +130,30 @@ public class AirplaneController : MonoBehaviour {
             Physics.gravity = minGravity;
         else
             Physics.gravity = maxGravity;
+
+        // Allows flight.
+        if (allPartsOperable)
+        {
+            aircraft.drag = maxDrag;
+
+            if (player.lMB) isFlying = true;
+            else isFlying = false;
+        }
+        else if (engineOperable)
+        {
+            if (player.lMB) isFlying = true;
+            else isFlying = false;
+            aircraft.drag = noDrag;
+        }
+        else
+        {
+            isFlying = false;
+            aircraft.drag = noDrag;
+        }
+
+        // Helps get distance of input away from origin.
+        xMouseDistance = player.mousePos.x;
+        yMouseDistance = player.mousePos.y;
     }
 
     void Fly()
@@ -138,13 +162,84 @@ public class AirplaneController : MonoBehaviour {
             aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
     }
     
+    void ManageHealth()
+    {
+
+    }
+
+    void ManageDurability(float xDist, float yDist)
+    {
+        // Parts operation check.
+        if (!engineOperable || !leftWingOperable || !rightWingOperable)
+            allPartsOperable = false;
+        else
+            allPartsOperable = true;
+
+        // Set decay values (engineDecay is publicly set).
+        if (isFlying)
+        {
+            if (xDist <= 0)
+                decayLeft = Mathf.Abs(xDist) + Mathf.Abs(yDist);
+            else
+                decayLeft = 0;
+
+            if (xDist >= 0)
+                decayRight = Mathf.Abs(xDist) + Mathf.Abs(yDist);
+            else
+                decayRight = 0;
+        }
+        
+        // Uses durability based on vigor of flight.
+        if (isFlying)
+        {
+            UseEngineDurability(decayEngine);
+            UseLeftDurability(decayLeft);
+            UseRightDurability(decayRight);
+        }
+    }
+
     void UseEngineDurability(float decayValue)
     {
-        if (engineCurrentDur > 0)
-            engineCurrentDur -= decayValue * Time.deltaTime;
+        if (engineCurrentDur > 0 && engineOperable)
+        {
+            engineCurrentDur -= (decayValue + decayAmp) * Time.deltaTime;
+        }
         else
         {
-            allPartsOperable = false;
+            engineOperable = false;
+            engineCurrentDur = 0;
+            //screenshake.shakeAmount = 0.5f;
+            //screenshake.shakeDuration = 0.3f;
+            //engineExplode.Play();
+        }
+    }
+
+    void UseLeftDurability(float decayValue)
+    {
+        if (leftCurrentDur > 0 && leftWingOperable)
+        {
+            leftCurrentDur -= (decayValue + decayAmp) * Time.deltaTime;
+        }
+        else
+        {
+            leftWingOperable = false;
+            leftCurrentDur = 0;
+            //screenshake.shakeAmount = 0.5f;
+            //screenshake.shakeDuration = 0.3f;
+            //engineExplode.Play();
+        }
+    }
+
+    void UseRightDurability(float decayValue)
+    {
+        if (rightCurrentDur > 0 && rightWingOperable)
+        {
+            rightCurrentDur -= (decayValue + decayAmp) * Time.deltaTime;
+        }
+        else
+        {
+            rightWingOperable = false;
+            rightCurrentDur = 0;
             //screenshake.shakeAmount = 0.5f;
             //screenshake.shakeDuration = 0.3f;
             //engineExplode.Play();

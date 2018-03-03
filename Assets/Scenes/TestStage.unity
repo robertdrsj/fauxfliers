@@ -1739,6 +1739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lMB: 0
   rMB: 0
+  mousePos: {x: 0, y: 0, z: 0}
   rotationDamping: 20
   turningRate: 2.5
   yawAmp: 100
@@ -1776,19 +1777,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  currentHealth: 0
-  engineDur: 0
-  engineMaxDur: 0
-  engineCurrentDur: 0
+  healthText: {fileID: 101600744}
+  maxHealth: 90
+  currentHealth: 90
+  engineDurText: {fileID: 1883949662}
+  engineMaxDur: 90
+  engineCurrentDur: 90
+  leftDurText: {fileID: 1355647767}
+  leftMaxDur: 90
+  leftCurrentDur: 90
+  rightDurText: {fileID: 1504774599}
+  rightMaxDur: 90
+  rightCurrentDur: 90
+  enableHealth: 1
+  enableBreakage: 1
+  decayAmp: 1
+  decayEngine: 5
   allPartsOperable: 0
-  canFly: 0
   isFlying: 0
   thrustForce: 300
   maxVelocity: 1000
   maxDrag: 2
-  minDrag: 2
+  minDrag: 1
   noDrag: 0.4
   com: {fileID: 1382339486}
   minGravity: {x: 0, y: -10, z: 0}
