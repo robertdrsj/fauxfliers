@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EZCameraShake;
 
 public class AirplaneController : MonoBehaviour {
 
@@ -118,9 +119,9 @@ public class AirplaneController : MonoBehaviour {
         TextUI();
         ManageFlight();
 
-        if (isFlying)           Fly();
-        if (enableHealth)       ManageHealth();
-        if (enableBreakage)     ManageDurability(xMouseDistance, yMouseDistance);
+        if (isFlying) Fly();
+        if (enableHealth) ManageHealth();
+        if (enableBreakage) ManageDurability(xMouseDistance, yMouseDistance);
     }
 
     void TextUI()
@@ -247,8 +248,7 @@ public class AirplaneController : MonoBehaviour {
         {
             engineOperable = false;
             engineCurrentDur = 0;
-            //screenshake.shakeAmount = 0.5f;
-            //screenshake.shakeDuration = 0.3f;
+            CameraShaker.Instance.ShakeOnce(15f, 15f, .1f, 1f);
             //engineExplode.Play();
         }
     }
@@ -263,8 +263,7 @@ public class AirplaneController : MonoBehaviour {
         {
             leftWingOperable = false;
             leftCurrentDur = 0;
-            //screenshake.shakeAmount = 0.5f;
-            //screenshake.shakeDuration = 0.3f;
+            CameraShaker.Instance.ShakeOnce(10f, 10f, .1f, 1f);
             //engineExplode.Play();
         }
     }
@@ -279,14 +278,15 @@ public class AirplaneController : MonoBehaviour {
         {
             rightWingOperable = false;
             rightCurrentDur = 0;
-            //screenshake.shakeAmount = 0.5f;
-            //screenshake.shakeDuration = 0.3f;
+            CameraShaker.Instance.ShakeOnce(10f, 10f, .1f, 1f);
             //engineExplode.Play();
         }
     }
 
     void RepairEngineDurability(float repairValue)
     {
+        CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
+
         if (engineCurrentDur <= engineMaxDur)       engineCurrentDur += repairValue;
         else if (engineCurrentDur < engineMaxDur)   engineCurrentDur = engineMaxDur;
         else                                        engineOperable = true;
@@ -294,6 +294,8 @@ public class AirplaneController : MonoBehaviour {
 
     void RepairLeftWingDurability(float repairValue)
     {
+        CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
+
         if (leftCurrentDur <= leftMaxDur) leftCurrentDur += repairValue;
         else if (leftCurrentDur < leftMaxDur) leftCurrentDur = leftMaxDur;
         else leftWingOperable = true;
@@ -301,6 +303,8 @@ public class AirplaneController : MonoBehaviour {
 
     void RepairRightWingDurability(float repairValue)
     {
+        CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
+
         if (rightCurrentDur <= rightMaxDur) rightCurrentDur += repairValue;
         else if (rightCurrentDur < rightMaxDur) rightCurrentDur = rightMaxDur;
         else rightWingOperable = true;

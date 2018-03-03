@@ -29,8 +29,10 @@ public class CameraController : MonoBehaviour {
         }
 
         // compute position
-        if (offsetPositionSpace == Space.Self) transform.position = Vector3.Lerp(transform.position, target.TransformPoint(offsetPosition), Time.deltaTime * damping);
-        else transform.position = Vector3.Lerp(transform.position, target.position + offsetPosition, Time.deltaTime * damping);
+        if (offsetPositionSpace == Space.Self)
+            transform.position = Vector3.Lerp(transform.position, target.TransformPoint(offsetPosition), Time.deltaTime * damping);
+        else
+            transform.position = Vector3.Lerp(transform.position, target.position + offsetPosition, Time.deltaTime * damping);
 
         // compute rotation
         if (lookAt)
