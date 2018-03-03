@@ -23,14 +23,37 @@ public class AirplaneController : MonoBehaviour {
     public float rightMaxDur;
     public float rightCurrentDur;
 
+    // DURABILITY MANAGEMENT
     public bool enableHealth;
     public bool enableBreakage;
-    public float decayAmp;
-    public float decayEngine;           // Set how much the engine should decay per second.
+    float xMouseDistance;
+    float yMouseDistance;
+
+    bool allPartsOperable;              // All three parts are usable.
+    public bool engineOperable;         // Engine is usable.
+    bool leftWingOperable;              // Left wing is usable.
+    bool rightWingOperable;             // Right wing is usable.
+
+    public bool isFlying;               // DO NOT EDIT. If there's RMB or touch input within the level, allow the player to fly forward.
+
+    public float decayAllAmp;           // Set how much all parts should decay per second.
+    public float decayWingAmp;          // Set how much the wings should decay.
+    public float decayEngine;           // Set how much the engine should decay.
     float decayLeft;
     float decayRight;
 
-    // PRIVATE Variables
+    public float engineRegenAmt;
+    public float leftWingRegenAmt;
+    public float rightWingRegenAmt;
+
+    public float engineRepairAmt;
+    public float leftWingRepairAmt;
+    public float rightWingRepairAmt;
+
+    public bool engineRepairCmd;
+    public bool leftRepairCmd;
+    public bool rightRepairCmd;
+
     Quaternion thrustDirection;
     Quaternion currentDir;
     Quaternion targetDir;
@@ -42,21 +65,6 @@ public class AirplaneController : MonoBehaviour {
     Vector3 thrustLeft;
     Vector3 thrustRight;
     Vector3 thrustNull;
-
-    float xMouseDistance;
-    float yMouseDistance;
-
-    public bool allPartsOperable;       // All three parts are usable.
-    bool leftWingOperable;              // Left thrust is usable.
-    bool rightWingOperable;             // Right thrust is usable.
-    bool engineOperable;                // Center thrust is usable.
-
-    public bool isFlying;               // DO NOT EDIT. If there's RMB or touch input within the level, allow the player to fly forward.
-
-    bool canRepair;                     // If there's LMB or touch input on engine UI, allow the player to repair engine parts.
-    bool repairLeftWing;                // Flag true is the left thruster is currently being repaired.
-    bool repairRightWing;               // Flag true if the right thruster is currently being repaired.
-    bool repairEngine;                  // Flag true if the center thruster/engine is currently being repaired.
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -102,6 +110,9 @@ public class AirplaneController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        engineRepairCmd = Input.GetKeyDown(KeyCode.S);
+        leftRepairCmd = Input.GetKeyDown(KeyCode.A);
+        rightRepairCmd = Input.GetKeyDown(KeyCode.D);
         thrustForward = aircraft.transform.forward;
 
         TextUI();
@@ -192,17 +203,45 @@ public class AirplaneController : MonoBehaviour {
         // Uses durability based on vigor of flight.
         if (isFlying)
         {
-            UseEngineDurability(decayEngine);
-            UseLeftDurability(decayLeft);
-            UseRightDurability(decayRight);
+            if (engineOperable)     UseEngineDurability(decayEngine);
+            if (leftWingOperable)   UseLeftWingDurability(decayLeft);
+            if (rightWingOperable)  UseRightWingDurability(decayRight);
         }
+
+        // Repair durability and health.
+        //Engine
+        if (!engineOperable)
+        {
+            if (engineCurrentDur >= engineMaxDur) engineOperable = true;
+            if (engineRepairCmd) RepairEngineDurability(engineRepairAmt);
+        }
+        else if (engineOperable && engineCurrentDur < engineMaxDur)
+            engineCurrentDur += engineRegenAmt;
+
+        //Left Wing
+        if (!leftWingOperable)
+        {
+            if (leftCurrentDur >= leftMaxDur) leftWingOperable = true;
+            if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
+        }
+        else if (leftWingOperable && leftCurrentDur < leftMaxDur)
+            leftCurrentDur += leftWingRegenAmt;
+
+        //Right Wing
+        if (!rightWingOperable)
+        {
+            if (rightCurrentDur >= rightMaxDur) rightWingOperable = true;
+            if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
+        }
+        else if (rightWingOperable && rightCurrentDur < rightMaxDur)
+            rightCurrentDur += rightWingRegenAmt;
     }
 
     void UseEngineDurability(float decayValue)
     {
         if (engineCurrentDur > 0 && engineOperable)
         {
-            engineCurrentDur -= (decayValue + decayAmp) * Time.deltaTime;
+            engineCurrentDur -= (decayValue + decayAllAmp) * Time.deltaTime;
         }
         else
         {
@@ -214,11 +253,11 @@ public class AirplaneController : MonoBehaviour {
         }
     }
 
-    void UseLeftDurability(float decayValue)
+    void UseLeftWingDurability(float decayValue)
     {
         if (leftCurrentDur > 0 && leftWingOperable)
         {
-            leftCurrentDur -= (decayValue + decayAmp) * Time.deltaTime;
+            leftCurrentDur -= ((decayValue * decayWingAmp) + decayAllAmp) * Time.deltaTime;
         }
         else
         {
@@ -230,11 +269,11 @@ public class AirplaneController : MonoBehaviour {
         }
     }
 
-    void UseRightDurability(float decayValue)
+    void UseRightWingDurability(float decayValue)
     {
         if (rightCurrentDur > 0 && rightWingOperable)
         {
-            rightCurrentDur -= (decayValue + decayAmp) * Time.deltaTime;
+            rightCurrentDur -= ((decayValue * decayWingAmp) + decayAllAmp) * Time.deltaTime;
         }
         else
         {
@@ -244,6 +283,27 @@ public class AirplaneController : MonoBehaviour {
             //screenshake.shakeDuration = 0.3f;
             //engineExplode.Play();
         }
+    }
+
+    void RepairEngineDurability(float repairValue)
+    {
+        if (engineCurrentDur <= engineMaxDur)       engineCurrentDur += repairValue;
+        else if (engineCurrentDur < engineMaxDur)   engineCurrentDur = engineMaxDur;
+        else                                        engineOperable = true;
+    }
+
+    void RepairLeftWingDurability(float repairValue)
+    {
+        if (leftCurrentDur <= leftMaxDur) leftCurrentDur += repairValue;
+        else if (leftCurrentDur < leftMaxDur) leftCurrentDur = leftMaxDur;
+        else leftWingOperable = true;
+    }
+
+    void RepairRightWingDurability(float repairValue)
+    {
+        if (rightCurrentDur <= rightMaxDur) rightCurrentDur += repairValue;
+        else if (rightCurrentDur < rightMaxDur) rightCurrentDur = rightMaxDur;
+        else rightWingOperable = true;
     }
 
     void HealFor(float healthRestored)

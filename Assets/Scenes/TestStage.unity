@@ -1791,10 +1791,17 @@ MonoBehaviour:
   rightCurrentDur: 90
   enableHealth: 1
   enableBreakage: 1
-  decayAmp: 1
-  decayEngine: 5
-  allPartsOperable: 0
+  engineOperable: 0
   isFlying: 0
+  decayAllAmp: 1
+  decayWingAmp: 10
+  decayEngine: 5
+  engineRepairAmt: 20
+  leftWingRepairAmt: 20
+  rightWingRepairAmt: 20
+  engineRepairCmd: 0
+  leftRepairCmd: 0
+  rightRepairCmd: 0
   thrustForce: 300
   maxVelocity: 1000
   maxDrag: 2

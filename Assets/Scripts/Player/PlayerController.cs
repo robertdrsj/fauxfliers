@@ -67,13 +67,13 @@ public class PlayerController : MonoBehaviour {
 
         fallAngle = Quaternion.Euler(aircraft.velocity.normalized.x + 90, aircraft.velocity.normalized.y, aircraft.velocity.normalized.z);
 
-        if (lMB)
+        if (lMB && airplane.engineOperable)
         {
             SetAirplaneAngle(mousePos.x, mousePos.y);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate);
             aircraft.rotation = currentRotation * newRotation;
         }
-        else if (!airplane.allPartsOperable)
+        else if (!airplane.engineOperable)
             aircraft.rotation = Quaternion.Slerp(aircraft.rotation, fallAngle, Time.deltaTime / 4f);
     }
 
