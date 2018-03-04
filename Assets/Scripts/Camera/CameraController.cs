@@ -12,8 +12,12 @@ public class CameraController : MonoBehaviour {
     private Space offsetPositionSpace = Space.Self;
     [SerializeField]
     private bool lookAt = true;
-    [SerializeField]
-    private float damping;
+    public float damping;
+
+    private void Start()
+    {
+        damping = 20f;
+    }
 
     private void FixedUpdate()
     {

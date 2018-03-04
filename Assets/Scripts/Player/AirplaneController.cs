@@ -30,10 +30,10 @@ public class AirplaneController : MonoBehaviour {
     float xMouseDistance;
     float yMouseDistance;
 
-    bool allPartsOperable;              // All three parts are usable.
+    public bool allPartsOperable;       // All three parts are usable.
     public bool engineOperable;         // Engine is usable.
-    bool leftWingOperable;              // Left wing is usable.
-    bool rightWingOperable;             // Right wing is usable.
+    public bool leftWingOperable;       // Left wing is usable.
+    public bool rightWingOperable;      // Right wing is usable.
 
     public bool isFlying;               // DO NOT EDIT. If there's RMB or touch input within the level, allow the player to fly forward.
 
@@ -55,17 +55,12 @@ public class AirplaneController : MonoBehaviour {
     public bool leftRepairCmd;
     public bool rightRepairCmd;
 
-    Quaternion thrustDirection;
-    Quaternion currentDir;
-    Quaternion targetDir;
-    Quaternion targetDirX;
-    Quaternion targetDirY;
-    Quaternion targetDirZ;
-
-    Vector3 thrustVertical;
-    Vector3 thrustLeft;
-    Vector3 thrustRight;
+    public float brokenThrustAmp;               // Used when a Wing part is broken.
+    Vector3 thrustDirection;
     Vector3 thrustNull;
+    Vector3 thrustForward;
+    Vector3 thrustClockwise;
+    Vector3 thrustCounterClockwise;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -83,7 +78,6 @@ public class AirplaneController : MonoBehaviour {
     public Vector3 maxGravity;                  // Used when the player is giving no flight input (freefall).
     public float angularVelocityThreshold;      // Determines how much to decelerate the aircraft if the player is rotating a lot.
 
-    Vector3 thrustForward;
     float pitchDir;                             // Rotates around X-axis.
     float yawDir;                               // Rotates around Y-axis.
     float rollDir;                              // Rotates around Z-axis.
@@ -114,8 +108,13 @@ public class AirplaneController : MonoBehaviour {
         engineRepairCmd = Input.GetKeyDown(KeyCode.S);
         leftRepairCmd = Input.GetKeyDown(KeyCode.A);
         rightRepairCmd = Input.GetKeyDown(KeyCode.D);
-        thrustForward = aircraft.transform.forward;
 
+        thrustNull = new Vector3(0f, 0f, 0f);
+        thrustForward = aircraft.transform.forward;
+        thrustClockwise = aircraft.transform.up + aircraft.transform.right;
+        thrustCounterClockwise = aircraft.transform.up - aircraft.transform.right;
+
+        // Run airplane stuffs.
         TextUI();
         ManageFlight();
 
@@ -134,11 +133,13 @@ public class AirplaneController : MonoBehaviour {
 
     void ManageFlight()
     {
+        thrustDirection = thrustForward;
+
         // Simulate center of mass rotation.
         aircraft.centerOfMass = com.transform.position;
 
         // Change gravity values so the player feels like they have more control when the airplane works fine.
-        if (allPartsOperable)
+        if (engineOperable)
             Physics.gravity = minGravity;
         else
             Physics.gravity = maxGravity;
@@ -170,7 +171,7 @@ public class AirplaneController : MonoBehaviour {
 
     void Fly()
     {
-            aircraft.AddForce(thrustForward * thrustForce);
+            aircraft.AddForce(thrustDirection * thrustForce);
             aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
     }
     
@@ -209,33 +210,48 @@ public class AirplaneController : MonoBehaviour {
             if (rightWingOperable)  UseRightWingDurability(decayRight);
         }
 
-        // Repair durability and health.
+        // Repair durability and health. Regain durability if the player isn't giving input. //
         //Engine
         if (!engineOperable)
         {
             if (engineCurrentDur >= engineMaxDur) engineOperable = true;
             if (engineRepairCmd) RepairEngineDurability(engineRepairAmt);
         }
-        else if (engineOperable && engineCurrentDur < engineMaxDur)
+        else if (!player.lMB && engineOperable && engineCurrentDur < engineMaxDur)
             engineCurrentDur += engineRegenAmt;
+        else
+            thrustDirection = thrustForward;
 
         //Left Wing
-        if (!leftWingOperable)
+        if (!leftWingOperable && rightWingOperable)
         {
+            // Repair
             if (leftCurrentDur >= leftMaxDur) leftWingOperable = true;
             if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
         }
-        else if (leftWingOperable && leftCurrentDur < leftMaxDur)
+        else if (!player.lMB && leftWingOperable && leftCurrentDur < leftMaxDur)
+        {
             leftCurrentDur += leftWingRegenAmt;
+        }
 
         //Right Wing
-        if (!rightWingOperable)
+        if (!rightWingOperable && leftWingOperable)
         {
+            // Repair
             if (rightCurrentDur >= rightMaxDur) rightWingOperable = true;
             if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
         }
-        else if (rightWingOperable && rightCurrentDur < rightMaxDur)
+        else if (!player.lMB && rightWingOperable && rightCurrentDur < rightMaxDur)
+        {
             rightCurrentDur += rightWingRegenAmt;
+        }
+
+        //Both Wings Broken
+        if (!leftWingOperable && !rightWingOperable)
+        {
+            if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
+            if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
+        }
     }
 
     void UseEngineDurability(float decayValue)

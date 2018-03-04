@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     /// Components
     Rigidbody aircraft;
     AirplaneController airplane;
+    CameraController cam;
 
     // FindMousePosition()
     public Vector3 mousePos;
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour {
     {
         aircraft = GetComponent<Rigidbody>();
         airplane = GetComponent<AirplaneController>();
+        cam = FindObjectOfType<CameraController>();
 
         newRotation = transform.rotation;
     }
@@ -67,14 +69,38 @@ public class PlayerController : MonoBehaviour {
 
         fallAngle = Quaternion.Euler(aircraft.velocity.normalized.x + 90, aircraft.velocity.normalized.y, aircraft.velocity.normalized.z);
 
-        if (lMB && airplane.engineOperable)
+        // Used if wings fail
+        if (!airplane.leftWingOperable && airplane.rightWingOperable && airplane.engineOperable)
+        {
+            rollAngle = Quaternion.AngleAxis((rollAmount - 90) * Time.deltaTime, Vector3.forward);
+            newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
+            aircraft.rotation = currentRotation * newRotation;
+            cam.damping = 5f;
+        }
+        else cam.damping = 20f;
+
+        if (!airplane.rightWingOperable && airplane.leftWingOperable && airplane.engineOperable)
+        {
+            rollAngle = Quaternion.AngleAxis((rollAmount + 90) * Time.deltaTime, Vector3.back);
+            newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
+            aircraft.rotation = currentRotation * newRotation;
+            cam.damping = 5f;
+        }
+        else cam.damping = 20f;
+
+        // Used for standard flight, else if engine fails
+        if (lMB && airplane.allPartsOperable)
         {
             SetAirplaneAngle(mousePos.x, mousePos.y);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate);
             aircraft.rotation = currentRotation * newRotation;
+            cam.damping = 20f;
         }
         else if (!airplane.engineOperable)
+        {
             aircraft.rotation = Quaternion.Slerp(aircraft.rotation, fallAngle, Time.deltaTime / 4f);
+            cam.damping = 5f;
+        }
     }
 
     void FindMousePosition()
@@ -123,10 +149,13 @@ public class PlayerController : MonoBehaviour {
         // Adjust plane roll (z-axis; roll clockwise/counterclockwise ie. forward/back quaternion)
         rollAmount = Mathf.Atan2(yDist, xDist) * Mathf.Rad2Deg;
 
-        if (quadrant == 1 || quadrant == 2)
-            rollAngle = Quaternion.AngleAxis((rollAmount - 90) * autoRotationRate, Vector3.forward);
-        if (quadrant == 3 || quadrant == 4)
-            rollAngle = Quaternion.AngleAxis((rollAmount + 90) * autoRotationRate, Vector3.back);
+        if (airplane.leftWingOperable && airplane.rightWingOperable)
+        {
+            if (quadrant == 1 || quadrant == 2)
+                rollAngle = Quaternion.AngleAxis((rollAmount - 90) * autoRotationRate, Vector3.forward);
+            if (quadrant == 3 || quadrant == 4)
+                rollAngle = Quaternion.AngleAxis((rollAmount + 90) * autoRotationRate, Vector3.back);
+        }
 
         // Adjust plane yaw (y-axis; turn left/right ie. up/down quaternion)
         yawAmount = mousePosAbs.x * yawAmp;
