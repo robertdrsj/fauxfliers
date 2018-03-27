@@ -1,0 +1,176 @@
+fileFormatVersion: 2
+guid: c25ea1990c0ade048908739c9bbb9e75
+timeCreated: 1522188174
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: clock01
+    100002: clock02
+    100004: clock03
+    100006: clock04
+    100008: clock05
+    100010: clock06
+    100012: clock07
+    100014: clock08
+    100016: clock09
+    100018: clock10
+    100020: clock11
+    100022: clock12
+    100024: clockFace
+    100026: clockHour
+    100028: clockKnob
+    100030: clockMin
+    100032: pendulum
+    100034: //RootNode
+    400000: clock01
+    400002: clock02
+    400004: clock03
+    400006: clock04
+    400008: clock05
+    400010: clock06
+    400012: clock07
+    400014: clock08
+    400016: clock09
+    400018: clock10
+    400020: clock11
+    400022: clock12
+    400024: clockFace
+    400026: clockHour
+    400028: clockKnob
+    400030: clockMin
+    400032: pendulum
+    400034: //RootNode
+    2100000: phong1
+    2300000: clock01
+    2300002: clock02
+    2300004: clock03
+    2300006: clock04
+    2300008: clock05
+    2300010: clock06
+    2300012: clock07
+    2300014: clock08
+    2300016: clock09
+    2300018: clock10
+    2300020: clock11
+    2300022: clock12
+    2300024: clockFace
+    2300026: clockHour
+    2300028: clockKnob
+    2300030: clockMin
+    2300032: pendulum
+    3300000: clock01
+    3300002: clock02
+    3300004: clock03
+    3300006: clock04
+    3300008: clock05
+    3300010: clock06
+    3300012: clock07
+    3300014: clock08
+    3300016: clock09
+    3300018: clock10
+    3300020: clock11
+    3300022: clock12
+    3300024: clockFace
+    3300026: clockHour
+    3300028: clockKnob
+    3300030: clockMin
+    3300032: pendulum
+    4300000: clock12
+    4300002: clock11
+    4300004: clock10
+    4300006: clock09
+    4300008: clock08
+    4300010: clock07
+    4300012: clock06
+    4300014: clock05
+    4300016: clock04
+    4300018: clock03
+    4300020: clock02
+    4300022: clock01
+    4300024: clockMin
+    4300026: clockHour
+    4300028: clockKnob
+    4300030: clockFace
+    4300032: pendulum
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 500
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
