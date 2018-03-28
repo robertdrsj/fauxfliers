@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340834771805986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 27, z: -22}
+  m_LocalPosition: {x: 0, y: 103, z: 48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458480859662932}
@@ -81,8 +81,8 @@ Camera:
   m_GameObject: {fileID: 1527754627072932}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.08455883, g: 0.25, b: 0.17909664, a: 1}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.8403979, g: 0.86538, b: 0.9852941, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -90,7 +90,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 65
   orthographic: 0
   orthographic size: 5
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offsetPosition: {x: 0, y: 2, z: -22}
+  offsetPosition: {x: 0, y: 3, z: -22}
   offsetPositionSpace: 1
   lookAt: 1
   damping: 20

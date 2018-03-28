@@ -5902,6 +5902,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4038057760921180, guid: 8dcf4d44f10eb1746bddf0df3ba3107e,
     type: 2}
   m_PrefabInternal: {fileID: 1047821848}
+--- !u!1 &430528249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 430528250}
+  m_Layer: 0
+  m_Name: Gate 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430528250
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 430528249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 275, z: 1800}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &436085312
 Prefab:
   m_ObjectHideFlags: 0
@@ -10931,7 +10959,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2b05635de2610eb4e9e4a170f6bb446c, type: 2}
+      objectReference: {fileID: 2100000, guid: 0555c36c98ff42249b6ab19893b85ddb, type: 2}
     - target: {fileID: 4038057760921180, guid: 8dcf4d44f10eb1746bddf0df3ba3107e, type: 2}
       propertyPath: m_LocalScale.x
       value: 1
@@ -13465,31 +13493,6 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 939025070}
-    - target: {fileID: 20202654959892772, guid: 8a1bcd77ece458241b4ab913e6290a8f,
-        type: 2}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 20202654959892772, guid: 8a1bcd77ece458241b4ab913e6290a8f,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0.86538
-      objectReference: {fileID: 0}
-    - target: {fileID: 20202654959892772, guid: 8a1bcd77ece458241b4ab913e6290a8f,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0.9852941
-      objectReference: {fileID: 0}
-    - target: {fileID: 20202654959892772, guid: 8a1bcd77ece458241b4ab913e6290a8f,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0.8403979
-      objectReference: {fileID: 0}
-    - target: {fileID: 114401616372289786, guid: 8a1bcd77ece458241b4ab913e6290a8f,
-        type: 2}
-      propertyPath: offsetPosition.y
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a1bcd77ece458241b4ab913e6290a8f, type: 2}
   m_IsPrefabParent: 0
@@ -24503,6 +24506,16 @@ Prefab:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114608837202717544, guid: 45e0ef62279d7dd4d9703238713feefc,
+        type: 2}
+      propertyPath: enableHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23562267767063182, guid: 45e0ef62279d7dd4d9703238713feefc,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4eb00b71cd4ed6d40ab1fbf536a1128c, type: 2}
     m_RemovedComponents:
     - {fileID: 64607473168484610, guid: 45e0ef62279d7dd4d9703238713feefc, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 45e0ef62279d7dd4d9703238713feefc, type: 2}

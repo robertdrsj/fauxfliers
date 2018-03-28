@@ -94,9 +94,6 @@ public class AirplaneController : MonoBehaviour {
         player = GetComponent<PlayerController>();
         aircraft = GetComponent<Rigidbody>();
 
-        enableHealth = true;
-        enableBreakage = true;
-
         engineOperable = true;
         leftWingOperable = true;
         rightWingOperable = true;
