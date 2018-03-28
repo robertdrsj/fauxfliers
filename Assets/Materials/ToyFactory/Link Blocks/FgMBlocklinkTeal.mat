@@ -76,7 +76,7 @@ Material:
     - _OcclusionStrength: 1
     - _Offset1: 0
     - _Offset2: 0
-    - _Outline: 3
+    - _Outline: 50
     - _Parallax: 0.02
     - _RampSmooth: 0.1
     - _RampThreshold: 0.5
@@ -86,7 +86,7 @@ Material:
     - _SrcBlendOutline: 5
     - _TexLod: 5
     - _UVSec: 0
-    - _ZSmooth: 0.4
+    - _ZSmooth: -0.75
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.23921569, g: 0.5568628, b: 0.5372549, a: 1}

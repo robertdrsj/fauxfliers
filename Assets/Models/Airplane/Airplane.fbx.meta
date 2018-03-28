@@ -163,6 +163,31 @@ ModelImporter:
     4300044: WheelSupportLeft1
     4300046: WheelSupportLeft2
     4300048: WheelCenter
+    6400000: Axle
+    6400002: CenterTop
+    6400004: LeftWingBot
+    6400006: LeftWingTop
+    6400008: MainHull1
+    6400010: Propeller
+    6400012: RightWingBot
+    6400014: RightWingTop
+    6400016: SupportCenterLeft1
+    6400018: SupportCenterLeft2
+    6400020: SupportCenterRight1
+    6400022: SupportCenterRight2
+    6400024: SupportLeft1
+    6400026: SupportLeft2
+    6400028: SupportRight1
+    6400030: SupportRight2
+    6400032: TailLeft
+    6400034: TailRight
+    6400036: WheelCenter
+    6400038: WheelLeft
+    6400040: WheelRight
+    6400042: WheelSupportLeft1
+    6400044: WheelSupportLeft2
+    6400046: WheelSupportRight1
+    6400048: WheelSupportRight2
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -196,7 +221,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
