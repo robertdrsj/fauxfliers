@@ -115,7 +115,7 @@ public class AirplaneController : MonoBehaviour {
         thrustCounterClockwise = aircraft.transform.up - aircraft.transform.right;
 
         // Run airplane stuffs.
-        TextUI();
+        //TextUI();
         ManageFlight();
 
         if (isFlying) Fly();

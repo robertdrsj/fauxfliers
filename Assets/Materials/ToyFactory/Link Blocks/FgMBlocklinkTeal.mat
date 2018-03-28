@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Color2
+  m_Name: FgMBlocklinkTeal
   m_Shader: {fileID: 4800000, guid: 24a666c4cf4f5194ba2cdff51c1dc2f0, type: 3}
-  m_ShaderKeywords: OUTLINE_BLENDING TCP2_RAMPTEXT TCP2_RIMDIR TCP2_ZSMOOTH_ON
+  m_ShaderKeywords: OUTLINE_BLENDING TCP2_RAMPTEXT TCP2_ZSMOOTH_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -78,11 +78,9 @@ Material:
     - _Offset2: 0
     - _Outline: 3
     - _Parallax: 0.02
-    - _RampSmooth: 1
-    - _RampThreshold: 0.416
-    - _Shininess: 0.1
+    - _RampSmooth: 0.1
+    - _RampThreshold: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SpecSmooth: 0.05
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendOutline: 5
@@ -91,9 +89,8 @@ Material:
     - _ZSmooth: 0.4
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.53333336, g: 0.7529412, b: 0.4392157, a: 1}
+    - _Color: {r: 0.23921569, g: 0.5568628, b: 0.5372549, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
-    - _OutlineColor: {r: 0.08129997, g: 0.33823532, b: 0.072123714, a: 1}
-    - _SColor: {r: 0.54426676, g: 0.58823526, b: 0.5406574, a: 1}
-    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _OutlineColor: {r: 0.05622837, g: 0.47794116, b: 0.4604909, a: 1}
+    - _SColor: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
