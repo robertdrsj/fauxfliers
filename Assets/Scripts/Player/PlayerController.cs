@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour {
     /// Mouse Controls
     public bool lMB;                    // Flag if player presses left mouse button.
     public bool rMB;                    // Flag if player presses right mouse button.
+
+    public GameObject dashboard;
+    public bool mouseOverDashboard;     // Flag if mouse cursor is hovering over the dashboard UI.
+
     /// Components
     Rigidbody aircraft;
     AirplaneController airplane;
@@ -107,13 +111,6 @@ public class PlayerController : MonoBehaviour {
     {
         // Find Mouse Position by moving the screen origin from bottom left to the center,
         // Then get the mouse position's distance coordinates away from the origin.
-        
-        /*
-        originPos = Camera.main.ScreenToViewportPoint(new Vector3(
-            (Camera.main.scaledPixelWidth / 2f),
-            (Camera.main.scaledPixelHeight / 3f),
-            Camera.main.nearClipPlane));
-        */
 
         mousePos = Camera.main.ScreenToViewportPoint(new Vector3(
             (Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),

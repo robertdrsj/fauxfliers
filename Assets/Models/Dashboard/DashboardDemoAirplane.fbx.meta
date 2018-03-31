@@ -271,6 +271,43 @@ ModelImporter:
     4300068: pulleyLeft2
     4300070: pulleyLeft1
     4300072: crankInnerLeft4
+    6400000: crankInnerLeft4
+    6400002: crankInnerRight4
+    6400004: dashboardBody
+    6400006: engine
+    6400008: engineBit1
+    6400010: engineBit2
+    6400012: engineBit3
+    6400014: engineBit4
+    6400016: engineBit5
+    6400018: engineCyl1
+    6400020: engineCyl2
+    6400022: engineCyl3
+    6400024: engineCyl4
+    6400026: engineCyl5
+    6400028: engineCyl6
+    6400030: engineGauge2
+    6400032: engineGaugePointer1
+    6400034: healthGauge
+    6400036: healthGaugePointer2
+    6400038: leftGauge2
+    6400040: leftGaugePointer1
+    6400042: pulleyLeft1
+    6400044: pulleyLeft2
+    6400046: pulleyRight1
+    6400048: pulleyRight2
+    6400050: pulleyRope1
+    6400052: pulleyRope1 1
+    6400054: rightGauge2
+    6400056: rightGaugePointer1
+    6400058: roundButton
+    6400060: roundButtonBase
+    6400062: squareButton
+    6400064: squareButtonBase
+    6400066: switchBox
+    6400068: switchHandle2
+    6400070: tempGauge
+    6400072: tempGaugePointer2
     9500000: //RootNode
   externalObjects: {}
   materials:

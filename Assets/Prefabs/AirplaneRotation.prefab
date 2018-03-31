@@ -2335,6 +2335,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lMB: 0
   rMB: 0
+  dashboard: {fileID: 0}
+  mouseOverDashboard: 0
   mousePos: {x: 0, y: 0, z: 0}
   rotationDamping: 20
   turningRate: 2.5
@@ -2385,8 +2387,8 @@ MonoBehaviour:
   rightRepairCmd: 0
   brokenThrustAmp: 10
   thrustForce: 300
-  maxVelocity: 200
-  maxDrag: 2
+  maxVelocity: 300
+  maxDrag: 1.2
   minDrag: 1
   noDrag: 0.4
   com: {fileID: 1050761543521972}
