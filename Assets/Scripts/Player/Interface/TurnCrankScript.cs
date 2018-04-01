@@ -10,9 +10,10 @@ public class TurnCrankScript : MonoBehaviour {
 
     // Setup
     public bool isLeftCrank;
-    bool leftCrankInteractable;
+    public bool leftCrankInteractable;
     public bool isRightCrank;
     public bool rightCrankInteractable;
+    public bool crankInteractable;
 
     [SerializeField]
     Vector3 crankPos;
@@ -57,6 +58,7 @@ public class TurnCrankScript : MonoBehaviour {
         //LeftCheck();
         //RightCheck();
         FindMousePosition();
+        InteractionFlag();
 
         // Left Crank
         if (isLeftCrank && leftCrankInteractable)
@@ -128,6 +130,14 @@ public class TurnCrankScript : MonoBehaviour {
         }
     }
     
+    void InteractionFlag()
+    {
+        if ((isLeftCrank && !leftCrankInteractable) || (isRightCrank && !rightCrankInteractable))
+            crankInteractable = false;
+        else
+            crankInteractable = true;
+    }
+
     // Randomly sets the degree amount for the player to rotate the crank before it's fixed.
     void SetRandomGoal()
     {

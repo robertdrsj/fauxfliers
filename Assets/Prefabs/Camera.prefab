@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4187014361207214}
   - component: {fileID: 33371189400034516}
   - component: {fileID: 23018148605678724}
+  - component: {fileID: 114843105821896012}
   m_Layer: 0
   m_Name: engineGaugePointer1
   m_TagString: Untagged
@@ -529,6 +530,7 @@ GameObject:
   - component: {fileID: 4634176808025510}
   - component: {fileID: 33938228033503776}
   - component: {fileID: 23515496420526470}
+  - component: {fileID: 114379634757384654}
   m_Layer: 0
   m_Name: rightGaugePointer1
   m_TagString: Untagged
@@ -609,6 +611,7 @@ GameObject:
   - component: {fileID: 4643851020709948}
   - component: {fileID: 33158281449551828}
   - component: {fileID: 23982939296817276}
+  - component: {fileID: 114958739339288052}
   m_Layer: 0
   m_Name: tempGaugePointer2
   m_TagString: Untagged
@@ -775,6 +778,7 @@ GameObject:
   - component: {fileID: 4630320717462330}
   - component: {fileID: 33046559357703350}
   - component: {fileID: 23403469176954704}
+  - component: {fileID: 114546406881594124}
   m_Layer: 0
   m_Name: healthGaugePointer2
   m_TagString: Untagged
@@ -1205,6 +1209,7 @@ GameObject:
   - component: {fileID: 4603112958037768}
   - component: {fileID: 33837056095477612}
   - component: {fileID: 23336614042234876}
+  - component: {fileID: 114839200113865894}
   m_Layer: 0
   m_Name: leftGaugePointer1
   m_TagString: Untagged
@@ -1583,8 +1588,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025835589027568}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0652935, y: -0.066035844, z: 0.007360815}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4237603223596472}
@@ -2070,7 +2075,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1926331887311454}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06556339, y: -0.06106187, z: -0.007870088}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4271075344245442}
@@ -2110,8 +2115,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1543015718916884}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03114463, y: -0.023113307, z: 0.004584856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4223174632967990}
@@ -2138,7 +2143,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1421695011531340}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07453853, y: -0.063724205, z: -0.0046129683}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4411749119153118}
@@ -2150,8 +2155,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1493841396871374}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03114463, y: -0.023113307, z: 0.004584856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4146345267215760}
@@ -4026,8 +4031,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeftCrank: 0
+  leftCrankInteractable: 0
   isRightCrank: 1
   rightCrankInteractable: 0
+  crankInteractable: 0
   crankPos: {x: 0, y: 0, z: 0}
   mousePos: {x: 0, y: 0, z: 0}
   crankToMouseDis: 0
@@ -4039,6 +4046,26 @@ MonoBehaviour:
   rotationGoalCurrent: 0
   rotateZ: 0
   zDegreesPerSecond: 1080
+--- !u!114 &114379634757384654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1421695011531340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputObject: {fileID: 1667181701167842}
+  isEngine: 0
+  isLeftWing: 0
+  isRightWing: 1
+  isHealth: 0
+  isTemp: 0
+  minGaugeDegree: 0
+  maxGaugeDegree: 270
+  curGaugeDegree: 0
 --- !u!114 &114401616372289786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4055,6 +4082,26 @@ MonoBehaviour:
   offsetPositionSpace: 1
   lookAt: 1
   damping: 20
+--- !u!114 &114546406881594124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1543015718916884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputObject: {fileID: 0}
+  isEngine: 0
+  isLeftWing: 0
+  isRightWing: 0
+  isHealth: 1
+  isTemp: 0
+  minGaugeDegree: 0
+  maxGaugeDegree: 180
+  curGaugeDegree: 0
 --- !u!114 &114812543443146566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4080,8 +4127,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeftCrank: 1
+  leftCrankInteractable: 0
   isRightCrank: 0
   rightCrankInteractable: 0
+  crankInteractable: 0
   crankPos: {x: 0, y: 0, z: 0}
   mousePos: {x: 0, y: 0, z: 0}
   crankToMouseDis: 0
@@ -4093,6 +4142,66 @@ MonoBehaviour:
   rotationGoalCurrent: 0
   rotateZ: 0
   zDegreesPerSecond: -1080
+--- !u!114 &114839200113865894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926331887311454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputObject: {fileID: 1201565481005230}
+  isEngine: 0
+  isLeftWing: 1
+  isRightWing: 0
+  isHealth: 0
+  isTemp: 0
+  minGaugeDegree: 0
+  maxGaugeDegree: 270
+  curGaugeDegree: 0
+--- !u!114 &114843105821896012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1025835589027568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputObject: {fileID: 1359543341731558}
+  isEngine: 1
+  isLeftWing: 0
+  isRightWing: 0
+  isHealth: 0
+  isTemp: 0
+  minGaugeDegree: 0
+  maxGaugeDegree: 270
+  curGaugeDegree: 0
+--- !u!114 &114958739339288052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493841396871374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputObject: {fileID: 0}
+  isEngine: 0
+  isLeftWing: 0
+  isRightWing: 0
+  isHealth: 0
+  isTemp: 1
+  minGaugeDegree: 0
+  maxGaugeDegree: 180
+  curGaugeDegree: 0
 --- !u!124 &124979930555223098
 Behaviour:
   m_ObjectHideFlags: 1
