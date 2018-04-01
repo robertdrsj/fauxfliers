@@ -115,7 +115,7 @@ public class AirplaneController : MonoBehaviour {
         //TextUI();
         ManageFlight();
 
-        if (isFlying) Fly();
+        if (isFlying && !player.doNotInput) Fly();
         if (enableHealth) ManageHealth();
         if (enableBreakage) ManageDurability(xMouseDistance, yMouseDistance);
     }

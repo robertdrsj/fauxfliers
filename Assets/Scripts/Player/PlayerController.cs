@@ -7,11 +7,12 @@ public class PlayerController : MonoBehaviour {
 
     // INITIALIZE
     /// Mouse Controls
-    public bool lMB;                    // Flag if player presses left mouse button.
-    public bool rMB;                    // Flag if player presses right mouse button.
+    public bool lMB;                    // Do not edit. Flag if player presses left mouse button.
+    public bool rMB;                    // Do not edit. Flag if player presses right mouse button.
 
     public GameObject dashboard;
-    public bool mouseOverDashboard;     // Flag if mouse cursor is hovering over the dashboard UI.
+    public bool mouseOverDashboard;     // Do not edit. Flag if mouse cursor is hovering over the dashboard UI.
+    public bool doNotInput;             // Do not edit. Flag if the player clicks on the dashboard, so they don't keep steering when using the dashboard.
 
     /// Components
     Rigidbody aircraft;
@@ -73,8 +74,18 @@ public class PlayerController : MonoBehaviour {
 
         fallAngle = Quaternion.Euler(aircraft.velocity.normalized.x + 90, aircraft.velocity.normalized.y, aircraft.velocity.normalized.z);
 
+        // If the player clicked on the dashboard and not the scene, don't generate flying input.
+        if (Input.GetMouseButtonDown(0) && mouseOverDashboard)
+            doNotInput = true;
+        else if (lMB && doNotInput)
+            doNotInput = true;
+        else if (Input.GetMouseButtonUp(0))
+            doNotInput = false;
+        else
+            doNotInput = false;
+
         // Used if wings fail
-        if (!airplane.leftWingOperable && airplane.rightWingOperable && airplane.engineOperable)
+        if (!airplane.leftWingOperable && airplane.rightWingOperable && airplane.engineOperable && !doNotInput)
         {
             rollAngle = Quaternion.AngleAxis((rollAmount - 90) * Time.deltaTime, Vector3.forward);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
@@ -83,7 +94,7 @@ public class PlayerController : MonoBehaviour {
         }
         else cam.damping = 20f;
 
-        if (!airplane.rightWingOperable && airplane.leftWingOperable && airplane.engineOperable)
+        if (!airplane.rightWingOperable && airplane.leftWingOperable && airplane.engineOperable && !doNotInput)
         {
             rollAngle = Quaternion.AngleAxis((rollAmount + 90) * Time.deltaTime, Vector3.back);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
@@ -93,7 +104,7 @@ public class PlayerController : MonoBehaviour {
         else cam.damping = 20f;
 
         // Used for standard flight, else if engine fails
-        if (lMB && airplane.allPartsOperable)
+        if (lMB && airplane.allPartsOperable && !doNotInput)
         {
             SetAirplaneAngle(mousePos.x, mousePos.y);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate);

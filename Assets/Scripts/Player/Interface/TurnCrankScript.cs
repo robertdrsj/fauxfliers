@@ -62,7 +62,7 @@ public class TurnCrankScript : MonoBehaviour {
         {
             lastRot = transform.localRotation;                                      // Used for ClockwiseCheck().
 
-            if (player.lMB)
+            if (player.lMB && player.doNotInput)
             {
                 ManageRightRotation();
             }
@@ -121,12 +121,15 @@ public class TurnCrankScript : MonoBehaviour {
     }
 
     // Reduces the amount of turning necessary to fully repair the airplane part.
-    void DeductFromGoal()
+    void DeductFromRightGoal()
     {
+        // Deducts from the current rotation goal, whether its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
         if (Mathf.Sign(rotationDiff) == 1)
             rotationGoalCurrent -= rotationDiff;
         if (Mathf.Sign(rotationDiff) == -1)
             rotationGoalCurrent -= -rotationDiff;
+
+        // Reset deduction so that when the player is no longer turning the crank, the current rotation goal won't continue to be deducted.
         rotationDiff = 0f;
 
         if (rotationGoalCurrent <= 0f)
@@ -180,7 +183,7 @@ public class TurnCrankScript : MonoBehaviour {
         {
             rotateZ = false;
             transform.localRotation = Quaternion.Euler(0f, 0f, -crankToMouseRot);
-            DeductFromGoal();
+            DeductFromRightGoal();
         }
         else
         {

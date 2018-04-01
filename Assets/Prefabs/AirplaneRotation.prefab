@@ -2337,6 +2337,7 @@ MonoBehaviour:
   rMB: 0
   dashboard: {fileID: 0}
   mouseOverDashboard: 0
+  doNotInput: 0
   mousePos: {x: 0, y: 0, z: 0}
   rotationDamping: 20
   turningRate: 2.5
