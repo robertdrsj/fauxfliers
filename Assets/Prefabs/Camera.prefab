@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 4479817450693340}
   - component: {fileID: 33999769024385808}
   - component: {fileID: 23431108946221140}
+  - component: {fileID: 114838235117711420}
   m_Layer: 0
   m_Name: crankInnerLeft4
   m_TagString: Untagged
@@ -2082,7 +2083,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340834771805986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 100, z: 38}
+  m_LocalPosition: {x: 0, y: 95, z: 38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458480859662932}
@@ -4037,7 +4038,7 @@ MonoBehaviour:
   rotationGoalAmount: 0
   rotationGoalCurrent: 0
   rotateZ: 0
-  zDegreesPerSecond: 2160
+  zDegreesPerSecond: 1080
 --- !u!114 &114401616372289786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4050,7 +4051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offsetPosition: {x: 0, y: 0, z: -32}
+  offsetPosition: {x: 0, y: -5, z: -32}
   offsetPositionSpace: 1
   lookAt: 1
   damping: 20
@@ -4067,6 +4068,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultPosInfluence: {x: 0.15, y: 0.15, z: 0.15}
   DefaultRotInfluence: {x: 1, y: 1, z: 1}
+--- !u!114 &114838235117711420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1201565481005230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3ee4adb7b617747871718c7c5185f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeftCrank: 1
+  isRightCrank: 0
+  rightCrankInteractable: 0
+  crankPos: {x: 0, y: 0, z: 0}
+  mousePos: {x: 0, y: 0, z: 0}
+  crankToMouseDis: 0
+  distanceLimit: 30
+  rotationDiff: 0
+  minRandomRotation: 5
+  maxRandomRotation: 10
+  rotationGoalAmount: 0
+  rotationGoalCurrent: 0
+  rotateZ: 0
+  zDegreesPerSecond: -1080
 --- !u!124 &124979930555223098
 Behaviour:
   m_ObjectHideFlags: 1

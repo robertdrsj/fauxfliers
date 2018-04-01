@@ -18,5 +18,6 @@ public class MouseHover : MonoBehaviour {
     private void OnMouseExit()
     {
         player.mouseOverDashboard = false;
+        player.mouseExitDashboard = true;
     }
 }

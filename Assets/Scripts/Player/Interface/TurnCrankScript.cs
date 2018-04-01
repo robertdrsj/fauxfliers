@@ -58,14 +58,31 @@ public class TurnCrankScript : MonoBehaviour {
         //RightCheck();
         FindMousePosition();
 
-        if (rightCrankInteractable)
+        // Left Crank
+        if (isLeftCrank && leftCrankInteractable)
         {
             lastRot = transform.localRotation;                                      // Used for ClockwiseCheck().
 
             if (player.lMB && player.doNotInput)
+                ManageLeftRotation();
+            else
             {
-                ManageRightRotation();
+                rotateZ = true;
+                AutoRotate(zDegreesPerSecond);
             }
+
+            currentRot = transform.localRotation;                                   // Used for ClockwiseCheck().
+            //ClockwiseCheck();
+            rotationDiff = Mathf.Abs(currentRot.z) - Mathf.Abs(lastRot.z);          // Used for DeductFromGoal().
+        }
+
+        // Right Crank
+        if (isRightCrank && rightCrankInteractable)
+        {
+            lastRot = transform.localRotation;                                      // Used for ClockwiseCheck().
+
+            if (player.lMB && player.doNotInput)
+                ManageRightRotation();
             else
             {
                 rotateZ = true;
@@ -78,7 +95,7 @@ public class TurnCrankScript : MonoBehaviour {
         }
     }
 
-    // Checks if left wing is broken and can be interacted with.
+    // Checks if wing is broken and can be interacted with.
     void LeftCheck()
     {
         if (isLeftCrank)
@@ -95,7 +112,6 @@ public class TurnCrankScript : MonoBehaviour {
         }
     }
 
-    // Checks if right wing is broken and can be interacted with.
     void RightCheck()
     {
         if (isRightCrank)
@@ -121,6 +137,24 @@ public class TurnCrankScript : MonoBehaviour {
     }
 
     // Reduces the amount of turning necessary to fully repair the airplane part.
+    void DeductFromLeftGoal()
+    {
+        // Deducts from the current rotation goal, whether its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
+        if (Mathf.Sign(rotationDiff) == 1)
+            rotationGoalCurrent -= rotationDiff;
+        if (Mathf.Sign(rotationDiff) == -1)
+            rotationGoalCurrent -= -rotationDiff;
+
+        // Reset deduction so that when the player is no longer turning the crank, the current rotation goal won't continue to be deducted.
+        rotationDiff = 0f;
+
+        if (rotationGoalCurrent <= 0f)
+        {
+            leftCrankInteractable = false;
+            SetRandomGoal();
+        }
+    }
+
     void DeductFromRightGoal()
     {
         // Deducts from the current rotation goal, whether its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
@@ -147,7 +181,10 @@ public class TurnCrankScript : MonoBehaviour {
 
         // The viewport's X is stretched a little further which skews the radius, so it's been buffed up a bit.
         crankToMouseDis = Mathf.Sqrt((Mathf.Pow((crankPos.x - mousePos.x), 2) * 3f) + Mathf.Pow((crankPos.y - mousePos.y), 2)) * 100f;
-        crankToMouseRot = (Mathf.Atan2(crankPos.y - mousePos.y, crankPos.x - mousePos.x) * Mathf.Rad2Deg) + 60f;
+        if (isLeftCrank)
+            crankToMouseRot = (Mathf.Atan2(crankPos.y - mousePos.y, crankPos.x - mousePos.x) * Mathf.Rad2Deg) + 1200f;
+        if (isRightCrank)
+            crankToMouseRot = (Mathf.Atan2(crankPos.y - mousePos.y, crankPos.x - mousePos.x) * Mathf.Rad2Deg) + 60f;
     }
 
     // ** Does not work right. Likely due to the z-rotation switching from positive to negative (and vice versa) at a random spot.
@@ -177,6 +214,21 @@ public class TurnCrankScript : MonoBehaviour {
     }
 
     // Keeps track of how far the player has turned the crank.
+    void ManageLeftRotation()
+    {
+        if (crankToMouseDis <= distanceLimit)
+        {
+            rotateZ = false;
+            transform.localRotation = Quaternion.Euler(0f, 0f, crankToMouseRot);
+            DeductFromLeftGoal();
+        }
+        else
+        {
+            rotateZ = true;
+            AutoRotate(zDegreesPerSecond);
+        }
+    }
+
     void ManageRightRotation()
     {
         if (crankToMouseDis <= distanceLimit)
