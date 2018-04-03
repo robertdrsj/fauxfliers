@@ -12,13 +12,14 @@ public class SmashEngineScript : MonoBehaviour {
 
     // Operation
     public bool isWorking;                  // Flag if the engine is working fine.
+
+    public float minDurability;             // Sets the min amount of durability.
+    public float maxDurability;             // Sets the max amount of durability.
+    public float curDurability;             // DO NOT EDIT. Indicates how much durability the engine has.
+
     public float decayAmount;               // How much the durability decays while flying.
     public float regenAmount;               // How much the durability recovers when not providing input.
-    public float repairAmount;              // How much the durability is repaired when smashed once.
-
-    float minDurability;
-    float maxDurability;
-    float curDurability;
+    public float repairAmount;                     // How much the durability is repaired when smashed once. Value is set in the UI Button.
 
     public float tempBuffer;                // Can either lessen or worsen the effects of temperature. Initially set at a value of 1.
     public float gaugeRotation;             // Used to determine the gauge's rotation.
@@ -68,6 +69,7 @@ public class SmashEngineScript : MonoBehaviour {
     // Manages engine durability while flying, including Use/Regen/Repair.
     void ManageDurability()
     {
+        // Determines whether the airplane uses or regenerates durability.
         if (isWorking)
         {
             if (airplane.isFlying)

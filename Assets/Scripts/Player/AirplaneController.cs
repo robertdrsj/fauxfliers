@@ -17,8 +17,6 @@ public class AirplaneController : MonoBehaviour {
     public float currentTemp;
 
     public GameObject engine;
-    public float engineMaxDur;          // Engine Durability indicates whether the engine is broken or not.
-    public float engineCurrentDur;      // If at 0, the engine must be smashed a few times to repair durability back to full.
 
     public GameObject leftWing;
     public float leftMaxDur;            // Left Wing Durability indicates whether the wing is broken or not.

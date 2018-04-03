@@ -3983,7 +3983,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.65, y: 0.6, z: 2.4}
+  m_Size: {x: 1.65, y: 0.75, z: 2.4}
   m_Center: {x: 0, y: 0, z: 0.46}
 --- !u!81 &81911129418292832
 AudioListener:
@@ -4031,7 +4031,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa734b15d488554b8c6b41d4376344a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWorking: 0
+  minDurability: 0
+  maxDurability: 100
+  curDurability: 0
+  decayAmount: 3
+  regenAmount: 3
+  repairAmount: 20
+  tempBuffer: 1
+  gaugeRotation: 0
   engineButton: {fileID: 0}
+  engineInteractable: 0
   minSmashFreq: 3
   maxSmashFreq: 7
   smashGoalAmount: 0
@@ -4105,7 +4115,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1543015718916884}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
   m_Name: 
@@ -4205,7 +4215,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1493841396871374}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
   m_Name: 
