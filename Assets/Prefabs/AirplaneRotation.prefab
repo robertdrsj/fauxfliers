@@ -2337,6 +2337,7 @@ MonoBehaviour:
   rMB: 0
   dashboard: {fileID: 0}
   mouseOverDashboard: 0
+  mouseExitDashboard: 0
   doNotInput: 0
   mousePos: {x: 0, y: 0, z: 0}
   rotationDamping: 20
@@ -2355,18 +2356,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
-  maxHealth: 80
-  currentHealth: 90
-  engineDurText: {fileID: 0}
+  maxHealth: 100
+  currentHealth: 100
+  maxTemp: 100
+  currentTemp: 0
   engineMaxDur: 100
   engineCurrentDur: 100
-  leftDurText: {fileID: 0}
-  leftMaxDur: 20
-  leftCurrentDur: 20
-  rightDurText: {fileID: 0}
-  rightMaxDur: 20
-  rightCurrentDur: 20
+  leftMaxDur: 100
+  leftCurrentDur: 100
+  rightMaxDur: 100
+  rightCurrentDur: 100
   enableHealth: 0
   enableBreakage: 0
   allPartsOperable: 0

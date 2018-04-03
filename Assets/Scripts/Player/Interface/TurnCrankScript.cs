@@ -149,7 +149,7 @@ public class TurnCrankScript : MonoBehaviour {
     // Reduces the amount of turning necessary to fully repair the airplane part.
     void DeductFromLeftGoal()
     {
-        // Deducts from the current rotation goal, whether its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
+        // Deducts from the current rotation goal, even if its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
         if (Mathf.Sign(rotationDiff) == 1)
             rotationGoalCurrent -= rotationDiff;
         if (Mathf.Sign(rotationDiff) == -1)

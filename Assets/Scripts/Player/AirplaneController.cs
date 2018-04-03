@@ -1,31 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using EZCameraShake;
 
 public class AirplaneController : MonoBehaviour {
 
     // BREAKAGE
     // PUBLIC Variables
-    public Text healthText;
-    public float maxHealth;
+    public float maxHealth;             // Health indicates overall airplane status. If HP is at 0, the whole airplane is destroyed.
     public float currentHealth;
 
-    public Text engineDurText;
-    public float engineMaxDur;
-    public float engineCurrentDur;
+    public float maxTemp;               // Temperature indicates durability degeneration rate. The higher the Temp, the faster the durability degenerates.
+    public float currentTemp;
 
-    public Text leftDurText;
-    public float leftMaxDur;
-    public float leftCurrentDur;
+    public GameObject engine;
+    public float engineMaxDur;          // Engine Durability indicates whether the engine is broken or not.
+    public float engineCurrentDur;      // If at 0, the engine must be smashed a few times to repair durability back to full.
 
-    public Text rightDurText;
-    public float rightMaxDur;
+    public GameObject leftWing;
+    public float leftMaxDur;            // Left Wing Durability indicates whether the wing is broken or not.
+    public float leftCurrentDur;        // If at 0, the left crank must be rotated a few cycles to repair durability back to full.
+
+    public GameObject rightWing;
+    public float rightMaxDur;           // ^ Same setup as Left Wing.
     public float rightCurrentDur;
 
     // DURABILITY MANAGEMENT
     public bool enableHealth;
+    public bool enableTemp;
     public bool enableBreakage;
     float xMouseDistance;
     float yMouseDistance;
@@ -120,14 +122,6 @@ public class AirplaneController : MonoBehaviour {
         if (enableBreakage) ManageDurability(xMouseDistance, yMouseDistance);
     }
 
-    void TextUI()
-    {
-        healthText.text = "Health: " + currentHealth;
-        engineDurText.text = "Engine Durability: " + engineCurrentDur;
-        leftDurText.text = "Left Wing Durability: " + leftCurrentDur;
-        rightDurText.text = "Right Wing Durability: " + rightCurrentDur;
-    }
-
     void ManageFlight()
     {
         thrustDirection = thrustForward;
@@ -212,7 +206,7 @@ public class AirplaneController : MonoBehaviour {
         if (!engineOperable)
         {
             if (engineCurrentDur >= engineMaxDur) engineOperable = true;
-            if (engineRepairCmd) RepairEngineDurability(engineRepairAmt);
+            //if (engineRepairCmd) RepairEngineDurability(engineRepairAmt);
         }
         else if (!player.lMB && engineOperable && engineCurrentDur < engineMaxDur)
             engineCurrentDur += engineRegenAmt;
@@ -296,7 +290,7 @@ public class AirplaneController : MonoBehaviour {
         }
     }
 
-    void RepairEngineDurability(float repairValue)
+    public void RepairEngineDurability(float repairValue)
     {
         CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
 

@@ -7,7 +7,8 @@ public class GaugeScript : MonoBehaviour {
     // Setup
     PlayerController player;
     AirplaneController airplane;
-    TurnCrankScript turnCrank;
+    TurnCrankScript crank;
+    SmashEngineScript engine;
 
     public GameObject inputObject;              // The object/controller that'll help manipulate the gauge.
 
@@ -34,18 +35,21 @@ public class GaugeScript : MonoBehaviour {
         airplane = FindObjectOfType<AirplaneController>();
 
         if (isLeftWing || isRightWing)
-            turnCrank = inputObject.GetComponent<TurnCrankScript>();
+            crank = inputObject.GetComponent<TurnCrankScript>();
         else
-            turnCrank = null;
-        /*
+            crank = null;
+        
         if (isEngine)
-            tapEngine = inputObject.GetComponent<TapEngineScript>();
-        */
+            engine = inputObject.GetComponent<SmashEngineScript>();
+        
     }
 	
 	void FixedUpdate()
     {
-        CalculateGaugeRotation(turnCrank.rotationGoalCurrent);
+        if (isLeftWing || isRightWing)
+            CalculateGaugeRotation(crank.rotationGoalCurrent);
+        if (isEngine)
+            CalculateGaugeRotation(engine.smashGoalCurrent);
 	}
 
     void FindVehiclePart()
@@ -80,9 +84,9 @@ public class GaugeScript : MonoBehaviour {
 
         if (isTemp)
         {
-            //minValue = 0f;
-            //maxValue = airplane.maxTemp;
-            //curValue = airplane.currentTemp;
+            minValue = 0f;
+            maxValue = airplane.maxTemp;
+            curValue = airplane.currentTemp;
         }
     }
 
@@ -90,11 +94,12 @@ public class GaugeScript : MonoBehaviour {
     {
         transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, curGaugeDegree));
 
+        // Wing Gauge
         if (isLeftWing || isRightWing)
         {
-            if (turnCrank.crankInteractable)
+            if (crank.crankInteractable)
             {
-                curValue = rotGoalCurrent / turnCrank.rotationGoalAmount;
+                curValue = rotGoalCurrent / crank.rotationGoalAmount;
                 curGaugeDegree = curValue * maxGaugeDegree;
             }
             else
@@ -102,7 +107,21 @@ public class GaugeScript : MonoBehaviour {
                 FindVehiclePart();
                 curGaugeDegree = curValue / maxValue;
             }
+        }
 
+        // Engine Gauge
+        if (isEngine)
+        {
+            if (engine.engineInteractable)
+            {
+                curValue = rotGoalCurrent / engine.smashGoalAmount;
+                curGaugeDegree = curValue * maxGaugeDegree;
+            }
+            else
+            {
+                FindVehiclePart();
+                curGaugeDegree = curValue / maxValue;
+            }
         }
     }
 }
