@@ -5,8 +5,11 @@ using EZCameraShake;
 
 public class AirplaneController : MonoBehaviour {
 
-    // BREAKAGE
-    // PUBLIC Variables
+    // Initialize
+    PlayerController player;
+    Rigidbody aircraft;
+
+    // Setup
     public float maxHealth;             // Health indicates overall airplane status. If HP is at 0, the whole airplane is destroyed.
     public float currentHealth;
 
@@ -25,10 +28,11 @@ public class AirplaneController : MonoBehaviour {
     public float rightMaxDur;           // ^ Same setup as Left Wing.
     public float rightCurrentDur;
 
-    // DURABILITY MANAGEMENT
-    public bool enableHealth;
-    public bool enableTemp;
-    public bool enableBreakage;
+    public bool enableHealth;           // Enable/disable health.
+    public bool enableTemp;             // Enable/disable temperature.
+    public bool enableBreakage;         // Enable/disable breakage.
+
+    // Flight Management
     float xMouseDistance;
     float yMouseDistance;
 
@@ -41,21 +45,14 @@ public class AirplaneController : MonoBehaviour {
 
     public float decayAllAmp;           // Set how much all parts should decay per second.
     public float decayWingAmp;          // Set how much the wings should decay.
-    public float decayEngine;           // Set how much the engine should decay.
     float decayLeft;
     float decayRight;
 
-    public float engineRegenAmt;
     public float leftWingRegenAmt;
     public float rightWingRegenAmt;
 
-    public float engineRepairAmt;
     public float leftWingRepairAmt;
     public float rightWingRepairAmt;
-
-    public bool engineRepairCmd;
-    public bool leftRepairCmd;
-    public bool rightRepairCmd;
 
     public float brokenThrustAmp;               // Used when a Wing part is broken.
     Vector3 thrustDirection;
@@ -84,10 +81,6 @@ public class AirplaneController : MonoBehaviour {
     float yawDir;                               // Rotates around Y-axis.
     float rollDir;                              // Rotates around Z-axis.
 
-    // INITIALIZE
-    PlayerController player;
-    Rigidbody aircraft;
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,28 +97,39 @@ public class AirplaneController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        engineRepairCmd = Input.GetKeyDown(KeyCode.S);
-        leftRepairCmd = Input.GetKeyDown(KeyCode.A);
-        rightRepairCmd = Input.GetKeyDown(KeyCode.D);
+        OperationCheck();
+        ManageThrust();
+        ManageFlight();
 
+        if (enableHealth) ManageHealth();
+        if (enableBreakage) ManageDurability(xMouseDistance, yMouseDistance);
+        if (isFlying && !player.doNotInput) Fly();
+    }
+
+    // Checks the status of all interactive airplane parts.
+    void OperationCheck()
+    {
+        if (!engineOperable || !leftWingOperable || !rightWingOperable)
+            allPartsOperable = false;
+        else
+            allPartsOperable = true;
+    }
+
+    // Sets the various modes of thrust for when a part stops functioning.
+    void ManageThrust()
+    {
         thrustNull = new Vector3(0f, 0f, 0f);
         thrustForward = aircraft.transform.forward;
         thrustClockwise = aircraft.transform.up + aircraft.transform.right;
         thrustCounterClockwise = aircraft.transform.up - aircraft.transform.right;
 
-        // Run airplane stuffs.
-        //TextUI();
-        ManageFlight();
-
-        if (isFlying && !player.doNotInput) Fly();
-        if (enableHealth) ManageHealth();
-        if (enableBreakage) ManageDurability(xMouseDistance, yMouseDistance);
+        if (allPartsOperable)
+            thrustDirection = thrustForward;
     }
 
+    // Sets center of mass, gravity, drag, isFlying flag, and gets player.mousePos data.
     void ManageFlight()
     {
-        thrustDirection = thrustForward;
-
         // Simulate center of mass rotation.
         aircraft.centerOfMass = com.transform.position;
 
@@ -134,7 +138,7 @@ public class AirplaneController : MonoBehaviour {
             Physics.gravity = minGravity;
         else
             Physics.gravity = maxGravity;
-
+        
         // Allows flight.
         if (allPartsOperable)
         {
@@ -160,25 +164,31 @@ public class AirplaneController : MonoBehaviour {
         yMouseDistance = player.mousePos.y;
     }
 
+    // Allows the plane to fly in the appropriate direction with an indicated force. ***REMOVE VELOCITY EDITS AND EDIT FOR BREAKAGE***
     void Fly()
     {
+        if (engineOperable)
+        {
             aircraft.AddForce(thrustDirection * thrustForce);
             aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
+        }
     }
     
+    // Manages HP changes based on part repair and obstacle collisions. ***FILL THIS LATER***
     void ManageHealth()
     {
 
     }
 
+    // Manages Temperature changes based on how long the airplane's been flying. ***FILL THIS LATER***
+    void ManageTemp()
+    {
+
+    }
+
+    // ***GUT ALL OF THIS OUT AND INTO THEIR PROPER SCRIPTS***
     void ManageDurability(float xDist, float yDist)
     {
-        // Parts operation check.
-        if (!engineOperable || !leftWingOperable || !rightWingOperable)
-            allPartsOperable = false;
-        else
-            allPartsOperable = true;
-
         // Set decay values (engineDecay is publicly set).
         if (isFlying)
         {
@@ -196,29 +206,16 @@ public class AirplaneController : MonoBehaviour {
         // Uses durability based on vigor of flight.
         if (isFlying)
         {
-            if (engineOperable)     UseEngineDurability(decayEngine);
             if (leftWingOperable)   UseLeftWingDurability(decayLeft);
             if (rightWingOperable)  UseRightWingDurability(decayRight);
         }
-
-        // Repair durability and health. Regain durability if the player isn't giving input. //
-        //Engine
-        if (!engineOperable)
-        {
-            if (engineCurrentDur >= engineMaxDur) engineOperable = true;
-            //if (engineRepairCmd) RepairEngineDurability(engineRepairAmt);
-        }
-        else if (!player.lMB && engineOperable && engineCurrentDur < engineMaxDur)
-            engineCurrentDur += engineRegenAmt;
-        else
-            thrustDirection = thrustForward;
 
         //Left Wing
         if (!leftWingOperable && rightWingOperable)
         {
             // Repair
             if (leftCurrentDur >= leftMaxDur) leftWingOperable = true;
-            if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
+            //if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
         }
         else if (!player.lMB && leftWingOperable && leftCurrentDur < leftMaxDur)
         {
@@ -230,7 +227,7 @@ public class AirplaneController : MonoBehaviour {
         {
             // Repair
             if (rightCurrentDur >= rightMaxDur) rightWingOperable = true;
-            if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
+            //if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
         }
         else if (!player.lMB && rightWingOperable && rightCurrentDur < rightMaxDur)
         {
@@ -240,23 +237,8 @@ public class AirplaneController : MonoBehaviour {
         //Both Wings Broken
         if (!leftWingOperable && !rightWingOperable)
         {
-            if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
-            if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
-        }
-    }
-
-    void UseEngineDurability(float decayValue)
-    {
-        if (engineCurrentDur > 0 && engineOperable)
-        {
-            engineCurrentDur -= (decayValue + decayAllAmp) * Time.deltaTime;
-        }
-        else
-        {
-            engineOperable = false;
-            engineCurrentDur = 0;
-            CameraShaker.Instance.ShakeOnce(15f, 15f, .1f, 1f);
-            //engineExplode.Play();
+            //if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
+            //if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
         }
     }
 
@@ -288,15 +270,6 @@ public class AirplaneController : MonoBehaviour {
             CameraShaker.Instance.ShakeOnce(10f, 10f, .1f, 1f);
             //engineExplode.Play();
         }
-    }
-
-    public void RepairEngineDurability(float repairValue)
-    {
-        CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
-
-        if (engineCurrentDur <= engineMaxDur)       engineCurrentDur += repairValue;
-        else if (engineCurrentDur < engineMaxDur)   engineCurrentDur = engineMaxDur;
-        else                                        engineOperable = true;
     }
 
     void RepairLeftWingDurability(float repairValue)

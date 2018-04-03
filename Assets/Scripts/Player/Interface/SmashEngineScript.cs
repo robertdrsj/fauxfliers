@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EZCameraShake;
 
 public class SmashEngineScript : MonoBehaviour {
 
@@ -14,6 +15,13 @@ public class SmashEngineScript : MonoBehaviour {
     public float decayAmount;               // How much the durability decays while flying.
     public float regenAmount;               // How much the durability recovers when not providing input.
     public float repairAmount;              // How much the durability is repaired when smashed once.
+
+    float minDurability;
+    float maxDurability;
+    float curDurability;
+
+    public float tempBuffer;                // Can either lessen or worsen the effects of temperature. Initially set at a value of 1.
+    public float gaugeRotation;             // Used to determine the gauge's rotation.
 
     // Repair
     public Button engineButton;
@@ -30,53 +38,82 @@ public class SmashEngineScript : MonoBehaviour {
     {
         player = FindObjectOfType<PlayerController>();
         airplane = FindObjectOfType<AirplaneController>();
+        isWorking = true;
+        SetRandomGoal();
     }
 	
 	void FixedUpdate()
     {
-        //EngineCheck();
-        engineInteractable = true;
-
-        // Temporary til enginecheck is enabled.
-        if (engineInteractable)
-        {
-            engineButton.enabled = true;
-        }
-        else
-            engineButton.enabled = false;
+        EngineCheck();
+        ManageDurability();
 	}
 
-    // Engine Check
+    // Engine Flags
     void EngineCheck()
     {
-        if (!airplane.engineOperable)
+        if (!isWorking)
         {
+            airplane.engineOperable = false;
             engineInteractable = true;
             engineButton.enabled = true;
         }
         else
         {
+            airplane.engineOperable = true;
             engineInteractable = false;
             engineButton.enabled = false;
         }
     }
 
-    // Manages engine durability while flying.
+    // Manages engine durability while flying, including Use/Regen/Repair.
     void ManageDurability()
     {
         if (isWorking)
         {
-            airplane.engineOperable = true;
+            if (airplane.isFlying)
+                UseDurability(decayAmount);
+            else
+                RegenDurability(regenAmount);
         }
-        else
+
+        // If durability falls below minimum, break the engine.
+        if (curDurability <= minDurability)
         {
-            airplane.engineOperable = false;
+            isWorking = false;
+            curDurability = minDurability;
+            CameraShaker.Instance.ShakeOnce(15f, 15f, .1f, 1f);
         }
     }
 
-    void RepairDurability(float engineRepairValue)
+    // Uses durability when the player is flying the plane.
+    void UseDurability(float engineDecayValue)
     {
+        if (curDurability >= minDurability)
+            curDurability -= (engineDecayValue * (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+    }
 
+    // Regenerates durability when the engine is working but the player isn't flying.
+    void RegenDurability(float engineRegenValue)
+    {
+        if (curDurability <= maxDurability)
+            curDurability += (engineRegenValue - (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+    }
+
+    // Repairs durability on engine smash button press.
+    public void RepairDurability(float engineRepairValue)
+    {
+        // If the engine is fully repaired, set durability to max and flag as operable.
+        if (curDurability >= maxDurability)
+        {
+            curDurability = maxDurability;
+            isWorking = true;
+        }
+        // --Otherwise, repair the engine.
+        else
+        {
+            curDurability += engineRepairValue;
+            CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
+        }
     }
 
     // Randomly sets how many times the player needs to smash the engine for the engine to be fixed.
@@ -97,5 +134,14 @@ public class SmashEngineScript : MonoBehaviour {
             SetRandomGoal();
             engineInteractable = false;
         }
+    }
+
+    // Provides the engine gauge with a rotation value between 0 and 1.
+    void GaugeValue()
+    {
+        if (isWorking)
+            gaugeRotation = curDurability / maxDurability;
+        else
+            gaugeRotation = smashGoalCurrent / smashGoalAmount;
     }
 }

@@ -38,9 +38,11 @@ public class GaugeScript : MonoBehaviour {
             crank = inputObject.GetComponent<TurnCrankScript>();
         else
             crank = null;
-        
+
         if (isEngine)
             engine = inputObject.GetComponent<SmashEngineScript>();
+        else
+            engine = null;
         
     }
 	
@@ -49,18 +51,11 @@ public class GaugeScript : MonoBehaviour {
         if (isLeftWing || isRightWing)
             CalculateGaugeRotation(crank.rotationGoalCurrent);
         if (isEngine)
-            CalculateGaugeRotation(engine.smashGoalCurrent);
+            CalculateGaugeRotation(engine.gaugeRotation);
 	}
 
-    void FindVehiclePart()
+    void FindVehiclePart() // ***REMOVE THIS ONCE REFACTORING IS DONE***
     {
-        if (isEngine)
-        {
-            minValue = 0f;
-            maxValue = airplane.engineMaxDur;
-            curValue = airplane.engineCurrentDur;
-        }
-
         if (isLeftWing)
         {
             minValue = 0f;
@@ -111,17 +106,6 @@ public class GaugeScript : MonoBehaviour {
 
         // Engine Gauge
         if (isEngine)
-        {
-            if (engine.engineInteractable)
-            {
-                curValue = rotGoalCurrent / engine.smashGoalAmount;
-                curGaugeDegree = curValue * maxGaugeDegree;
-            }
-            else
-            {
-                FindVehiclePart();
-                curGaugeDegree = curValue / maxValue;
-            }
-        }
+            curGaugeDegree = engine.gaugeRotation * maxGaugeDegree;
     }
 }
