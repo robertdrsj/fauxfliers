@@ -31,14 +31,14 @@ public class AirplaneController : MonoBehaviour {
     public bool leftWingOperable;       // Left wing is usable.
     public bool rightWingOperable;      // Right wing is usable.
 
-    public bool isFlying;               // DO NOT EDIT. If there's RMB or touch input within the level, allow the player to fly forward.
+    public bool isFlying;                      // Flag if there's flying input and all parts are operable.
 
     public float brokenThrustAmp;               // Used when a Wing part is broken.
     Vector3 thrustDirection;
     Vector3 thrustNull;
     Vector3 thrustForward;
-    Vector3 thrustClockwise;
-    Vector3 thrustCounterClockwise;
+    Vector3 thrustLeft;
+    Vector3 thrustRight;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -77,13 +77,14 @@ public class AirplaneController : MonoBehaviour {
     void FixedUpdate()
     {
         OperationCheck();
+        ManageDrag();
+        ManageGravity();
         ManageThrust();
         ManageFlight();
 
         if (enableHealth) ManageHealth();
         if (enableTemp) ManageTemperature();
         if (enableBreakage) ManageBreakage();
-        if (isFlying && !player.doNotInput) Fly();
     }
 
     // Checks the status of all interactive airplane parts.
@@ -95,59 +96,106 @@ public class AirplaneController : MonoBehaviour {
             allPartsOperable = true;
     }
 
-    // Sets the various modes of thrust for when a part stops functioning.
+    // Sets rigidbody drag values based on operable parts.
+    void ManageDrag()
+    {
+        if (allPartsOperable && !isFlying)
+            aircraft.drag = maxDrag;
+        else if ((allPartsOperable && isFlying) || engineOperable)
+            aircraft.drag = minDrag;
+        else
+            aircraft.drag = noDrag;
+    }
+
+    // Sets project gravity based on whether the engine breaks or not.
+    void ManageGravity()
+    {
+        if (engineOperable)
+            Physics.gravity = minGravity;
+        else
+            Physics.gravity = maxGravity;
+    }
+
+    // Sets a mode of thrust when a part stops functioning.
     void ManageThrust()
     {
         thrustNull = new Vector3(0f, 0f, 0f);
         thrustForward = aircraft.transform.forward;
-        thrustClockwise = aircraft.transform.up + aircraft.transform.right;
-        thrustCounterClockwise = aircraft.transform.up - aircraft.transform.right;
-
-        if (allPartsOperable)
-            thrustDirection = thrustForward;
+        thrustLeft = aircraft.transform.up - aircraft.transform.right;
+        thrustRight = aircraft.transform.up + aircraft.transform.right;
     }
 
-    // Sets center of mass, gravity, drag, and isFlying flag.
+    // Sets center of mass, velocity limit, and flight flags & pattern.
     void ManageFlight()
     {
         // Simulate center of mass rotation.
         aircraft.centerOfMass = com.transform.position;
 
-        // Change gravity values so the player feels like they have more control when the airplane works fine.
+        // Limits max aircraft velocity.
+        aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
+
+        // Set flags.
         if (engineOperable)
-            Physics.gravity = minGravity;
-        else
-            Physics.gravity = maxGravity;
-        
-        // Allows flight.
+        {
+            if (player.lMB && !player.doNotInput)
+                isFlying = true;
+            else
+                isFlying = false;
+        }
+
+        // Sets flight pattern.
         if (allPartsOperable)
         {
-            aircraft.drag = maxDrag;
-
-            if (player.lMB) isFlying = true;
-            else isFlying = false;
-        }
-        else if (engineOperable)
-        {
-            if (player.lMB) isFlying = true;
-            else isFlying = false;
-            aircraft.drag = noDrag;
+            if (isFlying)
+                ManualFlight();
+            else
+                AutopilotFlight();
         }
         else
         {
-            isFlying = false;
-            aircraft.drag = noDrag;
+            if (!leftWingOperable && rightWingOperable)
+                RollLeftFlight();
+
+            if (!rightWingOperable && leftWingOperable)
+                RollRightFlight();
+
+            if (!engineOperable || (engineOperable && !leftWingOperable && !rightWingOperable))
+                DownwardFlight();
         }
     }
 
-    // Allows the plane to fly in the appropriate direction with an indicated force. ***REMOVE VELOCITY EDITS AND EDIT FOR BREAKAGE***
-    void Fly()
+    // Runs thrust physics for input-based flight.
+    void ManualFlight()
     {
-        if (engineOperable)
-        {
-            aircraft.AddForce(thrustDirection * thrustForce);
-            aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
-        }
+        aircraft.AddForce(thrustForward * thrustForce);
+    }
+
+    // Runs thrust physics for no-input flight.
+    void AutopilotFlight()
+    {
+        aircraft.AddForce(thrustForward * (thrustForce / 2f));
+    }
+
+    // Controls counter-clockwise roll flight when the left wing is inoperable.
+    void RollLeftFlight()
+    {
+        aircraft.AddForce(thrustLeft * thrustForce);
+    }
+
+    // Controls clockwise roll flight when the right wing is inoperable.
+    void RollRightFlight()
+    {
+        aircraft.AddForce(thrustRight * thrustForce);
+    }
+
+    // Controls downward flight when the engine -- or both wings -- are inoperable.
+    void DownwardFlight()
+    {
+        /// NOTE: There is no statement for !engineOperable since gravity does all the work if the engine breaks.
+
+        if (engineOperable && !leftWingOperable && !rightWingOperable)
+            if (player.lMB && !player.doNotInput)
+                aircraft.AddForce(thrustForward * (thrustForce / 100f));
     }
     
     // Manages HP changes based on part repair and obstacle collisions. ***FILL THIS LATER***
@@ -296,14 +344,6 @@ public class AirplaneController : MonoBehaviour {
         }
     }
 
-    void SetAirplaneAngle()
-    {
-        mousePos = Camera.main.WorldToScreenPoint(transform.position);
-        planeToMouseDir = Input.mousePosition - mousePos;
-        airplaneAngle = Mathf.Atan2(planeToMouseDir.y, planeToMouseDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(airplaneAngle - 90, Vector3.forward);
-    }
-
     void TakeDamageFor(float damageTaken)
     {
         health.CurrentVal -= damageTaken;
@@ -312,56 +352,6 @@ public class AirplaneController : MonoBehaviour {
     void HealFor(float healthRestored)
     {
         health.CurrentVal += healthRestored;
-    }
-
-    void Thrust()
-    {
-        player.AddForce(player.transform.up * thrust);
-    }
-
-    void UseDurability()
-    {
-        if (durability.CurrentVal > 0)
-            durability.CurrentVal -= decayAmt * Time.deltaTime;
-        else
-        {
-            isBroken = true;
-            screenshake.shakeAmount = 0.5f;
-            screenshake.shakeDuration = 0.3f;
-            engineExplode.Play();
-        }
-    }
-
-    void GunUsesDurability()
-    {
-        if (durability.CurrentVal > 0)
-            durability.CurrentVal -= shootDecayAmt * Time.deltaTime;
-        else
-        {
-            isBroken = true;
-        }
-    }
-
-    void RepairEngine()
-    {
-        if (isBroken)
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                durability.CurrentVal += repairAmt;
-                HealFor(healthRepairAmt);
-                screenshake.shakeAmount = 0.45f;
-                screenshake.shakeDuration = 0.1f;
-                engineMash.Play();
-                healUp.Play();
-            }
-            if (durability.CurrentVal >= durability.MaxVal)
-                isBroken = false;
-        }
-        else if (!isBroken && durability.CurrentVal < durability.MaxVal)
-        {
-                durability.CurrentVal += regenAmt * Time.deltaTime;
-        }
     }
 
     void SmokeToggle()
@@ -375,19 +365,6 @@ public class AirplaneController : MonoBehaviour {
             isSmoking = true;
         else
             isSmoking = false;
-    }
-
-    public void BarAnimation()
-    {
-
-        if (health.CurrentVal <= 20f)
-            GameObject.Find("HealthBarContainer").GetComponent<Animator>().SetBool("isLowHealth", true);
-        else
-            GameObject.Find("HealthBarContainer").GetComponent<Animator>().SetBool("isLowHealth", false);
-        if (isBroken)
-            GameObject.Find("EngineBarContainer").GetComponent<Animator>().SetBool("isBroken", true);
-        else
-            GameObject.Find("EngineBarContainer").GetComponent<Animator>().SetBool("isBroken", false);
     }
 
     void DieSpectacularly()

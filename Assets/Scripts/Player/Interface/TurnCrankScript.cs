@@ -204,13 +204,10 @@ public class TurnCrankScript : MonoBehaviour {
     // Keeps track of how far the player has turned the crank.
     void ManageLeftRotation()
     {
-        if (player.lMB && player.doNotInput)
+        if ((crankToMouseDis <= distanceLimit) && (player.lMB && player.doNotInput))
         {
-            if (crankToMouseDis <= distanceLimit)
-            {
                 transform.localRotation = Quaternion.Euler(0f, 0f, crankToMouseRot);
                 RepairDurability();
-            }
         }
         else
             AutoRotate(zDegreesPerSecond);
@@ -218,13 +215,10 @@ public class TurnCrankScript : MonoBehaviour {
 
     void ManageRightRotation()
     {
-        if (player.lMB && player.doNotInput)
+        if ((crankToMouseDis <= distanceLimit) && (player.lMB && player.doNotInput))
         {
-            if (crankToMouseDis <= distanceLimit)
-            {
                 transform.localRotation = Quaternion.Euler(0f, 0f, -crankToMouseRot);
                 RepairDurability();
-            }
         }
         else
             AutoRotate(zDegreesPerSecond);
