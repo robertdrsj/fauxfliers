@@ -5,7 +5,8 @@ using UnityEngine;
 public class GaugeScript : MonoBehaviour {
 
     // Setup
-    AirplaneController airplane;
+    HealthScript health;
+    TemperatureScript temp;
     TurnCrankScript crank;
     SmashEngineScript engine;
 
@@ -26,7 +27,6 @@ public class GaugeScript : MonoBehaviour {
 
 	void Start()
     {
-        airplane = FindObjectOfType<AirplaneController>();
         PartCheck();        
     }
 	
@@ -37,6 +37,14 @@ public class GaugeScript : MonoBehaviour {
 
     void PartCheck()
     {
+        // Health Check
+        if (isHealth)
+            health = inputObject.GetComponent<HealthScript>();
+
+        // Temperature Check
+        if (isTemp)
+            temp = inputObject.GetComponent<TemperatureScript>();
+        
         // Engine Check
         if (isEngine)
             engine = inputObject.GetComponent<SmashEngineScript>();
@@ -54,11 +62,11 @@ public class GaugeScript : MonoBehaviour {
     {
         // Health Gauge
         if (isHealth)
-            curGaugeDegree = (airplane.currentHealth / airplane.maxHealth) * maxGaugeDegree;
+            curGaugeDegree = (health.currentHealth / health.maxHealth) * maxGaugeDegree;
 
         // Temp Gauge
         if (isTemp)
-            curGaugeDegree = (airplane.currentTemp / airplane.maxTemp) * maxGaugeDegree;
+            curGaugeDegree = (temp.currentTemp / temp.maxTemp) * maxGaugeDegree;
 
         // Engine Gauge
         if (isEngine)

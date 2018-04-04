@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class TemperatureScript : MonoBehaviour {
 
-	
+    public float maxTemp;               // Temperature indicates durability degeneration rate. The higher the Temp, the faster the durability degenerates.
+    public float currentTemp;
 
 
-	void Start () {
+    void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
 	}
 }

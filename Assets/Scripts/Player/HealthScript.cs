@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class HealthScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public float maxHealth;             // Health indicates overall airplane status. If HP is at 0, the whole airplane is destroyed.
+    public float currentHealth;
+
+    void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
 	}
 }

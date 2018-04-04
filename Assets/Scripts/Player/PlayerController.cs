@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour {
             rollAngle = Quaternion.AngleAxis((rollAmount - 90) * Time.deltaTime, Vector3.forward);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
             aircraft.rotation = currentRotation * newRotation;
-            cam.damping = 5f;
+            cam.damping = 12f;
         }
         else cam.damping = 20f;
 
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour {
             rollAngle = Quaternion.AngleAxis((rollAmount + 90) * Time.deltaTime, Vector3.back);
             newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
             aircraft.rotation = currentRotation * newRotation;
-            cam.damping = 5f;
+            cam.damping = 12f;
         }
         else cam.damping = 20f;
 
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour {
         else if (!airplane.engineOperable)
         {
             aircraft.rotation = Quaternion.Slerp(aircraft.rotation, fallAngle, Time.deltaTime / 4f);
-            cam.damping = 5f;
+            cam.damping = 12f;
         }
     }
 

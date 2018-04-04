@@ -8,6 +8,7 @@ public class SmashEngineScript : MonoBehaviour {
 
     // Initialize
     AirplaneController airplane;
+    TemperatureScript temp;
 
     // Operation
     //[HideInInspector]
@@ -37,15 +38,21 @@ public class SmashEngineScript : MonoBehaviour {
     void Start()
     {
         airplane = FindObjectOfType<AirplaneController>();
+        temp = FindObjectOfType<TemperatureScript>();
         isWorking = true;
         curDurability = maxDurability;
     }
 	
 	void FixedUpdate()
     {
-        EngineCheck();
-        ManageDurability();
-        GaugeCheck();
+        if (airplane.enableBreakage)
+        {
+            EngineCheck();
+            ManageDurability();
+            GaugeCheck();
+        }
+        else
+            EngineCheck();
 	}
 
     // Engine Flags
@@ -92,14 +99,14 @@ public class SmashEngineScript : MonoBehaviour {
     void UseDurability(float engineDecayValue)
     {
         if (curDurability >= minDurability)
-            curDurability -= (engineDecayValue * (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+            curDurability -= (engineDecayValue + (temp.currentTemp * tempBuffer)) * Time.deltaTime;
     }
 
     // Regenerates durability when the engine is working but the player isn't flying.
     void RegenDurability(float engineRegenValue)
     {
         if (curDurability <= maxDurability)
-            curDurability += (engineRegenValue - (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+            curDurability += (engineRegenValue - (temp.currentTemp * tempBuffer)) * Time.deltaTime;
     }
 
     // Repairs durability on engine smash button press.

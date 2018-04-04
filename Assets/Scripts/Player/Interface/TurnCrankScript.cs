@@ -8,6 +8,7 @@ public class TurnCrankScript : MonoBehaviour {
     // Initialize
     PlayerController player;
     AirplaneController airplane;
+    TemperatureScript temp;
 
     // Operation
     //[HideInInspector]
@@ -54,17 +55,23 @@ public class TurnCrankScript : MonoBehaviour {
     {
         player = FindObjectOfType<PlayerController>();
         airplane = FindObjectOfType<AirplaneController>();
+        temp = FindObjectOfType<TemperatureScript>();
         isWorking = true;
         curDurability = maxDurability;
     }
 	
 	void FixedUpdate()
     {
-        WingCheck();
-        FindMousePosition();
-        ManageRotation();
-        ManageDurability(xMouseDistance, yMouseDistance);
-        GaugeCheck();
+        if (airplane.enableBreakage)
+        {
+            WingCheck();
+            FindMousePosition();
+            ManageRotation();
+            ManageDurability(xMouseDistance, yMouseDistance);
+            GaugeCheck();
+        }
+        else
+            WingCheck();
     }
 
     // Checks if left wing is broken and can be interacted with.
@@ -191,14 +198,14 @@ public class TurnCrankScript : MonoBehaviour {
     void UseDurability(float decayValue)
     {
         if (curDurability >= minDurability)
-            curDurability -= ((decayValue + regenAmount) * (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+            curDurability -= ((decayValue + regenAmount) + (temp.currentTemp * tempBuffer)) * Time.deltaTime;
     }
 
     // Regenerates durability when the wing is working but the player isn't providing flying input.
     void RegenDurability(float regenValue)
     {
         if (curDurability <= maxDurability)
-            curDurability += ((regenValue + regenAmount) - (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+            curDurability += ((regenValue + regenAmount) - (temp.currentTemp * tempBuffer)) * Time.deltaTime;
     }
 
     // Keeps track of how far the player has turned the crank.

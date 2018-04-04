@@ -8,53 +8,48 @@ public class AirplaneController : MonoBehaviour {
     // Initialize
     PlayerController player;
     Rigidbody aircraft;
+    HealthScript health;
+    TemperatureScript temp;
 
     // Setup
-    public float maxHealth;             // Health indicates overall airplane status. If HP is at 0, the whole airplane is destroyed.
-    public float currentHealth;
-
-    public float maxTemp;               // Temperature indicates durability degeneration rate. The higher the Temp, the faster the durability degenerates.
-    public float currentTemp;
-
     public GameObject engine;
     public GameObject leftWing;
     public GameObject rightWing;
 
-    public bool enableHealth;           // Enable/disable health.
-    public bool enableTemp;             // Enable/disable temperature.
-    public bool enableBreakage;         // Enable/disable breakage.
+    public bool enableHealth;                   // Enable/disable health.
+    public bool enableTemp;                     // Enable/disable temperature.
+    public bool enableBreakage;                 // Enable/disable breakage.
 
-    // Flight Management
+    // Operation
+    [HideInInspector]
+    public bool allPartsOperable;               // All three parts are usable.
+    [HideInInspector]
+    public bool engineOperable;                 // Engine is usable.
+    [HideInInspector]
+    public bool leftWingOperable;               // Left wing is usable.
+    [HideInInspector]
+    public bool rightWingOperable;              // Right wing is usable.
 
-    public bool allPartsOperable;       // All three parts are usable.
-    public bool engineOperable;         // Engine is usable.
-    public bool leftWingOperable;       // Left wing is usable.
-    public bool rightWingOperable;      // Right wing is usable.
+    [HideInInspector]
+    public bool isFlying;                       // Flag if there's flying input and all parts are operable.
+    [SerializeField]
+    float rbVelocity;                           // Displays the rigidbody's current velocity.
 
-    public bool isFlying;                      // Flag if there's flying input and all parts are operable.
-
-    public float brokenThrustAmp;               // Used when a Wing part is broken.
+    // Flight
     Vector3 thrustDirection;
     Vector3 thrustNull;
     Vector3 thrustForward;
     Vector3 thrustLeft;
     Vector3 thrustRight;
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // STANDARD FLIGHT
-    // Fly()
     public float thrustForce;                   // Determines how much AddForce to apply for acceleration.
-    public float maxVelocity;                   // Determines the max velocity of the aircraft.
     public float maxDrag;                       // Used to decelerate the aircraft.
     public float minDrag;                       // Used to accelerate the aircraft.
     public float noDrag;                        // Used when the engine breaks and the aircraft is in freefall.
 
-    // ManageGravity()
     public GameObject com;                      // Used to find the Center of Mass for flight and gravity.
     public Vector3 minGravity;                  // Used to give the player more flight control.
     public Vector3 maxGravity;                  // Used when the player is giving no flight input (freefall).
-    public float angularVelocityThreshold;      // Determines how much to decelerate the aircraft if the player is rotating a lot.
 
     float pitchDir;                             // Rotates around X-axis.
     float yawDir;                               // Rotates around Y-axis.
@@ -67,6 +62,8 @@ public class AirplaneController : MonoBehaviour {
     {
         player = GetComponent<PlayerController>();
         aircraft = GetComponent<Rigidbody>();
+        health = GetComponent<HealthScript>();
+        temp = GetComponent<TemperatureScript>();
 
         engineOperable = true;
         leftWingOperable = true;
@@ -82,9 +79,7 @@ public class AirplaneController : MonoBehaviour {
         ManageThrust();
         ManageFlight();
 
-        if (enableHealth) ManageHealth();
-        if (enableTemp) ManageTemperature();
-        if (enableBreakage) ManageBreakage();
+        rbVelocity = aircraft.velocity.magnitude;
     }
 
     // Checks the status of all interactive airplane parts.
@@ -132,7 +127,7 @@ public class AirplaneController : MonoBehaviour {
         aircraft.centerOfMass = com.transform.position;
 
         // Limits max aircraft velocity.
-        aircraft.velocity = Vector3.ClampMagnitude(aircraft.velocity, maxVelocity);
+        //aircraft.AddForce(-transform.forward);
 
         // Set flags.
         if (engineOperable)
@@ -173,7 +168,7 @@ public class AirplaneController : MonoBehaviour {
     // Runs thrust physics for no-input flight.
     void AutopilotFlight()
     {
-        aircraft.AddForce(thrustForward * (thrustForce / 2f));
+        //aircraft.AddForce(thrustForward * (thrustForce / 2f));
     }
 
     // Controls counter-clockwise roll flight when the left wing is inoperable.
@@ -197,33 +192,15 @@ public class AirplaneController : MonoBehaviour {
             if (player.lMB && !player.doNotInput)
                 aircraft.AddForce(thrustForward * (thrustForce / 100f));
     }
-    
-    // Manages HP changes based on part repair and obstacle collisions. ***FILL THIS LATER***
-    void ManageHealth()
-    {
-
-    }
-
-    // Manages Temperature changes based on how long the airplane's been flying. ***FILL THIS LATER***
-    void ManageTemperature()
-    {
-
-    }
-
-    // Manages whether parts lose durability or not.
-    void ManageBreakage()
-    {
-
-    }
 
     void HealFor(float healthRestored)
     {
-        currentHealth += healthRestored;
+        health.currentHealth += healthRestored;
     }
 
     void TakeDamageFor(float damageTaken)
     {
-        currentHealth -= damageTaken;
+        health.currentHealth -= damageTaken;
     }
     
 

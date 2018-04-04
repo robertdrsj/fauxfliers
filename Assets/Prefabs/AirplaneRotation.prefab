@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4636794237983470}
   - component: {fileID: 33867722275450568}
   - component: {fileID: 23805364368381896}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelSupportRight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4818867857661298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CenterOfMass
   m_TagString: Untagged
   m_Icon: {fileID: -4087464717476244675, guid: 0000000000000000d000000000000000, type: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4182842457713402}
   - component: {fileID: 33229173342722752}
   - component: {fileID: 23769450919430126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportLeft1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4338728708803116}
   - component: {fileID: 33872076712677860}
   - component: {fileID: 23592913936367906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CenterTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4779901538590154}
   - component: {fileID: 33524792559729792}
   - component: {fileID: 23970776510980468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TailRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4996528462446534}
   - component: {fileID: 136650551620018040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 4999561693593938}
   - component: {fileID: 33127996495458652}
   - component: {fileID: 23173366947727164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelSupportRight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4599896946066478}
   - component: {fileID: 33820264293879728}
   - component: {fileID: 23548785904400458}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelSupportLeft1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 4239386288438476}
   - component: {fileID: 33220555620332672}
   - component: {fileID: 23833735532443600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Axle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,9 @@ GameObject:
   - component: {fileID: 114268775612779198}
   - component: {fileID: 114608837202717544}
   - component: {fileID: 54878362968880598}
-  m_Layer: 0
+  - component: {fileID: 114442911571377638}
+  - component: {fileID: 114401366349456790}
+  m_Layer: 8
   m_Name: AirplaneRotation
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -187,7 +189,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4280225061834618}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Supports
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060491347457912}
   - component: {fileID: 136161906433965890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Wing Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +222,7 @@ GameObject:
   - component: {fileID: 4952947513870906}
   - component: {fileID: 33094947078855008}
   - component: {fileID: 23975793082790898}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelSupportLeft2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4599597789983732}
   - component: {fileID: 54067134570663208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ThrusterSmoke
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -253,7 +255,7 @@ GameObject:
   - component: {fileID: 4885166108057352}
   - component: {fileID: 33377802315744156}
   - component: {fileID: 23562267767063182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4419591704370970}
   - component: {fileID: 54504948641594210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWingStreamerHigh
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -286,7 +288,7 @@ GameObject:
   - component: {fileID: 4123364888174228}
   - component: {fileID: 33436736291453352}
   - component: {fileID: 23819206500346978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TailLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +305,7 @@ GameObject:
   - component: {fileID: 4135953255430870}
   - component: {fileID: 33266583256602588}
   - component: {fileID: 23112518242256684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWingTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +322,7 @@ GameObject:
   - component: {fileID: 4743122867505768}
   - component: {fileID: 33682301659815480}
   - component: {fileID: 23751427066225840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportRight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4832330550169122}
   - component: {fileID: 136093073621614420}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Wing Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +355,7 @@ GameObject:
   - component: {fileID: 4102365586768704}
   - component: {fileID: 33257501615190524}
   - component: {fileID: 23045795339215994}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportLeft2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4598411920487752}
   - component: {fileID: 54754801481353600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWingStreamerLow
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -386,7 +388,7 @@ GameObject:
   - component: {fileID: 4094985521890460}
   - component: {fileID: 33464806579333550}
   - component: {fileID: 23973896163300010}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportCenterRight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4110220273252720}
   - component: {fileID: 54879830376789212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EngineSmoke
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -418,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4118703236262264}
   - component: {fileID: 54052667369087958}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWingStreamerHigh
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -434,7 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4049957805730078}
   - component: {fileID: 95852764472194968}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Airplane
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -451,7 +453,7 @@ GameObject:
   - component: {fileID: 4242584123874030}
   - component: {fileID: 33977097699010676}
   - component: {fileID: 23262935749879850}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainHull1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +470,7 @@ GameObject:
   - component: {fileID: 4596541092591916}
   - component: {fileID: 33115274927018058}
   - component: {fileID: 23027542677570126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportCenterLeft2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,7 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4672213536465106}
   - component: {fileID: 54074063768133600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWingStreamerLow
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -501,7 +503,7 @@ GameObject:
   - component: {fileID: 4075508281858330}
   - component: {fileID: 33408303566061114}
   - component: {fileID: 23473882146844876}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportRight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +520,7 @@ GameObject:
   - component: {fileID: 4376592939923242}
   - component: {fileID: 33500275807824254}
   - component: {fileID: 23741016782020456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWingTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +537,7 @@ GameObject:
   - component: {fileID: 4686721612477588}
   - component: {fileID: 33551199595335932}
   - component: {fileID: 23112771349690460}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportCenterRight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +554,7 @@ GameObject:
   - component: {fileID: 4143004062870904}
   - component: {fileID: 33768580357020718}
   - component: {fileID: 23923486249459276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +571,7 @@ GameObject:
   - component: {fileID: 4371050607439258}
   - component: {fileID: 33185060224701904}
   - component: {fileID: 23350497841564198}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Propeller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +588,7 @@ GameObject:
   - component: {fileID: 4097839492010682}
   - component: {fileID: 33655228292916110}
   - component: {fileID: 23670965640048916}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWingBot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +605,7 @@ GameObject:
   - component: {fileID: 4887170168494770}
   - component: {fileID: 33295159300550036}
   - component: {fileID: 23230531815851442}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWingBot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +622,7 @@ GameObject:
   - component: {fileID: 4198452170174526}
   - component: {fileID: 33746464585249906}
   - component: {fileID: 23532246924613352}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SupportCenterLeft1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +639,7 @@ GameObject:
   - component: {fileID: 4687779771490560}
   - component: {fileID: 33987405419133346}
   - component: {fileID: 23377774903794648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2345,6 +2347,32 @@ MonoBehaviour:
   yawAmp: 100
   pitchAmp: 120
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114401366349456790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1206132467295526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568a5610312d6b84f993b751aabd31ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTemp: 100
+  currentTemp: 0
+--- !u!114 &114442911571377638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1206132467295526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd9ae5f4477c564ab0ba5e3d82ca4f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
 --- !u!114 &114608837202717544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2356,10 +2384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa67a12b7ee9854f99273bb71ae2ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
-  maxTemp: 100
-  currentTemp: 1
   engine: {fileID: 0}
   leftWing: {fileID: 0}
   rightWing: {fileID: 0}
@@ -2371,16 +2395,14 @@ MonoBehaviour:
   leftWingOperable: 0
   rightWingOperable: 0
   isFlying: 0
-  brokenThrustAmp: 10
+  rbVelocity: 0
   thrustForce: 300
-  maxVelocity: 300
   maxDrag: 1.2
   minDrag: 1
   noDrag: 0.4
   com: {fileID: 1050761543521972}
   minGravity: {x: 0, y: -10, z: 0}
   maxGravity: {x: 0, y: -40, z: 0}
-  angularVelocityThreshold: 0.01
 --- !u!136 &136093073621614420
 CapsuleCollider:
   m_ObjectHideFlags: 1
