@@ -4051,15 +4051,11 @@ MonoBehaviour:
   curDurability: 0
   decayAmount: 3
   regenAmount: 3
-  repairAmount: 20
   tempBuffer: 1
   gaugeRotation: 0
   engineButton: {fileID: 0}
-  engineInteractable: 0
-  minSmashFreq: 3
-  maxSmashFreq: 7
-  smashGoalAmount: 0
-  smashGoalCurrent: 0
+  minRepairValue: 15
+  maxRepairValue: 25
 --- !u!114 &114292060802651240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4071,28 +4067,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3ee4adb7b617747871718c7c5185f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftCrank: 0
-  leftCrankInteractable: 0
-  isRightCrank: 1
-  rightCrankInteractable: 0
-  crankInteractable: 0
-  crankPos: {x: 0, y: 0, z: 0}
-  mousePos: {x: 0, y: 0, z: 0}
-  crankToMouseDis: 0
-  distanceLimit: 30
-  rotationDiff: 0
-  minRandomRotation: 5
-  maxRandomRotation: 10
-  rotationGoalAmount: 0
-  rotationGoalCurrent: 0
-  rotateZ: 0
-  zDegreesPerSecond: 1080
   isWorking: 0
+  isLeftCrank: 0
+  isRightCrank: 1
+  distanceLimit: 30
+  zDegreesPerSecond: 1080
   minDurability: 0
-  maxDurability: 100
-  curDurability: 100
+  maxDurability: 25
+  curDurability: 25
   regenAmount: 2
-  repairAmount: 1
+  minRepairValue: 0.03
+  maxRepairValue: 0.07
   tempBuffer: 1
   gaugeRotation: 0
 --- !u!114 &114379634757384654
@@ -4186,28 +4171,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3ee4adb7b617747871718c7c5185f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftCrank: 1
-  leftCrankInteractable: 0
-  isRightCrank: 0
-  rightCrankInteractable: 0
-  crankInteractable: 0
-  crankPos: {x: 0, y: 0, z: 0}
-  mousePos: {x: 0, y: 0, z: 0}
-  crankToMouseDis: 0
-  distanceLimit: 30
-  rotationDiff: 0
-  minRandomRotation: 5
-  maxRandomRotation: 10
-  rotationGoalAmount: 0
-  rotationGoalCurrent: 0
-  rotateZ: 0
-  zDegreesPerSecond: -1080
   isWorking: 0
+  isLeftCrank: 1
+  isRightCrank: 0
+  distanceLimit: 30
+  zDegreesPerSecond: -1080
   minDurability: 0
-  maxDurability: 100
-  curDurability: 100
+  maxDurability: 25
+  curDurability: 25
   regenAmount: 2
-  repairAmount: 1
+  minRepairValue: 0.03
+  maxRepairValue: 0.07
   tempBuffer: 1
   gaugeRotation: 0
 --- !u!114 &114839200113865894

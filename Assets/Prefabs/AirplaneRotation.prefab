@@ -2359,14 +2359,10 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   maxTemp: 100
-  currentTemp: 0
+  currentTemp: 1
   engine: {fileID: 0}
   leftWing: {fileID: 0}
-  leftMaxDur: 100
-  leftCurrentDur: 100
   rightWing: {fileID: 0}
-  rightMaxDur: 100
-  rightCurrentDur: 100
   enableHealth: 0
   enableTemp: 0
   enableBreakage: 0
@@ -2375,12 +2371,6 @@ MonoBehaviour:
   leftWingOperable: 0
   rightWingOperable: 0
   isFlying: 0
-  decayAllAmp: 1
-  decayWingAmp: 10
-  leftWingRegenAmt: 0
-  rightWingRegenAmt: 0
-  leftWingRepairAmt: 20
-  rightWingRepairAmt: 20
   brokenThrustAmp: 10
   thrustForce: 300
   maxVelocity: 300

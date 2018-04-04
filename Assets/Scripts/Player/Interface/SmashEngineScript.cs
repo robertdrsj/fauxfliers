@@ -10,11 +10,12 @@ public class SmashEngineScript : MonoBehaviour {
     AirplaneController airplane;
 
     // Operation
-    [HideInInspector]
+    //[HideInInspector]
     public bool isWorking;                  // Flag if the engine is working fine.
 
     public float minDurability;             // Sets the min amount of durability.
     public float maxDurability;             // Sets the max amount of durability.
+    [SerializeField]
     float curDurability;                    // Indicates how much durability the engine has.
 
     public float decayAmount;               // How much the durability decays while flying.
@@ -37,6 +38,7 @@ public class SmashEngineScript : MonoBehaviour {
     {
         airplane = FindObjectOfType<AirplaneController>();
         isWorking = true;
+        curDurability = maxDurability;
     }
 	
 	void FixedUpdate()
@@ -75,9 +77,13 @@ public class SmashEngineScript : MonoBehaviour {
         // If durability falls below minimum, break the engine.
         if (curDurability <= minDurability)
         {
-            isWorking = false;
+            if (isWorking)
+            {
+                CameraShaker.Instance.ShakeOnce(15f, 15f, .1f, 1f);
+                isWorking = false;
+            }
+
             curDurability = minDurability;
-            CameraShaker.Instance.ShakeOnce(15f, 15f, .1f, 1f);
         }
     }
 

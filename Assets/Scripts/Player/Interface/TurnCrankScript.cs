@@ -10,7 +10,7 @@ public class TurnCrankScript : MonoBehaviour {
     AirplaneController airplane;
 
     // Operation
-    [HideInInspector]
+    //[HideInInspector]
     public bool isWorking;                  // Flag if the engine is working fine.
     public bool isLeftCrank;                // Flag if the crank controls the left wing.
     public bool isRightCrank;               // Flag if the crank controls the right wing.
@@ -33,6 +33,7 @@ public class TurnCrankScript : MonoBehaviour {
 
     public float minDurability;             // Sets the min amount of durability.
     public float maxDurability;             // Sets the max amount of durability.
+    [SerializeField]
     float curDurability;                    // Indicates how much durability the wing has.
 
     float decayLeftAmount;                  // How much the left wing durability decays while flying.
@@ -53,7 +54,8 @@ public class TurnCrankScript : MonoBehaviour {
         player = FindObjectOfType<PlayerController>();
         airplane = FindObjectOfType<AirplaneController>();
         isWorking = true;
-	}
+        curDurability = maxDurability;
+    }
 	
 	void FixedUpdate()
     {
@@ -172,9 +174,13 @@ public class TurnCrankScript : MonoBehaviour {
             // If durability falls below minimum, break the wing.
             if (curDurability <= minDurability)
             {
-                isWorking = false;
+                if (isWorking)
+                {
+                    CameraShaker.Instance.ShakeOnce(15f, 15f, .1f, 1f);
+                    isWorking = false;
+                }
+
                 curDurability = minDurability;
-                CameraShaker.Instance.ShakeOnce(10f, 10f, .1f, 1f);
             }
         }
     }
@@ -234,7 +240,6 @@ public class TurnCrankScript : MonoBehaviour {
         // Sets a random repair value.
         float randomRepairValue = Random.Range(minRepairValue, maxRepairValue);
         repairAmount = randomRepairValue;
-        CameraShaker.Instance.ShakeOnce(3f, 3f, .1f, .3f);
 
         // Repair wing durability based on rotation.
         // Deducts from the current rotation goal, even if its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
