@@ -186,28 +186,7 @@ public class AirplaneController : MonoBehaviour {
 
     // ***GUT ALL OF THIS OUT AND INTO THEIR PROPER SCRIPTS***
     void ManageDurability(float xDist, float yDist)
-    {
-        // Set decay values (engineDecay is publicly set).
-        if (isFlying)
-        {
-            if (xDist <= 0)
-                decayLeft = Mathf.Abs(xDist) + Mathf.Abs(yDist);
-            else
-                decayLeft = 0;
-
-            if (xDist >= 0)
-                decayRight = Mathf.Abs(xDist) + Mathf.Abs(yDist);
-            else
-                decayRight = 0;
-        }
-        
-        // Uses durability based on vigor of flight.
-        if (isFlying)
-        {
-            if (leftWingOperable)   UseLeftWingDurability(decayLeft);
-            if (rightWingOperable)  UseRightWingDurability(decayRight);
-        }
-
+    {        
         //Left Wing
         if (!leftWingOperable && rightWingOperable)
         {
@@ -230,13 +209,6 @@ public class AirplaneController : MonoBehaviour {
         else if (!player.lMB && rightWingOperable && rightCurrentDur < rightMaxDur)
         {
             rightCurrentDur += rightWingRegenAmt;
-        }
-
-        //Both Wings Broken
-        if (!leftWingOperable && !rightWingOperable)
-        {
-            //if (leftRepairCmd) RepairLeftWingDurability(leftWingRepairAmt);
-            //if (rightRepairCmd) RepairRightWingDurability(rightWingRepairAmt);
         }
     }
 

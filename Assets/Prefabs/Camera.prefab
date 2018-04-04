@@ -469,6 +469,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4873593049213230}
   - component: {fileID: 114177121401368212}
+  - component: {fileID: 65835650120645542}
+  - component: {fileID: 114560283950300436}
   m_Layer: 0
   m_Name: theEngineHud
   m_TagString: Untagged
@@ -3983,8 +3985,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.65, y: 0.75, z: 2.4}
+  m_Size: {x: 1.65, y: 0.7, z: 2.4}
   m_Center: {x: 0, y: 0, z: 0.46}
+--- !u!65 &65835650120645542
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1359543341731558}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.2, z: 0.7}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81911129418292832
 AudioListener:
   m_ObjectHideFlags: 1
@@ -4073,6 +4087,14 @@ MonoBehaviour:
   rotationGoalCurrent: 0
   rotateZ: 0
   zDegreesPerSecond: 1080
+  isWorking: 0
+  minDurability: 0
+  maxDurability: 100
+  curDurability: 100
+  regenAmount: 2
+  repairAmount: 1
+  tempBuffer: 1
+  gaugeRotation: 0
 --- !u!114 &114379634757384654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4129,6 +4151,17 @@ MonoBehaviour:
   minGaugeDegree: 0
   maxGaugeDegree: 180
   curGaugeDegree: 0
+--- !u!114 &114560283950300436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1359543341731558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac2564a2588a4c4f9d3143a4bb49bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114812543443146566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4169,6 +4202,14 @@ MonoBehaviour:
   rotationGoalCurrent: 0
   rotateZ: 0
   zDegreesPerSecond: -1080
+  isWorking: 0
+  minDurability: 0
+  maxDurability: 100
+  curDurability: 100
+  regenAmount: 2
+  repairAmount: 1
+  tempBuffer: 1
+  gaugeRotation: 0
 --- !u!114 &114839200113865894
 MonoBehaviour:
   m_ObjectHideFlags: 1

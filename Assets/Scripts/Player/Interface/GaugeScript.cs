@@ -5,7 +5,6 @@ using UnityEngine;
 public class GaugeScript : MonoBehaviour {
 
     // Setup
-    PlayerController player;
     AirplaneController airplane;
     TurnCrankScript crank;
     SmashEngineScript engine;
@@ -19,10 +18,6 @@ public class GaugeScript : MonoBehaviour {
     public bool isHealth;                       // Flag if the gauge is hooked up to health points.
     public bool isTemp;                         // Flag if the gauge is hooked up to temperature.
 
-    float minValue;                             // Minimum value of vehicle part.
-    float maxValue;                             // Maximum value of vehicle part.
-    float curValue;                             // Current value of vehicle part.
-
     public float minGaugeDegree;                // Determines the gauge pointer's rotation at minimum value.
     public float maxGaugeDegree;                // Determines the gauge pointer's rotation at maximum value.
     public float curGaugeDegree;                     // Do not edit. The gauge pointer's current rotation.
@@ -31,81 +26,51 @@ public class GaugeScript : MonoBehaviour {
 
 	void Start()
     {
-        player = FindObjectOfType<PlayerController>();
         airplane = FindObjectOfType<AirplaneController>();
-
-        if (isLeftWing || isRightWing)
-            crank = inputObject.GetComponent<TurnCrankScript>();
-        else
-            crank = null;
-
-        if (isEngine)
-            engine = inputObject.GetComponent<SmashEngineScript>();
-        else
-            engine = null;
-        
+        PartCheck();        
     }
 	
 	void FixedUpdate()
     {
         if (isLeftWing || isRightWing)
-            CalculateGaugeRotation(crank.rotationGoalCurrent);
+            CalculateGaugeRotation(crank.gaugeRotation);
         if (isEngine)
             CalculateGaugeRotation(engine.gaugeRotation);
 	}
 
-    void FindVehiclePart() // ***REMOVE THIS ONCE REFACTORING IS DONE***
+    void PartCheck()
     {
-        if (isLeftWing)
-        {
-            minValue = 0f;
-            maxValue = airplane.leftMaxDur;
-            curValue = airplane.leftCurrentDur;
-        }
+        // Engine Check
+        if (isEngine)
+            engine = inputObject.GetComponent<SmashEngineScript>();
+        else
+            engine = null;
 
-        if (isRightWing)
-        {
-            minValue = 0f;
-            maxValue = airplane.rightCurrentDur;
-            curValue = airplane.rightCurrentDur;
-        }
-
-        if (isHealth)
-        {
-            minValue = 0f;
-            maxValue = airplane.maxHealth;
-            curValue = airplane.currentHealth;
-        }
-
-        if (isTemp)
-        {
-            minValue = 0f;
-            maxValue = airplane.maxTemp;
-            curValue = airplane.currentTemp;
-        }
+        // Wing Check
+        if (isLeftWing || isRightWing)
+            crank = inputObject.GetComponent<TurnCrankScript>();
+        else
+            crank = null;
     }
 
     void CalculateGaugeRotation(float rotGoalCurrent)
     {
         transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, curGaugeDegree));
 
-        // Wing Gauge
-        if (isLeftWing || isRightWing)
-        {
-            if (crank.crankInteractable)
-            {
-                curValue = rotGoalCurrent / crank.rotationGoalAmount;
-                curGaugeDegree = curValue * maxGaugeDegree;
-            }
-            else
-            {
-                FindVehiclePart();
-                curGaugeDegree = curValue / maxValue;
-            }
-        }
+        // Health Gauge
+        if (isHealth)
+            curGaugeDegree = (airplane.currentHealth / airplane.maxHealth) * maxGaugeDegree;
+
+        // Temp Gauge
+        if (isTemp)
+            curGaugeDegree = (airplane.currentTemp / airplane.maxTemp) * maxGaugeDegree;
 
         // Engine Gauge
         if (isEngine)
             curGaugeDegree = engine.gaugeRotation * maxGaugeDegree;
+
+        // Wing Gauge
+        if (isLeftWing || isRightWing)
+            curGaugeDegree = crank.gaugeRotation * maxGaugeDegree;
     }
 }
