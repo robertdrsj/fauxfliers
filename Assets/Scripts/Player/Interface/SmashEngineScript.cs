@@ -45,6 +45,7 @@ public class SmashEngineScript : MonoBehaviour {
     {
         EngineCheck();
         ManageDurability();
+        GaugeCheck();
 	}
 
     // Engine Flags
@@ -119,7 +120,7 @@ public class SmashEngineScript : MonoBehaviour {
     }
 
     // Provides the engine gauge with a rotation value between 0 and 1.
-    void GaugeValue()
+    void GaugeCheck()
     {
         gaugeRotation = curDurability / maxDurability;
     }

@@ -32,10 +32,7 @@ public class GaugeScript : MonoBehaviour {
 	
 	void FixedUpdate()
     {
-        if (isLeftWing || isRightWing)
-            CalculateGaugeRotation(crank.gaugeRotation);
-        if (isEngine)
-            CalculateGaugeRotation(engine.gaugeRotation);
+        CalculateGaugeRotation();
 	}
 
     void PartCheck()
@@ -53,10 +50,8 @@ public class GaugeScript : MonoBehaviour {
             crank = null;
     }
 
-    void CalculateGaugeRotation(float rotGoalCurrent)
+    void CalculateGaugeRotation()
     {
-        transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, curGaugeDegree));
-
         // Health Gauge
         if (isHealth)
             curGaugeDegree = (airplane.currentHealth / airplane.maxHealth) * maxGaugeDegree;
@@ -72,5 +67,7 @@ public class GaugeScript : MonoBehaviour {
         // Wing Gauge
         if (isLeftWing || isRightWing)
             curGaugeDegree = crank.gaugeRotation * maxGaugeDegree;
+
+        transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, curGaugeDegree));
     }
 }

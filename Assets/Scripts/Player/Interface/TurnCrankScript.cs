@@ -38,6 +38,7 @@ public class TurnCrankScript : MonoBehaviour {
 
     float decayLeftAmount;                  // How much the left wing durability decays while flying.
     float decayRightAmount;                 // How much the right wing durability decays while flying.
+    public float decayAmount;
     public float regenAmount;               // How much the durability recovers when not providing input.
     public float minRepairValue;            // Minimum possible random repair amount.
     public float maxRepairValue;            // Maximum possible random repair amount.
@@ -62,7 +63,8 @@ public class TurnCrankScript : MonoBehaviour {
         WingCheck();
         FindMousePosition();
         ManageRotation();
-        ManageDurability(xMouseDistance, yMouseDistance);       
+        ManageDurability(xMouseDistance, yMouseDistance);
+        GaugeCheck();
     }
 
     // Checks if left wing is broken and can be interacted with.
@@ -189,14 +191,14 @@ public class TurnCrankScript : MonoBehaviour {
     void UseDurability(float decayValue)
     {
         if (curDurability >= minDurability)
-            curDurability -= (decayValue * (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+            curDurability -= ((decayValue + regenAmount) * (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
     }
 
     // Regenerates durability when the wing is working but the player isn't providing flying input.
     void RegenDurability(float regenValue)
     {
         if (curDurability <= maxDurability)
-            curDurability += (regenValue - (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
+            curDurability += ((regenValue + regenAmount) - (airplane.currentTemp * tempBuffer)) * Time.deltaTime;
     }
 
     // Keeps track of how far the player has turned the crank.
@@ -257,7 +259,7 @@ public class TurnCrankScript : MonoBehaviour {
     }
 
     // Provides the engine gauge with a rotation value between 0 and 1.
-    void GaugeValue()
+    void GaugeCheck()
     {
         gaugeRotation = curDurability / maxDurability;
     }

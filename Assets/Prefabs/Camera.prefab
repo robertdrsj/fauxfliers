@@ -4075,9 +4075,10 @@ MonoBehaviour:
   minDurability: 0
   maxDurability: 25
   curDurability: 25
+  decayAmount: 1
   regenAmount: 2
-  minRepairValue: 0.03
-  maxRepairValue: 0.07
+  minRepairValue: 0.1
+  maxRepairValue: 0.2
   tempBuffer: 1
   gaugeRotation: 0
 --- !u!114 &114379634757384654
@@ -4099,7 +4100,7 @@ MonoBehaviour:
   isTemp: 0
   minGaugeDegree: 0
   maxGaugeDegree: 270
-  curGaugeDegree: 0
+  curGaugeDegree: 270
 --- !u!114 &114401616372289786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4179,9 +4180,10 @@ MonoBehaviour:
   minDurability: 0
   maxDurability: 25
   curDurability: 25
+  decayAmount: 1
   regenAmount: 2
-  minRepairValue: 0.03
-  maxRepairValue: 0.07
+  minRepairValue: 0.1
+  maxRepairValue: 0.2
   tempBuffer: 1
   gaugeRotation: 0
 --- !u!114 &114839200113865894
@@ -4203,7 +4205,7 @@ MonoBehaviour:
   isTemp: 0
   minGaugeDegree: 0
   maxGaugeDegree: 270
-  curGaugeDegree: 0
+  curGaugeDegree: 270
 --- !u!114 &114843105821896012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4223,7 +4225,7 @@ MonoBehaviour:
   isTemp: 0
   minGaugeDegree: 0
   maxGaugeDegree: 270
-  curGaugeDegree: 0
+  curGaugeDegree: 270
 --- !u!114 &114958739339288052
 MonoBehaviour:
   m_ObjectHideFlags: 1
