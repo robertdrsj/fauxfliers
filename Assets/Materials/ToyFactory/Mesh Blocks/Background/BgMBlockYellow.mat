@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BgMBlockGrey
+  m_Name: BgMBlockYellow
   m_Shader: {fileID: 4800000, guid: 24a666c4cf4f5194ba2cdff51c1dc2f0, type: 3}
   m_ShaderKeywords: OUTLINE_BLENDING TCP2_RAMPTEXT TCP2_ZSMOOTH_ON
   m_LightmapFlags: 4
@@ -89,8 +89,8 @@ Material:
     - _ZSmooth: -0.75
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.8235294, g: 0.785, b: 0.7921569, a: 1}
+    - _Color: {r: 0.8161765, g: 0.65838253, b: 0.13802983, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
-    - _OutlineColor: {r: 0.375, g: 0.375, b: 0.375, a: 1}
+    - _OutlineColor: {r: 0.6544118, g: 0.5965369, b: 0.12991999, a: 1}
     - _SColor: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
