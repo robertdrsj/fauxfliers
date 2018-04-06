@@ -4048,7 +4048,7 @@ MonoBehaviour:
   isWorking: 0
   minDurability: 0
   maxDurability: 100
-  curDurability: 0
+  curDurability: 100
   decayAmount: 3
   regenAmount: 3
   tempBuffer: 1
@@ -4073,12 +4073,12 @@ MonoBehaviour:
   distanceLimit: 30
   zDegreesPerSecond: 1080
   minDurability: 0
-  maxDurability: 25
-  curDurability: 25
+  maxDurability: 50
+  curDurability: 50
   decayAmount: 1
   regenAmount: 2
-  minRepairValue: 0.1
-  maxRepairValue: 0.2
+  minRepairValue: 3
+  maxRepairValue: 5
   tempBuffer: 1
   gaugeRotation: 0
 --- !u!114 &114379634757384654
@@ -4178,12 +4178,12 @@ MonoBehaviour:
   distanceLimit: 30
   zDegreesPerSecond: -1080
   minDurability: 0
-  maxDurability: 25
-  curDurability: 25
+  maxDurability: 50
+  curDurability: 50
   decayAmount: 1
   regenAmount: 2
-  minRepairValue: 0.1
-  maxRepairValue: 0.2
+  minRepairValue: 3
+  maxRepairValue: 5
   tempBuffer: 1
   gaugeRotation: 0
 --- !u!114 &114839200113865894

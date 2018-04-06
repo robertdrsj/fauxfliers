@@ -2345,7 +2345,8 @@ MonoBehaviour:
   rotationDamping: 20
   turningRate: 2.5
   yawAmp: 100
-  pitchAmp: 120
+  pitchAmp: 180
+  brokenRollAmp: 135
   totalAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114401366349456790
 MonoBehaviour:
@@ -2389,7 +2390,7 @@ MonoBehaviour:
   rightWing: {fileID: 0}
   enableHealth: 0
   enableTemp: 0
-  enableBreakage: 0
+  enableBreakage: 1
   allPartsOperable: 0
   engineOperable: 0
   leftWingOperable: 0
@@ -2397,12 +2398,12 @@ MonoBehaviour:
   isFlying: 0
   rbVelocity: 0
   thrustForce: 300
-  maxDrag: 1.2
-  minDrag: 1
+  maxDrag: 1.5
+  minDrag: 1.3
   noDrag: 0.4
   com: {fileID: 1050761543521972}
   minGravity: {x: 0, y: -10, z: 0}
-  maxGravity: {x: 0, y: -40, z: 0}
+  maxGravity: {x: 0, y: -80, z: 0}
 --- !u!136 &136093073621614420
 CapsuleCollider:
   m_ObjectHideFlags: 1

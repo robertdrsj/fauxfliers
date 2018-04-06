@@ -30,7 +30,7 @@ public class AirplaneController : MonoBehaviour {
     [HideInInspector]
     public bool rightWingOperable;              // Right wing is usable.
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isFlying;                       // Flag if there's flying input and all parts are operable.
     [SerializeField]
     float rbVelocity;                           // Displays the rigidbody's current velocity.
@@ -120,14 +120,11 @@ public class AirplaneController : MonoBehaviour {
         thrustRight = aircraft.transform.up + aircraft.transform.right;
     }
 
-    // Sets center of mass, velocity limit, and flight flags & pattern.
+    // Sets center of mass, isFlying flag, and flying pattern.
     void ManageFlight()
     {
         // Simulate center of mass rotation.
         aircraft.centerOfMass = com.transform.position;
-
-        // Limits max aircraft velocity.
-        //aircraft.AddForce(-transform.forward);
 
         // Set flags.
         if (engineOperable)
@@ -137,6 +134,8 @@ public class AirplaneController : MonoBehaviour {
             else
                 isFlying = false;
         }
+        else
+            isFlying = false;
 
         // Sets flight pattern.
         if (allPartsOperable)
@@ -148,11 +147,8 @@ public class AirplaneController : MonoBehaviour {
         }
         else
         {
-            if (!leftWingOperable && rightWingOperable)
-                RollLeftFlight();
-
-            if (!rightWingOperable && leftWingOperable)
-                RollRightFlight();
+            if (((!leftWingOperable && rightWingOperable) || (!rightWingOperable && leftWingOperable)) && engineOperable)
+                AutopilotFlight();
 
             if (!engineOperable || (engineOperable && !leftWingOperable && !rightWingOperable))
                 DownwardFlight();
@@ -168,29 +164,17 @@ public class AirplaneController : MonoBehaviour {
     // Runs thrust physics for no-input flight.
     void AutopilotFlight()
     {
-        //aircraft.AddForce(thrustForward * (thrustForce / 2f));
-    }
-
-    // Controls counter-clockwise roll flight when the left wing is inoperable.
-    void RollLeftFlight()
-    {
-        aircraft.AddForce(thrustLeft * thrustForce);
-    }
-
-    // Controls clockwise roll flight when the right wing is inoperable.
-    void RollRightFlight()
-    {
-        aircraft.AddForce(thrustRight * thrustForce);
+        aircraft.AddForce(thrustForward * (thrustForce / 2f));
     }
 
     // Controls downward flight when the engine -- or both wings -- are inoperable.
     void DownwardFlight()
     {
-        /// NOTE: There is no statement for !engineOperable since gravity does all the work if the engine breaks.
+        /// NOTE: There is no statement for !engineOperable since gravity does the acceleration work if the engine breaks.
 
         if (engineOperable && !leftWingOperable && !rightWingOperable)
             if (player.lMB && !player.doNotInput)
-                aircraft.AddForce(thrustForward * (thrustForce / 100f));
+                aircraft.AddForce(thrustForward * (thrustForce / 4f));
     }
 
     void HealFor(float healthRestored)

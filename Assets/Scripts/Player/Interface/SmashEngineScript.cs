@@ -40,7 +40,6 @@ public class SmashEngineScript : MonoBehaviour {
         airplane = FindObjectOfType<AirplaneController>();
         temp = FindObjectOfType<TemperatureScript>();
         isWorking = true;
-        curDurability = maxDurability;
     }
 	
 	void FixedUpdate()

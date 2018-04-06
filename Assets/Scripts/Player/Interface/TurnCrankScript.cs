@@ -57,7 +57,6 @@ public class TurnCrankScript : MonoBehaviour {
         airplane = FindObjectOfType<AirplaneController>();
         temp = FindObjectOfType<TemperatureScript>();
         isWorking = true;
-        curDurability = maxDurability;
     }
 	
 	void FixedUpdate()
@@ -106,12 +105,12 @@ public class TurnCrankScript : MonoBehaviour {
     void FindMousePosition()
     {
         crankPos = Camera.main.WorldToViewportPoint(transform.position);
-        mousePos = Camera.main.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+        mousePos = Camera.main.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)); // use ratio for screen res
 
         // The viewport's X is stretched a little further which skews the radius, so it's been buffed up a bit.
         crankToMouseDis = Mathf.Sqrt((Mathf.Pow((crankPos.x - mousePos.x), 2) * 3f) + Mathf.Pow((crankPos.y - mousePos.y), 2)) * 100f;
         if (isLeftCrank)
-            crankToMouseRot = (Mathf.Atan2(crankPos.y - mousePos.y, crankPos.x - mousePos.x) * Mathf.Rad2Deg) + 1200f;
+            crankToMouseRot = (Mathf.Atan2(crankPos.y - mousePos.y, crankPos.x - mousePos.x) * Mathf.Rad2Deg) + 1200f; // add 180 maybe
         if (isRightCrank)
             crankToMouseRot = (Mathf.Atan2(crankPos.y - mousePos.y, crankPos.x - mousePos.x) * Mathf.Rad2Deg) + 60f;
 
@@ -218,19 +217,40 @@ public class TurnCrankScript : MonoBehaviour {
         }
         else
             AutoRotate(zDegreesPerSecond);
+
+        // Penalize player if they try to cheat the system by spamming left click instead of holding down LMB on crank.
+        if (Input.GetMouseButtonUp(0) && !isWorking)
+        {
+            CameraShaker.Instance.ShakeOnce(3f, 3f, .1f, 1f);
+            curDurability -= maxRepairValue * 2f;
+
+            if (curDurability < minDurability)
+                curDurability = minDurability;
+        }
     }
 
     void ManageRightRotation()
     {
+        // Repair durability when LMB is held down and moues cursor is on the crank.
         if ((crankToMouseDis <= distanceLimit) && (player.lMB && player.doNotInput))
         {
-                transform.localRotation = Quaternion.Euler(0f, 0f, -crankToMouseRot);
-                RepairDurability();
+            transform.localRotation = Quaternion.Euler(0f, 0f, -crankToMouseRot);
+            RepairDurability();
         }
         else
             AutoRotate(zDegreesPerSecond);
-    }
 
+        // Penalize player if they try to cheat the system by spamming left click instead of holding down LMB on crank.
+        if (Input.GetMouseButtonUp(0) && !isWorking)
+        {
+            CameraShaker.Instance.ShakeOnce(3f, 3f, .1f, 1f);
+            curDurability -= maxRepairValue * 2f;
+
+            if (curDurability < minDurability)
+                curDurability = minDurability;
+        }
+    }
+    
     // Automatically rotates the crank when the wing is broken but not being interacted with.
     void AutoRotate(float rotationRate)
     {
@@ -247,9 +267,9 @@ public class TurnCrankScript : MonoBehaviour {
         // Repair wing durability based on rotation.
         // Deducts from the current rotation goal, even if its CW or CCW (bc even if you go CCW, the degrees are messed up so it'll think you're CW sometimes).
         if (Mathf.Sign(rotationDiff) == 1)
-            curDurability += rotationDiff + repairAmount;
+            curDurability += rotationDiff * repairAmount;
         if (Mathf.Sign(rotationDiff) == -1)
-            curDurability += (-rotationDiff) + repairAmount;
+            curDurability += (-rotationDiff) * repairAmount;
 
         // If the wing is fully repaired, set durability to max and flag as operable.
         if (curDurability >= maxDurability)

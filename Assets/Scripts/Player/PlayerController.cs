@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
     public float pitchAmp;
 
     float rollAmount;
+    public float brokenRollAmp;
     Quaternion rollAngle;
     float yawAmount;
     Quaternion yawAngle;
@@ -93,26 +94,14 @@ public class PlayerController : MonoBehaviour {
         autoRotationRate = originToMouse / rotationDamping;
         currentRotation = aircraft.rotation;
 
-        fallAngle = Quaternion.Euler(aircraft.velocity.normalized.x + 90, aircraft.velocity.normalized.y, aircraft.velocity.normalized.z);
-
         // Used if wings fail
-        if (!airplane.leftWingOperable && airplane.rightWingOperable && airplane.engineOperable && !doNotInput)
+        if (((!airplane.leftWingOperable && airplane.rightWingOperable) || (!airplane.rightWingOperable && airplane.leftWingOperable)) && airplane.engineOperable)
         {
-            rollAngle = Quaternion.AngleAxis((rollAmount - 90) * Time.deltaTime, Vector3.forward);
-            newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
+            SetBrokenAngle();
+            newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate);
             aircraft.rotation = currentRotation * newRotation;
             cam.damping = 12f;
         }
-        else cam.damping = 20f;
-
-        if (!airplane.rightWingOperable && airplane.leftWingOperable && airplane.engineOperable && !doNotInput)
-        {
-            rollAngle = Quaternion.AngleAxis((rollAmount + 90) * Time.deltaTime, Vector3.back);
-            newRotation = Quaternion.Slerp(aircraft.rotation, totalAngle, turningRate * 50f);
-            aircraft.rotation = currentRotation * newRotation;
-            cam.damping = 12f;
-        }
-        else cam.damping = 20f;
 
         // Used for standard flight, else if engine fails
         if (lMB && airplane.allPartsOperable && !doNotInput)
@@ -122,9 +111,10 @@ public class PlayerController : MonoBehaviour {
             aircraft.rotation = currentRotation * newRotation;
             cam.damping = 20f;
         }
-        else if (!airplane.engineOperable)
+        else if (!airplane.engineOperable || (!airplane.leftWingOperable && !airplane.rightWingOperable))
         {
-            aircraft.rotation = Quaternion.Slerp(aircraft.rotation, fallAngle, Time.deltaTime / 4f);
+            fallAngle = Quaternion.Euler(aircraft.velocity.normalized.x + 90, aircraft.velocity.normalized.y, aircraft.velocity.normalized.z);
+            aircraft.rotation = Quaternion.Slerp(aircraft.rotation, fallAngle, Time.deltaTime);
             cam.damping = 12f;
         }
     }
@@ -136,12 +126,12 @@ public class PlayerController : MonoBehaviour {
 
         mousePos = Camera.main.ScreenToViewportPoint(new Vector3(
             (Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
-            (Input.mousePosition.y - (Camera.main.scaledPixelHeight / 3f)),
+            (Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
             Camera.main.nearClipPlane));
 
         mousePosAbs = Camera.main.ScreenToViewportPoint(new Vector3(
             Mathf.Abs(Input.mousePosition.x - (Camera.main.scaledPixelWidth / 2f)),
-            Mathf.Abs(Input.mousePosition.y - (Camera.main.scaledPixelHeight / 3f)),
+            Mathf.Abs(Input.mousePosition.y - (Camera.main.scaledPixelHeight / 2f)),
             Camera.main.nearClipPlane));
 
         originToMouse = Mathf.Sqrt(Mathf.Pow(mousePos.x, 2) + Mathf.Pow(mousePos.y, 2));
@@ -196,6 +186,30 @@ public class PlayerController : MonoBehaviour {
             pitchAngle = Quaternion.AngleAxis(pitchAmount * 1000f * autoRotationRate, Vector3.right);
 
         // Generate total plane quaternion angle.
+        totalAngle = rollAngle * yawAngle * pitchAngle;
+    }
+
+    void SetBrokenAngle()
+    {
+        // Roll uncontrollably when wings are broken.
+        /// Left Wing Broken
+        if (!airplane.leftWingOperable && airplane.rightWingOperable && airplane.engineOperable)
+            rollAngle = Quaternion.AngleAxis(brokenRollAmp * autoRotationRate, Vector3.forward);
+        /// Right Wing Broken
+        if (!airplane.rightWingOperable && airplane.leftWingOperable && airplane.engineOperable)
+            rollAngle = Quaternion.AngleAxis(brokenRollAmp * autoRotationRate, Vector3.back);
+
+        // Yaw left/right when wings are broken.
+        /// Left Wing Broken
+        if (!airplane.leftWingOperable && airplane.rightWingOperable && airplane.engineOperable)
+            yawAngle = Quaternion.AngleAxis(0f, Vector3.down);
+        /// Right Wing Broken
+        if (!airplane.rightWingOperable && airplane.leftWingOperable && airplane.engineOperable)
+            yawAngle = Quaternion.AngleAxis(0f, Vector3.up);
+
+        // Pitch down when a wing is broken.
+        pitchAngle = Quaternion.AngleAxis(0.5f, Vector3.left);
+
         totalAngle = rollAngle * yawAngle * pitchAngle;
     }
 }
