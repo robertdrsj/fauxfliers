@@ -26,6 +26,7 @@ public class TemperatureScript : MonoBehaviour {
         }
 	}
 
+    // Calculates the current temperature.
     void ManageTemp()
     {
         if (currentTemp < maxTemp)

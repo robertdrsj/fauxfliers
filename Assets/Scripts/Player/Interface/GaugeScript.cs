@@ -67,7 +67,7 @@ public class GaugeScript : MonoBehaviour {
     {
         // Health Gauge
         if (isHealth)
-            curGaugeDegree = (health.currentHealth / health.maxHealth) * maxGaugeDegree;
+            curGaugeDegree = health.gaugeRotation * maxGaugeDegree;
 
         // Temp Gauge
         if (isTemp)

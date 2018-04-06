@@ -8,6 +8,7 @@ public class SmashEngineScript : MonoBehaviour {
 
     // Initialize
     AirplaneController airplane;
+    HealthScript health;
     TemperatureScript temp;
 
     // Operation
@@ -38,6 +39,7 @@ public class SmashEngineScript : MonoBehaviour {
     void Start()
     {
         airplane = FindObjectOfType<AirplaneController>();
+        health = FindObjectOfType<HealthScript>();
         temp = FindObjectOfType<TemperatureScript>();
         isWorking = true;
     }
@@ -115,6 +117,7 @@ public class SmashEngineScript : MonoBehaviour {
         int randomRepairValue = Random.Range(minRepairValue, maxRepairValue);
         repairAmount = randomRepairValue;
         curDurability += repairAmount;
+        health.HealFor(health.healAmount);
         CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
 
         // If the engine is fully repaired, set durability to max and flag as operable.

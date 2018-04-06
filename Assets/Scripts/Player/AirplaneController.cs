@@ -30,8 +30,10 @@ public class AirplaneController : MonoBehaviour {
     [HideInInspector]
     public bool rightWingOperable;              // Right wing is usable.
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool isFlying;                       // Flag if there's flying input and all parts are operable.
+    [HideInInspector]
+    public bool collisionDetected;              // Flag if a collision has been detected. Used mainly for HealthScript.
     [SerializeField]
     float rbVelocity;                           // Displays the rigidbody's current velocity.
 
@@ -175,16 +177,6 @@ public class AirplaneController : MonoBehaviour {
         if (engineOperable && !leftWingOperable && !rightWingOperable)
             if (player.lMB && !player.doNotInput)
                 aircraft.AddForce(thrustForward * (thrustForce / 4f));
-    }
-
-    void HealFor(float healthRestored)
-    {
-        health.currentHealth += healthRestored;
-    }
-
-    void TakeDamageFor(float damageTaken)
-    {
-        health.currentHealth -= damageTaken;
     }
     
 

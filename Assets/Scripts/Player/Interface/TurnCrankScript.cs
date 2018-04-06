@@ -8,6 +8,7 @@ public class TurnCrankScript : MonoBehaviour {
     // Initialize
     PlayerController player;
     AirplaneController airplane;
+    HealthScript health;
     TemperatureScript temp;
 
     // Operation
@@ -55,6 +56,7 @@ public class TurnCrankScript : MonoBehaviour {
     {
         player = FindObjectOfType<PlayerController>();
         airplane = FindObjectOfType<AirplaneController>();
+        health = FindObjectOfType<HealthScript>();
         temp = FindObjectOfType<TemperatureScript>();
         isWorking = true;
     }
@@ -270,6 +272,8 @@ public class TurnCrankScript : MonoBehaviour {
             curDurability += rotationDiff * repairAmount;
         if (Mathf.Sign(rotationDiff) == -1)
             curDurability += (-rotationDiff) * repairAmount;
+
+        health.HealFor(health.healAmount / 30f);
 
         // If the wing is fully repaired, set durability to max and flag as operable.
         if (curDurability >= maxDurability)
