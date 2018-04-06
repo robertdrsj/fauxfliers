@@ -52817,11 +52817,6 @@ Prefab:
       propertyPath: engineButton
       value: 
       objectReference: {fileID: 791757516}
-    - target: {fileID: 114401616372289786, guid: 8a1bcd77ece458241b4ab913e6290a8f,
-        type: 2}
-      propertyPath: offsetPosition.z
-      value: -40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a1bcd77ece458241b4ab913e6290a8f, type: 2}
   m_IsPrefabParent: 0

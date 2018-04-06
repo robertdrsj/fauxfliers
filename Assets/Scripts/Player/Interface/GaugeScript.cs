@@ -21,7 +21,8 @@ public class GaugeScript : MonoBehaviour {
 
     public float minGaugeDegree;                // Determines the gauge pointer's rotation at minimum value.
     public float maxGaugeDegree;                // Determines the gauge pointer's rotation at maximum value.
-    public float curGaugeDegree;                     // Do not edit. The gauge pointer's current rotation.
+    [SerializeField]
+    float curGaugeDegree;                       // The gauge pointer's current rotation.
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -40,10 +41,14 @@ public class GaugeScript : MonoBehaviour {
         // Health Check
         if (isHealth)
             health = inputObject.GetComponent<HealthScript>();
+        else
+            health = null;
 
         // Temperature Check
         if (isTemp)
             temp = inputObject.GetComponent<TemperatureScript>();
+        else
+            temp = null;
         
         // Engine Check
         if (isEngine)
@@ -66,7 +71,7 @@ public class GaugeScript : MonoBehaviour {
 
         // Temp Gauge
         if (isTemp)
-            curGaugeDegree = (temp.currentTemp / temp.maxTemp) * maxGaugeDegree;
+            curGaugeDegree = temp.gaugeRotation * maxGaugeDegree;
 
         // Engine Gauge
         if (isEngine)

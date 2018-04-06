@@ -2091,7 +2091,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340834771805986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 95, z: 38}
+  m_LocalPosition: {x: 0, y: 95, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458480859662932}
@@ -4051,7 +4051,7 @@ MonoBehaviour:
   curDurability: 100
   decayAmount: 3
   regenAmount: 3
-  tempBuffer: 1
+  tempBuffer: 0.01
   gaugeRotation: 0
   engineButton: {fileID: 0}
   minRepairValue: 15
@@ -4077,9 +4077,9 @@ MonoBehaviour:
   curDurability: 50
   decayAmount: 1
   regenAmount: 2
-  minRepairValue: 3
-  maxRepairValue: 5
-  tempBuffer: 1
+  minRepairValue: 10
+  maxRepairValue: 15
+  tempBuffer: 0.01
   gaugeRotation: 0
 --- !u!114 &114379634757384654
 MonoBehaviour:
@@ -4113,7 +4113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offsetPosition: {x: 0, y: -5, z: -32}
+  offsetPosition: {x: 0, y: -5, z: -40}
   offsetPositionSpace: 1
   lookAt: 1
   damping: 20
@@ -4182,9 +4182,9 @@ MonoBehaviour:
   curDurability: 50
   decayAmount: 1
   regenAmount: 2
-  minRepairValue: 3
-  maxRepairValue: 5
-  tempBuffer: 1
+  minRepairValue: 10
+  maxRepairValue: 15
+  tempBuffer: 0.01
   gaugeRotation: 0
 --- !u!114 &114839200113865894
 MonoBehaviour:
@@ -4232,7 +4232,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1493841396871374}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
   m_Name: 
@@ -4245,7 +4245,7 @@ MonoBehaviour:
   isTemp: 1
   minGaugeDegree: 0
   maxGaugeDegree: 180
-  curGaugeDegree: 0
+  curGaugeDegree: 1
 --- !u!124 &124979930555223098
 Behaviour:
   m_ObjectHideFlags: 1

@@ -2361,6 +2361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTemp: 100
   currentTemp: 0
+  tempAmp: 0.3
+  gaugeRotation: 0
 --- !u!114 &114442911571377638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2389,7 +2391,7 @@ MonoBehaviour:
   leftWing: {fileID: 0}
   rightWing: {fileID: 0}
   enableHealth: 0
-  enableTemp: 0
+  enableTemp: 1
   enableBreakage: 1
   allPartsOperable: 0
   engineOperable: 0
