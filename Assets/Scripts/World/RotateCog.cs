@@ -21,7 +21,7 @@ public class RotateCog : MonoBehaviour {
         if (rotateY)
             transform.Rotate(Vector3.up, yDegreesPerSecond * Time.deltaTime, Space.Self);
 
-        if (rotateY)
+        if (rotateZ)
             transform.Rotate(Vector3.forward, zDegreesPerSecond * Time.deltaTime, Space.Self);
     }
 }

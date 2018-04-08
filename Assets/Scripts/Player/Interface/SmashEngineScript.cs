@@ -118,7 +118,7 @@ public class SmashEngineScript : MonoBehaviour {
         repairAmount = randomRepairValue;
         curDurability += repairAmount;
         health.HealFor(health.healAmount);
-        CameraShaker.Instance.ShakeOnce(5f, 5f, .1f, .3f);
+        CameraShaker.Instance.ShakeOnce(8f, 8f, .1f, .3f);
 
         // If the engine is fully repaired, set durability to max and flag as operable.
         if (curDurability >= maxDurability)

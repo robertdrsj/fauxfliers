@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xDegreesPerSecond: 0
-  yDegreesPerSecond: -65
+  yDegreesPerSecond: -30
   zDegreesPerSecond: 0
   rotateX: 0
   rotateY: 1

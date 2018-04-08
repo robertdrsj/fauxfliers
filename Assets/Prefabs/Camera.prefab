@@ -2439,7 +2439,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 5000
+  far clip plane: 9001
   field of view: 65
   orthographic: 0
   orthographic size: 5
@@ -4074,7 +4074,7 @@ MonoBehaviour:
   zDegreesPerSecond: 1080
   minDurability: 0
   maxDurability: 50
-  curDurability: 50
+  curDurability: 25
   decayAmount: 1
   regenAmount: 2
   minRepairValue: 10
@@ -4123,7 +4123,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1543015718916884}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7d258d2460399943bb53199dd774aef, type: 3}
   m_Name: 
