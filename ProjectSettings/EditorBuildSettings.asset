@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/DemoStage.unity
+    guid: 2c7db2a9afd620346aefc2ee3da850d5
